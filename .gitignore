@@ -1,0 +1,7 @@
+result
+.DS_STORE
+.direnv/
+.vscode/
+venv/
+env/
+__pycache__/
