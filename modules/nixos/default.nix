@@ -19,13 +19,13 @@
 
   fonts = { fontDir.enable = true; };
 
-  services.syncthing = {
-    enable = true;
-    user = config.user.name;
-    group = "users";
-    openDefaultPorts = true;
-    dataDir = config.user.home;
-  };
+  # services.syncthing = {
+  #   enable = true;
+  #   user = config.user.name;
+  #   group = "users";
+  #   openDefaultPorts = true;
+  #   dataDir = config.user.home;
+  # };
 
   environment.systemPackages = with pkgs; [ vscode firefox gnome.gnome-tweaks ];
 

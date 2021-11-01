@@ -71,7 +71,7 @@ git clone https://github.com/kclejeune/system ~/.nixpkgs
 You can bootstrap a new nix-darwin system using
 
 ```bash
-nix develop -c sysdo disksetup && sysdo build --darwin [host] && ./result/activate-user && ./result/activate
+nix develop -c sysdo disksetup && sysdo bootstrap [host]
 ```
 
 or a home-manager configuration using

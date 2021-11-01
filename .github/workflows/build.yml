@@ -1,28 +1,23 @@
-name: 'system build'
+name: "system build"
 on:
   push:
     branches:
       - master
+      - my-customizations
   pull_request:
     branches:
       - master
 jobs:
   build:
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-          - ubuntu-latest
-          - macos-latest
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-11
     steps:
-      - uses: actions/checkout@v2.3.5
+      - uses: actions/checkout@v2.4.0
         with:
           # Shallow clones won't work
           fetch-depth: 0
       - uses: cachix/install-nix-action@v14.1
         env:
-          NIX_VERSION: nix-2.4pre20210823_af94b54
+          NIX_VERSION: nix-2.5pre20211026_5667822
         with:
           install_url: https://github.com/numtide/nix-unstable-installer/releases/download/${{ env.NIX_VERSION }}/install
           extra_nix_config: |
@@ -30,8 +25,9 @@ jobs:
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - uses: cachix/cachix-action@v10
         with:
-          name: kclejeune
+          name: eld
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          extraPullName: kclejeune
       - name: Run Flake Checks
         run: |
           nix flake check -v --show-trace

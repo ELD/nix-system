@@ -20,6 +20,7 @@ set smartindent
 " Keybindings
 nmap j gj
 nmap k gk
+inoremap jk <ESC>
 
 " Search Settings
 " show search results while typing

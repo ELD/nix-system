@@ -1,19 +1,20 @@
-{ config, lib, pkgs, ... }: {
-  home.packages = [ pkgs.cacert ];
-  home.sessionVariables = rec {
-    NIX_SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt";
-    SSL_CERT_FILE = NIX_SSL_CERT_FILE;
-    REQUESTS_CA_BUNDLE = NIX_SSL_CERT_FILE;
-    PIP_CERT = NIX_SSL_CERT_FILE;
-    GIT_SSL_CAINFO = NIX_SSL_CERT_FILE;
-    NODE_EXTRA_CA_CERTS = NIX_SSL_CERT_FILE;
-  };
+{ config, lib, pkgs, ... }:
+let
+  homePackages = home.packages;
+  workPackages = [
+    awscli
+    google-cloud-sdk
+  ];
+in
+{
   programs.git = {
     enable = true;
-    lfs.enable = true;
-    package = pkgs.git;
-    userEmail = "kennan.lejeune@jhuapl.edu";
-    userName = "Kennan LeJeune";
-    extraConfig = { http.sslVerify = true; };
+    userEmail = "eric.dattore@circleci.com";
+    userName = "Eric Dattore";
+    signing = {
+      key = "eric@dattore.me";
+      signByDefault = true;
+    };
   };
+  home.packages = with pkgs; homePackages ++ workPackages;
 }

@@ -8,7 +8,7 @@
   };
 
   user = {
-    description = "Kennan LeJeune";
+    description = "Eric Dattore";
     home = "${
         if pkgs.stdenvNoCC.isDarwin then "/Users" else "/home"
       }/${config.user.name}";
@@ -48,6 +48,7 @@
       # languages
       python3
       ruby
+      rustup
     ];
     etc = {
       home-manager.source = "${inputs.home-manager}";
@@ -57,5 +58,5 @@
     shells = with pkgs; [ bash zsh fish ];
   };
 
-  fonts.fonts = with pkgs; [ jetbrains-mono ];
+  fonts.fonts = with pkgs; [ jetbrains-mono recursive (nerdfonts.override { fonts = [ "CascadiaCode" ]; }) ];
 }
