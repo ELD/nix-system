@@ -2,11 +2,10 @@ name: "system build"
 on:
   push:
     branches:
-      - master
-      - my-customizations
+      - main
   pull_request:
     branches:
-      - master
+      - main
 jobs:
   build:
     runs-on: macos-11
