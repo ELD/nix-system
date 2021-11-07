@@ -26,7 +26,7 @@ jobs:
         with:
           name: eld
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          extraPullName: kclejeune
+          extraPullNames: kclejeune
       - name: Run Flake Checks
         run: |
           nix flake check -v --show-trace
