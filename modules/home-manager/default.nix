@@ -68,12 +68,16 @@ in
         nodejs
         openjdk
         openssh
+        openssl
         pandoc
+        pkg-config
         postgresql_14
         pre-commit
+        qemu
         ranger
         ripgrep
         ripgrep-all
+        sccache
         sysdo
         tealdeer
         tectonic

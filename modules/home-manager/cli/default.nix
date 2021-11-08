@@ -127,6 +127,8 @@ in
           CLICOLOR = 1;
           LS_COLORS = "ExFxBxDxCxegedabagacad";
           TERM = "xterm-256color";
+          RUSTC_WRAPPER = "${pkgs.sccache}";
+          PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
         };
         shellAliases = aliases;
         initExtraBeforeCompInit = ''
@@ -135,6 +137,7 @@ in
         initExtra = ''
           ${functions}
           [[ -d /opt/homebrew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+          [[ -d ''${HOME}/.cargo/bin ]] && path+=(''${HOME}/.cargo/bin)
           unset RPS1
         '';
         plugins = with pkgs; [
