@@ -1,6 +1,7 @@
 { inputs, config, pkgs, ... }:
 let prefix = "/run/current-system/sw/bin";
-in {
+in
+{
   # environment setup
   environment = {
     loginShell = pkgs.zsh;
@@ -11,7 +12,7 @@ in {
     # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
 
     # packages installed in system profile
-    # systemPackages = [ ];
+    systemPackages = with pkgs; [ pinentry_mac ];
   };
 
   fonts.enableFontDir = true;

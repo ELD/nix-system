@@ -1,11 +1,13 @@
 { config, lib, pkgs, ... }: {
   homebrew = {
+    # Uninstall all brews that aren't in the Brewfile(s)
+    cleanup = "zap";
+
     casks = [
       "1password"
       "airbuddy"
       "bartender"
       "bettertouchtool"
-      "clipy"
       "daisydisk"
       "dash"
       "discord"

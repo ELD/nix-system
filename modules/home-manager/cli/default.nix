@@ -128,7 +128,6 @@ in
           LS_COLORS = "ExFxBxDxCxegedabagacad";
           TERM = "xterm-256color";
           RUSTC_WRAPPER = "${pkgs.sccache}";
-          PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
         };
         shellAliases = aliases;
         initExtraBeforeCompInit = ''
@@ -152,7 +151,7 @@ in
         ];
         oh-my-zsh = {
           enable = true;
-          plugins = [ "git" "sudo" "gpg-agent" ];
+          plugins = [ "git" "sudo" "gpg-agent" "vi-mode" ];
         };
       };
     zoxide.enable = true;
