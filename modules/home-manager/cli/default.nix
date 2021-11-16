@@ -35,10 +35,7 @@ in
   programs = {
     direnv = {
       enable = true;
-      nix-direnv = {
-        enable = true;
-        enableFlakes = true;
-      };
+      nix-direnv.enable = true;
       stdlib = ''
         # stolen from @i077; store .direnv in cache instead of project dir
         declare -A direnv_layout_dirs
