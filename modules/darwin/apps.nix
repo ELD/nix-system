@@ -37,7 +37,7 @@
     ];
 
     masApps = {
-      "1Blocker" = 1107421413;
+      "1Blocker" = 1365531024;
       "Cardhop" = 1290358394;
       "Fantastical" = 975937182;
       # "JSONPeep for Safari" = 11458969831;
