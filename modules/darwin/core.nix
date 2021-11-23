@@ -21,6 +21,12 @@ in
     extra-platforms = x86_64-darwin aarch64-darwin
   '';
 
+  # enable gnupg
+  programs.gnupg = {
+    agent.enable = true;
+    agent.enableSSHSupport = true;
+  };
+
   # auto manage nixbld users with nix darwin
   users.nix.configureBuildUsers = true;
 

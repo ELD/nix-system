@@ -157,6 +157,7 @@
           extraModules = [
             ./profiles/personal.nix
             ./modules/darwin/apps.nix
+            ./modules/darwin/network/personal.nix
             { homebrew.brewPrefix = "/opt/homebrew/bin"; }
           ];
         };
@@ -170,7 +171,7 @@
         };
         rhombus = mkDarwinConfig {
           extraModules =
-            [ ./profiles/work.nix ./modules/darwin/apps.nix ];
+            [ ./profiles/work.nix ./modules/darwin/apps.nix ./modules/darwin/network/work.nix ];
         };
       };
 
@@ -196,7 +197,7 @@
           extraModules = [ ./profiles/home-manager/personal.nix ];
         };
         workServer = mkHomeConfig {
-          username = "edattore-cci";
+          username = "edattore";
           extraModules = [ ./profiles/home-manager/work.nix ];
         };
         vagrant = mkHomeConfig {

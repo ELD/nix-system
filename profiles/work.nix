@@ -1,4 +1,4 @@
 { config, lib, pkgs, ... }: {
-  user.name = "edattore-cci";
+  user.name = "edattore";
   hm = { imports = [ ./home-manager/work.nix ]; };
 }

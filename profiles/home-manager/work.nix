@@ -1,12 +1,4 @@
-{ config, lib, pkgs, ... }:
-let
-  homePackages = home.packages;
-  workPackages = [
-    awscli
-    google-cloud-sdk
-  ];
-in
-{
+{ config, lib, pkgs, ... }: {
   programs.git = {
     enable = true;
     userEmail = "eric.dattore@circleci.com";
@@ -16,5 +8,5 @@ in
       signByDefault = true;
     };
   };
-  home.packages = with pkgs; homePackages ++ workPackages;
+  home.packages = [ pkgs.awscli pkgs.google-cloud-sdk ];
 }
