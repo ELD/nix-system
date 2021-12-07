@@ -13,12 +13,12 @@
   };
 
   inputs = {
-    darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-21.05-darwin";
     devshell.url = "github:numtide/devshell";
     flake-utils.url = "github:numtide/flake-utils";
     nixos-hardware.url = "github:nixos/nixos-hardware";
+
+    darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-21.05-darwin";
     nixos-stable.url = "github:nixos/nixpkgs/nixos-21.05";
-    nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     comma = {
       url = "github:Shopify/comma";
@@ -87,7 +87,7 @@
       # specified overlays, hardware modules, and any extraModules applied
       mkNixosConfig =
         { system ? "x86_64-linux"
-        , nixpkgs ? inputs.nixos-unstable
+        , nixpkgs ? inputs.nixpkgs
         , stable ? inputs.nixos-stable
         , lib ? (mkLib nixpkgs)
         , hardwareModules

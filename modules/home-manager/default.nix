@@ -49,7 +49,7 @@ in
       # define package definitions for current user environment
       packages = with pkgs; [
         cachix
-        # comma
+        comma
         circleci-cli
         coreutils-full
         curl
@@ -62,7 +62,7 @@ in
         htop
         jq
         neofetch
-        nixUnstable
+        nix
         nixfmt
         nixpkgs-fmt
         nodejs
@@ -73,7 +73,6 @@ in
         pkg-config
         postgresql_14
         pre-commit
-        qemu
         ranger
         ripgrep
         ripgrep-all

@@ -104,7 +104,7 @@ in
         ${functions}
       '';
     };
-    # nix-index.enable = false;
+    nix-index.enable = true;
     zsh =
       let
         mkZshPlugin = { pkg, file ? "${pkg.pname}.plugin.zsh" }: rec {
@@ -132,7 +132,10 @@ in
         '';
         initExtra = ''
           ${functions}
-          [[ -d /opt/homebrew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+          ${if pkgs.stdenvNoCC.isDarwin then ''
+            [[ -d /opt/homebrew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+          '' else
+            ""}
           [[ -d ''${HOME}/.cargo/bin ]] && path+=(''${HOME}/.cargo/bin)
           unset RPS1
         '';
