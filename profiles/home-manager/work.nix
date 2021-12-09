@@ -8,5 +8,9 @@
       signByDefault = true;
     };
   };
-  home.packages = [ pkgs.awscli pkgs.google-cloud-sdk ];
+  home.packages = [
+    pkgs.awscli
+    pkgs.google-cloud-sdk
+    pkgs.leiningen
+  ];
 }
