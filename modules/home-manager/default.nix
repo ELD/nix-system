@@ -65,7 +65,7 @@ in
         nix
         nixfmt
         nixpkgs-fmt
-        nodejs
+        nodejs-16_x
         openjdk
         openssh
         openssl
@@ -85,5 +85,11 @@ in
         yarn
         youtube-dl
       ];
+    };
+
+    manual = {
+      html.enable = false;
+      json.enable = false;
+      manpages.enable = false;
     };
 }
