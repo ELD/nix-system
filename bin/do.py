@@ -268,7 +268,7 @@ def switch(
 
 
 @app.command(help="cache the output environment of flake.nix")
-def cache(cache_name: str = "kclejeune"):
+def cache(cache_name: str = "eld"):
     cmd = f"nix flake archive --json | jq -r '.path,(.inputs|to_entries[].value.path)' | cachix push {cache_name}"
     run_cmd(cmd)
 
