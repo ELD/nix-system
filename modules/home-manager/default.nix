@@ -65,7 +65,7 @@ in
         nix
         nixfmt
         nixpkgs-fmt
-        nodejs-16_x
+        nodejs_latest
         openjdk
         openssh
         openssl
