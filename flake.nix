@@ -17,8 +17,8 @@
     flake-utils.url = "github:numtide/flake-utils";
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
-    darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-21.05-darwin";
-    nixos-stable.url = "github:nixos/nixpkgs/nixos-21.05";
+    stable.url = "github:nixos/nixpkgs/nixos-21.11";
+    nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     comma = {
       url = "github:Shopify/comma";
@@ -43,8 +43,6 @@
     , nixpkgs
     , darwin
     , home-manager
-    , nixos-hardware
-    , devshell
     , flake-utils
     , ...
     }:
@@ -67,9 +65,9 @@
       # generate a base darwin configuration with the
       # specified hostname, overlays, and any extraModules applied
       mkDarwinConfig =
-        { system ? "x86_64-darwin"
+        { system
         , nixpkgs ? inputs.nixpkgs
-        , stable ? inputs.darwin-stable
+        , stable ? inputs.stable
         , lib ? (mkLib nixpkgs)
         , baseModules ? [
             home-manager.darwinModules.home-manager
@@ -87,8 +85,8 @@
       # specified overlays, hardware modules, and any extraModules applied
       mkNixosConfig =
         { system ? "x86_64-linux"
-        , nixpkgs ? inputs.nixpkgs
-        , stable ? inputs.nixos-stable
+        , nixpkgs ? inputs.nios-unstable
+        , stable ? inputs.stable
         , lib ? (mkLib nixpkgs)
         , hardwareModules
         , baseModules ? [
@@ -109,7 +107,7 @@
         { username
         , system ? "x86_64-linux"
         , nixpkgs ? inputs.nixpkgs
-        , stable ? inputs.nixos-stable
+        , stable ? inputs.stable
         , lib ? (mkLib nixpkgs)
         , baseModules ? [ ./modules/home-manager ]
         , extraModules ? [ ]
@@ -214,17 +212,17 @@
       pkgs = import nixpkgs {
         inherit system;
         overlays = [
-          devshell.overlay
+          inputs.devshell.overlay
           (final: prev: {
             # expose stable packages via pkgs.stable
-            stable = import inputs.nixos-stable { system = prev.system; };
+            stable = import inputs.stable { system = prev.system; };
           })
         ];
       };
       pyEnv = (pkgs.stable.python3.withPackages
         (ps: with ps; [ black pylint typer colorama shellingham ]));
       nixBin = pkgs.writeShellScriptBin "nix" ''
-        ${pkgs.nixFlakes}/bin/nix --option experimental-features "nix-command flakes" "$@"
+        ${pkgs.nixFlakes}/bin/nix --option experimental-features "nix-command flakes" $@
       '';
       sysdo = pkgs.writeShellScriptBin "sysdo" ''
         cd $PRJ_ROOT && ${pyEnv}/bin/python3 bin/do.py $@

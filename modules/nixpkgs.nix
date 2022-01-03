@@ -1,32 +1,33 @@
 { inputs, config, lib, pkgs, nixpkgs, stable, ... }: {
-  nixpkgs = {
-    config = import ./config.nix;
-    overlays = [ ];
-  };
+  nixpkgs = { config = import ./config.nix; };
 
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = ''
       keep-outputs = true
       keep-derivations = true
-      ${lib.optionalString (config.nix.package == pkgs.nixFlakes)
-      "experimental-features = nix-command flakes"}
+      experimental-features = nix-command flakes
     '';
     trustedUsers = [ "${config.user.name}" "root" "@admin" "@wheel" ];
     gc = {
       automatic = true;
-      options = "--delete-older-than 30d";
+      options = "--delete-older-than 14d";
     };
     buildCores = 8;
     maxJobs = 8;
     readOnlyStore = true;
     nixPath = [
-      "nixpkgs=/etc/${config.environment.etc.nixpkgs.target}"
-      "home-manager=/etc/${config.environment.etc.home-manager.target}"
+      (source: "${source}=/etc/${config.environment.etc.${source}.target}") [
+        "home-manager"
+        "nixpkgs"
+        "small"
+        "stable"
+        "trunk"
+      ]
     ];
 
     binaryCaches =
-      [ "https://kclejeune.cachix.org" "https://eld.cachix.org" "https://nix-community.cachix.org/" ];
+      [ "https://eld.cachix.org" "https://kclejeune.cachix.org" "https://nix-community.cachix.org/" ];
     binaryCachePublicKeys = [
       "eld.cachix.org-1:ddhUxMCAKZVJOVPUcGGWwB5UZfhlhG12rN4GRz8D7sk="
       "kclejeune.cachix.org-1:fOCrECygdFZKbMxHClhiTS6oowOkJ/I/dh9q9b1I4ko="
@@ -48,6 +49,22 @@
           type = "indirect";
         };
         flake = stable;
+      };
+
+      trunk = {
+        from = {
+          id = "trunk";
+          type = "indirect";
+        };
+        flake = inputs.trunk;
+      };
+
+      small = {
+        from = {
+          id = "small";
+          type = "indirect";
+        };
+        flake = inputs.small;
       };
     };
   };
