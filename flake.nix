@@ -3,11 +3,10 @@
 
   nixConfig = {
     substituters =
-      [ "https://kclejeune.cachix.org" "https://eld.cachix.org" "https://nix-community.cachix.org/" ];
+      [ "https://eld.cachix.org" "https://nix-community.cachix.org/" ];
 
     trusted-public-keys = [
       "eld.cachix.org-1:ddhUxMCAKZVJOVPUcGGWwB5UZfhlhG12rN4GRz8D7sk="
-      "kclejeune.cachix.org-1:fOCrECygdFZKbMxHClhiTS6oowOkJ/I/dh9q9b1I4ko="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
@@ -20,6 +19,8 @@
     stable.url = "github:nixos/nixpkgs/nixos-21.11";
     nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    trunk.url = "github:nixos/nixpkgs/master";
+
     comma = {
       url = "github:Shopify/comma";
       flake = false;

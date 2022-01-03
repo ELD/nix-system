@@ -55,7 +55,6 @@
       nixpkgs.source = "${nixpkgs}";
       stable.source = "${stable}";
       trunk.source = "${inputs.trunk}";
-      small.source = "${inputs.small}";
     };
     # list of acceptable shells in /etc/shells
     shells = with pkgs; [ bash zsh fish ];
