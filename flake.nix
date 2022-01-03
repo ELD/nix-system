@@ -169,21 +169,15 @@
           ];
         };
         rhombus = mkDarwinConfig {
-          extraModules =
-            [ ./profiles/work.nix ./modules/darwin/apps.nix ./modules/darwin/network/work.nix ];
+          system = "x86_64-darwin";
+          extraModules = [
+            ./profiles/work.nix
+            ./modules/darwin/apps.nix
+            ./modules/darwin/network/work.nix
+            { homebrew.brewPrefix = "/opt/homebrew/bin"; }
+          ];
         };
       };
-
-      # Not used, for now... may revisit these
-      # nixosConfigurations = {
-      #   phil = mkNixosConfig {
-      #     hardwareModules = [
-      #       ./modules/hardware/phil.nix
-      #       nixos-hardware.nixosModules.lenovo-thinkpad-t460s
-      #     ];
-      #     extraModules = [ ./profiles/personal.nix ];
-      #   };
-      # };
 
       homeConfigurations = {
         server = mkHomeConfig {
@@ -193,6 +187,11 @@
         darwinServer = mkHomeConfig {
           username = "edattore";
           system = "x86_64-darwin";
+          extraModules = [ ./profiles/home-manager/personal.nix ];
+        };
+        darwinServerM1 = mkHomeConfig {
+          username = "edattore";
+          system = "aarch64-darwin";
           extraModules = [ ./profiles/home-manager/personal.nix ];
         };
         workServer = mkHomeConfig {
