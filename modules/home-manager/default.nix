@@ -68,9 +68,7 @@ in
         nodejs_latest
         openjdk
         openssh
-        openssl
         pandoc
-        pkg-config
         postgresql_14
         pre-commit
         ranger
