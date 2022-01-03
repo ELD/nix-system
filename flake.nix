@@ -132,8 +132,6 @@
             name = system;
             value = {
               darwin =
-                self.darwinConfigurations.vanadium.config.system.build.toplevel;
-              darwin-intel =
                 self.darwinConfigurations.silicon-intel.config.system.build.toplevel;
               darwinServer =
                 self.homeConfigurations.darwinServer.activationPackage;
