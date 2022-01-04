@@ -23,6 +23,7 @@
       "iterm2"
       "jetbrains-toolbox"
       "microsoft-teams"
+      "miro"
       "numi"
       "obsidian"
       "paw"
