@@ -173,8 +173,9 @@
           extraModules = [
             ./profiles/work.nix
             ./modules/darwin/apps-work.nix
+            ./modules/darwin/apps.nix
             ./modules/darwin/network/work.nix
-            { homebrew.brewPrefix = "/opt/homebrew/bin"; }
+            # { homebrew.brewPrefix = "/opt/homebrew/bin"; }
           ];
         };
       };
