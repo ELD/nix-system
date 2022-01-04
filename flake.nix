@@ -172,7 +172,7 @@
           system = "x86_64-darwin";
           extraModules = [
             ./profiles/work.nix
-            ./modules/darwin/apps.nix
+            ./modules/darwin/apps-work.nix
             ./modules/darwin/network/work.nix
             { homebrew.brewPrefix = "/opt/homebrew/bin"; }
           ];
