@@ -3,11 +3,12 @@
 
   nixConfig = {
     substituters =
-      [ "https://eld.cachix.org" "https://nix-community.cachix.org/" ];
+      [ "https://cache.nixos.org" "https://nix-community.cachix.org/" "https://eld.cachix.org" ];
 
-    trusted-public-keys = [
-      "eld.cachix.org-1:ddhUxMCAKZVJOVPUcGGWwB5UZfhlhG12rN4GRz8D7sk="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "eld.cachix.org-1:ddhUxMCAKZVJOVPUcGGWwB5UZfhlhG12rN4GRz8D7sk="
     ];
   };
 
@@ -17,6 +18,7 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
     stable.url = "github:nixos/nixpkgs/nixos-21.11";
+    darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-21.11-darwin";
     nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     trunk.url = "github:nixos/nixpkgs/master";
@@ -68,7 +70,7 @@
       mkDarwinConfig =
         { system
         , nixpkgs ? inputs.nixpkgs
-        , stable ? inputs.stable
+        , stable ? inputs.darwin-stable
         , lib ? (mkLib nixpkgs)
         , baseModules ? [
             home-manager.darwinModules.home-manager
@@ -86,7 +88,7 @@
       # specified overlays, hardware modules, and any extraModules applied
       mkNixosConfig =
         { system ? "x86_64-linux"
-        , nixpkgs ? inputs.nios-unstable
+        , nixpkgs ? inputs.nixos-unstable
         , stable ? inputs.stable
         , lib ? (mkLib nixpkgs)
         , hardwareModules
@@ -110,7 +112,14 @@
         , nixpkgs ? inputs.nixpkgs
         , stable ? inputs.stable
         , lib ? (mkLib nixpkgs)
-        , baseModules ? [ ./modules/home-manager ]
+        , baseModules ? [
+          ./modules/home-manager
+          {
+            home.sessionVariables = {
+              NIX_PATH="nixpkgs=${nixpkgs}:stable=${stable}:trunk=${inputs.trunk}\${NIX_PATH+:}$NIX_PATH";
+            };
+          }
+        ]
         , extraModules ? [ ]
         }:
         homeManagerConfiguration rec {
@@ -119,7 +128,7 @@
           extraSpecialArgs = { inherit inputs lib nixpkgs stable; };
           configuration = {
             imports = baseModules ++ extraModules ++ [
-              (import ./modules/overlays.nix { inherit inputs nixpkgs stable; })
+              ./modules/overlays.nix
             ];
           };
         };
@@ -143,7 +152,6 @@
           (system: {
             name = system;
             value = {
-              # nixos = self.nixosConfigurations.phil.config.system.build.toplevel;
               server = self.homeConfigurations.server.activationPackage;
             };
           })
@@ -175,7 +183,6 @@
             ./modules/darwin/apps-work.nix
             ./modules/darwin/apps.nix
             ./modules/darwin/network/work.nix
-            # { homebrew.brewPrefix = "/opt/homebrew/bin"; }
           ];
         };
       };
