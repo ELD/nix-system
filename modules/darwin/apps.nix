@@ -13,6 +13,7 @@
       "dash"
       "discord-canary"
       "docker"
+      "elgato-wave-link"
       "firefox-developer-edition"
       "google-chrome"
       "gpg-suite"

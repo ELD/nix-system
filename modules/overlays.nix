@@ -3,6 +3,10 @@
     (final: prev: {
       # expose stable packages via pkgs.stable
       stable = import stable { system = prev.system; };
+      trunk = import inputs.trunk { system = prev.system; };
+    })
+    (final: prev: {
+      ripgrep-all = prev.stable.ripgrep-all;
     })
     (final: prev: rec {
       nix-index = if prev.stdenvNoCC.isDarwin then
