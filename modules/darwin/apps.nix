@@ -45,7 +45,6 @@
       "Cardhop" = 1290358394;
       "Fantastical" = 975937182;
       # "JSONPeep for Safari" = 11458969831;
-      "Pipifier" = 1160374471;
       "Pixelmator Pro" = 1289583905;
       "Slack" = 803453959;
       "Things 3" = 904280696;
