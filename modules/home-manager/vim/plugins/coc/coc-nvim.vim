@@ -28,6 +28,11 @@ else
   set signcolumn=yes
 endif
 
+" Disable CoC on startup if we're running in VSCode
+if exists('g:vscode')
+    let g:coc_start_at_startup=v:false
+endif
+
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.

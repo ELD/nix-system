@@ -11,6 +11,7 @@
       "cyberduck"
       "daisydisk"
       "dash"
+      "deckset"
       "discord-canary"
       "docker"
       "elgato-wave-link"
