@@ -12,7 +12,7 @@
       "daisydisk"
       "dash"
       "deckset"
-      "discord-canary"
+      "discord-ptb"
       "docker"
       "elgato-wave-link"
       "firefox-developer-edition"
