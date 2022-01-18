@@ -14,6 +14,7 @@
       "deckset"
       "discord-ptb"
       "docker"
+      "element"
       "elgato-wave-link"
       "firefox-developer-edition"
       "google-chrome"
