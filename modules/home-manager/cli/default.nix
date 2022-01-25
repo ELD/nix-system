@@ -82,7 +82,12 @@ in
     };
     jq.enable = true;
     htop.enable = true;
-    gpg.enable = true;
+    gpg = {
+      enable = true;
+      scdaemonSettings = {
+        disable-ccid = true;
+      };
+    };
     git = {
       enable = true;
       lfs.enable = true;
