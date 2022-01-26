@@ -54,6 +54,7 @@ in
         coreutils-full
         curl
         fd
+        flyctl
         gawk
         git
         gnugrep
