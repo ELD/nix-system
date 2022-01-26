@@ -79,6 +79,7 @@ in
         sysdo
         tealdeer
         tectonic
+        terraform
         treefmt
         vagrant
         yarn
