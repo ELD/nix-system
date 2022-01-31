@@ -56,20 +56,5 @@
         inherit nix-index;
       };
     })
-    (final: prev: rec {
-      gnupg =
-        let
-          inherit(prev)
-          lib stdenv fetchpatch;
-        in
-        prev.trunk.gnupg.overrideAttrs (oldAttrs: rec {
-          patches = oldAttrs.patches ++ lib.optional stdenv.isDarwin [
-            (fetchpatch {
-              url = "https://raw.githubusercontent.com/Homebrew/formula-patches/890be5f6af88e7913d177af87a50129049e681bb/gnupg/2.3.3-proc-error.patch";
-              sha256 = "sha256-oiTa7Nf+AEmhZ683CJEaCb559PXJ6RpSSgRLpxz4CKU=";
-            })
-          ];
-        });
-      })
   ];
 }
