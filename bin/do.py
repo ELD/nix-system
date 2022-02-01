@@ -95,6 +95,7 @@ def bootstrap(
         flake = f".#{cfg.value}.{host}.config.system.build.toplevel {flags}"
         run_cmd(f"nix build {flake} {flags}")
         run_cmd(f"./result/sw/bin/darwin-rebuild switch --flake .#{host}")
+        run_cmd("defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock")
     elif cfg == FlakeOutputs.HOME_MANAGER:
         flake = f".#{host}"
         run_cmd(
