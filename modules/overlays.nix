@@ -56,5 +56,15 @@
         inherit nix-index;
       };
     })
+    (final: prev: rec {
+      gnupg =
+        let
+          inherit(prev);
+        in
+        if prev.stable.gnupg.version == "2.3.3" then
+        prev.trunk.gnupg
+        else
+        prev.trunk.gnupg;
+      })
   ];
 }
