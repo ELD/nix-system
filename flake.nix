@@ -18,7 +18,6 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
     stable.url = "github:nixos/nixpkgs/nixos-21.11";
-    darwin-stable.url = "github:nixos/nixpkgs/nixpkgs-21.11-darwin";
     nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     trunk.url = "github:nixos/nixpkgs/master";
@@ -70,8 +69,8 @@
       mkDarwinConfig =
         { system
         , nixpkgs ? inputs.nixpkgs
-        , stable ? inputs.darwin-stable
-        , lib ? (mkLib nixpkgs)
+        , stable ? inputs.stable
+        , lib ? (mkLib inputs.nixpkgs)
         , baseModules ? [
             home-manager.darwinModules.home-manager
             ./modules/darwin
@@ -90,7 +89,7 @@
         { system ? "x86_64-linux"
         , nixpkgs ? inputs.nixos-unstable
         , stable ? inputs.stable
-        , lib ? (mkLib nixpkgs)
+        , lib ? (mkLib inputs.nixos-unstable)
         , hardwareModules
         , baseModules ? [
             home-manager.nixosModules.home-manager
@@ -111,7 +110,7 @@
         , system ? "x86_64-linux"
         , nixpkgs ? inputs.nixpkgs
         , stable ? inputs.stable
-        , lib ? (mkLib nixpkgs)
+        , lib ? (mkLib inputs.nixpkgs)
         , baseModules ? [
           ./modules/home-manager
           {
@@ -215,28 +214,19 @@
     # add a devShell to this flake
     eachDefaultSystem (system:
     let
-      pkgs = import nixpkgs {
+      pkgs = import inputs.stable {
         inherit system;
-        overlays = [
-          inputs.devshell.overlay
-          (final: prev: {
-            # expose stable packages via pkgs.stable
-            stable = import inputs.stable { system = prev.system; };
-          })
-        ];
+        overlays = [ inputs.devshell.overlay ];
       };
-      pyEnv = (pkgs.stable.python3.withPackages
+      pyEnv = (pkgs.python3.withPackages
         (ps: with ps; [ black pylint typer colorama shellingham ]));
-      nixBin = pkgs.writeShellScriptBin "nix" ''
-        ${pkgs.nixFlakes}/bin/nix --option experimental-features "nix-command flakes" $@
-      '';
       sysdo = pkgs.writeShellScriptBin "sysdo" ''
         cd $PRJ_ROOT && ${pyEnv}/bin/python3 bin/do.py $@
       '';
     in
     {
       devShell = pkgs.devshell.mkShell {
-        packages = [ nixBin pyEnv pkgs.treefmt pkgs.nixfmt pkgs.stylua ];
+        packages = [ pyEnv pkgs.treefmt pkgs.nixfmt pkgs.stylua ];
         commands = [{
           name = "sysdo";
           package = sysdo;

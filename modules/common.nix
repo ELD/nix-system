@@ -1,4 +1,4 @@
-{ inputs, config, lib, pkgs, nixpkgs, stable, ... }: {
+{ inputs, config, lib, pkgs, ... }: {
   imports = [ ./primary.nix ./nixpkgs.nix ./overlays.nix ];
 
   programs.zsh = {
@@ -33,7 +33,7 @@
       neovim
 
       # standard toolset
-      coreutils
+      coreutils-full
       curl
       wget
       git
@@ -52,8 +52,8 @@
     ];
     etc = {
       home-manager.source = "${inputs.home-manager}";
-      nixpkgs.source = "${nixpkgs}";
-      stable.source = "${stable}";
+      nixpkgs.source = "${pkgs.path}";
+      stable.source = "${inputs.stable}";
       trunk.source = "${inputs.trunk}";
     };
     # list of acceptable shells in /etc/shells

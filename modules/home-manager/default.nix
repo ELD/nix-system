@@ -1,7 +1,7 @@
 { inputs, config, pkgs, ... }:
 let
   homeDir = config.home.homeDirectory;
-  pyEnv = (pkgs.stable.python3.withPackages
+  pyEnv = (pkgs.python3.withPackages
     (ps: with ps; [ black pylint typer colorama shellingham ]));
   sysDoNixos =
     "[[ -d /etc/nixos ]] && cd /etc/nixos && ${pyEnv}/bin/python bin/do.py $@";
@@ -51,7 +51,7 @@ in
         cachix
         comma
         circleci-cli
-        coreutils-full
+        pkgs.coreutils-full
         curl
         fd
         flyctl
@@ -87,9 +87,9 @@ in
       ];
     };
 
-    manual = {
-      html.enable = false;
-      json.enable = false;
-      manpages.enable = false;
-    };
+    # manual = {
+    #   html.enable = false;
+    #   json.enable = false;
+    #   manpages.enable = false;
+    # };
 }
