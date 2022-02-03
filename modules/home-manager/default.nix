@@ -58,7 +58,7 @@ in
         gawk
         git
         gnugrep
-        gnupg
+        pkgs.trunk.gnupg
         gnused
         htop
         jq
