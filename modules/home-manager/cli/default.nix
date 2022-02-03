@@ -109,7 +109,10 @@ in
         ${functions}
       '';
     };
-    nix-index.enable = true;
+    nix-index = {
+      enable = true;
+      enableZshIntegration = true;
+    };
     zsh =
       let
         mkZshPlugin = { pkg, file ? "${pkg.pname}.plugin.zsh" }: rec {
