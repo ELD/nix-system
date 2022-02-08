@@ -12,5 +12,6 @@
     pkgs.awscli
     pkgs.google-cloud-sdk
     pkgs.leiningen
+    pkgs.poetry
   ];
 }
