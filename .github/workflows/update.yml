@@ -23,7 +23,6 @@ jobs:
         env:
           NIX_VERSION: nix-2.5pre20211026_5667822
         with:
-          install_url: https://github.com/numtide/nix-flakes-installer/releases/download/${{ env.NIX_VERSION }}/install
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}

@@ -84,7 +84,6 @@ in
     htop.enable = true;
     gpg = {
       enable = true;
-      package = pkgs.trunk.gnupg;
       scdaemonSettings = {
         disable-ccid = true;
       };
