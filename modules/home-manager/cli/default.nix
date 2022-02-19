@@ -29,6 +29,10 @@ let
     ibrew = "arch -x86_64 brew";
     abrew = "arch -arm64 brew";
   });
+
+  starship = pkgs.callPackage ../../pkgs/starship.nix {
+    inherit (pkgs.darwin.apple_sdk.frameworks) Security;
+  };
 in
 {
   home.packages = with pkgs; [ tree ];
@@ -163,6 +167,9 @@ in
         };
       };
     zoxide.enable = true;
-    starship.enable = true;
+    starship = {
+      enable = true;
+      package = starship;
+    };
   };
 }
