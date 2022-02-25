@@ -20,7 +20,6 @@
     stable.url = "github:nixos/nixpkgs/nixos-21.11";
     nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    trunk.url = "github:nixos/nixpkgs/master";
 
     comma = {
       url = "github:Shopify/comma";
@@ -115,7 +114,7 @@
           ./modules/home-manager
           {
             home.sessionVariables = {
-              NIX_PATH="nixpkgs=${nixpkgs}:stable=${stable}:trunk=${inputs.trunk}\${NIX_PATH+:}$NIX_PATH";
+              NIX_PATH="nixpkgs=${nixpkgs}:stable=${stable}\${NIX_PATH+:}$NIX_PATH";
             };
           }
         ]
