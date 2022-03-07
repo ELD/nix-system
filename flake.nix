@@ -5,10 +5,10 @@
     substituters =
       [ "https://cache.nixos.org" "https://nix-community.cachix.org/" "https://eld.cachix.org" ];
 
-      trusted-public-keys = [
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        "eld.cachix.org-1:ddhUxMCAKZVJOVPUcGGWwB5UZfhlhG12rN4GRz8D7sk="
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "eld.cachix.org-1:ddhUxMCAKZVJOVPUcGGWwB5UZfhlhG12rN4GRz8D7sk="
     ];
   };
 
@@ -111,13 +111,13 @@
         , stable ? inputs.stable
         , lib ? (mkLib inputs.nixpkgs)
         , baseModules ? [
-          ./modules/home-manager
-          {
-            home.sessionVariables = {
-              NIX_PATH="nixpkgs=${nixpkgs}:stable=${stable}\${NIX_PATH+:}$NIX_PATH";
-            };
-          }
-        ]
+            ./modules/home-manager
+            {
+              home.sessionVariables = {
+                NIX_PATH = "nixpkgs=${nixpkgs}:stable=${stable}\${NIX_PATH+:}$NIX_PATH";
+              };
+            }
+          ]
         , extraModules ? [ ]
         }:
         homeManagerConfiguration rec {
@@ -225,7 +225,7 @@
     in
     {
       devShell = pkgs.devshell.mkShell {
-        packages = [ pyEnv pkgs.treefmt pkgs.nixfmt pkgs.stylua ];
+        packages = with pkgs; [ nixfmt pyEnv rnix-lsp stylua treefmt ];
         commands = [{
           name = "sysdo";
           package = sysdo;

@@ -22,17 +22,11 @@ let
     gst = "git status";
     gap = "git add -p";
     gcia = "git commit --amend --no-edit";
-  } // (if !pkgs.stdenvNoCC.isDarwin then
-    { }
-  else {
+  } // (lib.optionalAttrs pkgs.stdenvNoCC.isDarwin {
     # platform specific aliases
     ibrew = "arch -x86_64 brew";
     abrew = "arch -arm64 brew";
   });
-
-  starship = pkgs.callPackage ../../pkgs/starship.nix {
-    inherit (pkgs.darwin.apple_sdk.frameworks) Security;
-  };
 in
 {
   home.packages = with pkgs; [ tree ];
@@ -144,12 +138,16 @@ in
         '';
         initExtra = ''
           ${functions}
-          ${if pkgs.stdenvNoCC.isDarwin then ''
-            [[ -d /opt/homebrew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
-          '' else
-            ""}
+          ${lib.optionalString pkgs.stdenvNoCC.isDarwin ''
+            if [[ -d /opt/homebrew ]]; then
+              eval "$(/opt/homebrew/bin/brew shellenv)"
+            fi
+          ''}
           [[ -d ''${HOME}/.cargo/bin ]] && path+=(''${HOME}/.cargo/bin)
           unset RPS1
+        '';
+        profileExtra = ''
+          ${lib.optionalString pkgs.stdenvNoCC.isLinux "[[ -e /etc/profile ]] && source /etc/profile"}
         '';
         plugins = with pkgs; [
           (mkZshPlugin { pkg = zsh-autopair; })
@@ -169,7 +167,7 @@ in
     zoxide.enable = true;
     starship = {
       enable = true;
-      package = starship;
+      package = pkgs.stable.starship;
     };
   };
 }
