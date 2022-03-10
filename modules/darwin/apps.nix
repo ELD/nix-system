@@ -6,6 +6,7 @@
     casks = [
       "1password-beta"
       "airbuddy"
+      "alfred"
       "bartender"
       "bettertouchtool"
       "cyberduck"
