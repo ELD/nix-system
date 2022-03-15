@@ -62,6 +62,7 @@ in
         gnused
         htop
         jq
+        netlify-cli
         neofetch
         nix
         nixfmt
@@ -84,6 +85,7 @@ in
         vagrant
         yarn
         youtube-dl
+        yq
       ];
     };
 }
