@@ -86,6 +86,12 @@ in
         disable-ccid = true;
       };
     };
+    ssh = {
+      enable = true;
+      extraConfig = [
+        "PubkeyAcceptedKeyTypes +ssh-rsa"
+      ];
+    };
     git = {
       enable = true;
       lfs.enable = true;

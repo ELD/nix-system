@@ -17,8 +17,9 @@
       "homebrew/services"
       "koekeishiya/formulae"
       "teamookla/speedtest"
+      "mongodb/brew"
     ];
 
-    brews = [ ];
+    brews = [ "mongodb-community@5.0" ];
   };
 }
