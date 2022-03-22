@@ -88,9 +88,7 @@ in
     };
     ssh = {
       enable = true;
-      extraConfig = [
-        "PubkeyAcceptedKeyTypes +ssh-rsa"
-      ];
+      extraConfig = "PubkeyAcceptedKeyTypes +ssh-rsa";
     };
     git = {
       enable = true;
