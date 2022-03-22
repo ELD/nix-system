@@ -35,6 +35,7 @@
       "sensei"
       "sketch"
       "tableplus"
+      "veracrypt"
       # No support for Apple Silicon yet
       # "virtualbox"
       "visual-studio-code"
