@@ -13,7 +13,7 @@
       "daisydisk"
       "dash"
       "deckset"
-      "discord-ptb"
+      "discord"
       "docker"
       "element"
       "elgato-wave-link"
