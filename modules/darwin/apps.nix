@@ -21,8 +21,6 @@
       "google-chrome"
       "gpg-suite"
       "hookshot"
-      # Check the system before installing
-      # "intel-power-gadget"
       "istat-menus"
       "iterm2"
       "jetbrains-toolbox"
@@ -31,24 +29,25 @@
       "numi"
       "obsidian"
       "paw"
+      "postman"
       "screenflow"
       "sensei"
       "sketch"
       "tableplus"
       "veracrypt"
-      # No support for Apple Silicon yet
-      # "virtualbox"
       "visual-studio-code"
       "zoom"
       "zotero"
-    ];
+    ] ++ (lib.lists.optionals (pkgs.system == "x86_64-darwin") [
+      "intel-power-gadget"
+      "virtualbox"
+    ]);
 
     masApps = {
       "1Blocker" = 1365531024;
       "1Password for Safari" = 1569813296;
       "Cardhop" = 1290358394;
       "Fantastical" = 975937182;
-      # "JSONPeep for Safari" = 11458969831;
       "Pixelmator Pro" = 1289583905;
       "Slack" = 803453959;
       "Things 3" = 904280696;
