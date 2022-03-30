@@ -8,6 +8,7 @@
       "airbuddy"
       "alfred"
       "bartender"
+      "beekeeper-studio"
       "bettertouchtool"
       "cyberduck"
       "daisydisk"
