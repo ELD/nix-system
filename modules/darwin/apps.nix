@@ -25,6 +25,7 @@
       "istat-menus"
       "iterm2"
       "jetbrains-toolbox"
+      "macfuse"
       "microsoft-teams"
       "miro"
       "numi"
