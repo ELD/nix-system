@@ -86,6 +86,7 @@ in
         yarn
         youtube-dl
         yq
+        yubikey-manager
       ];
     };
 }
