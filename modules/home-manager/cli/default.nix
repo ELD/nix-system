@@ -170,7 +170,6 @@ in
     zoxide.enable = true;
     starship = {
       enable = true;
-      package = pkgs.stable.starship;
     };
   };
 }
