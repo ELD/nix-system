@@ -62,6 +62,7 @@ in
         gnused
         htop
         jq
+        lua5_4
         netlify-cli
         neofetch
         nix
