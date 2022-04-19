@@ -1,13 +1,11 @@
 { config, pkgs, lib, ... }: {
   programs.neovim =
-    let inherit (lib.vimUtils ./.) pluginWithCfg;
-    in
     {
       plugins = with pkgs.vimPlugins;
         [
-          (pluginWithCfg {
+          (config.lib.vimUtils.pluginWithCfg {
             plugin = vim-closetag;
-            file = "vim-closetag";
+            file = ./vim-closetag.vim;
           })
         ];
     };

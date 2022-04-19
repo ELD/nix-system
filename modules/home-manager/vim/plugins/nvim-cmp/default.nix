@@ -1,10 +1,8 @@
 { config, pkgs, lib, ... }: {
   programs.neovim =
-    let inherit (lib.vimUtils ./.) readLuaSection pluginWithLua;
-    in
     {
       plugins = with pkgs.vimPlugins; [
-        (pluginWithLua {
+        (config.lib.vimUtils.pluginWithCfg {
           plugin = nvim-cmp;
           file = "nvim-cmp";
         })

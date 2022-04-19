@@ -6,7 +6,7 @@
       # vimtex config
       plugins = with pkgs.vimPlugins;
         [
-          (pluginWithLua {
+          (config.lib.vimUtils.pluginWithCfg {
             plugin = lspsaga-nvim;
             file = "lspsaga-nvim";
           })

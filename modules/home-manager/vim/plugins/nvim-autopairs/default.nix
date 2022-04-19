@@ -1,11 +1,9 @@
 { config, pkgs, lib, ... }: {
   programs.neovim =
-    let inherit (lib.vimUtils ./.) pluginWithLua;
-    in
     {
       plugins = with pkgs.vimPlugins;
         [
-          (pluginWithLua {
+          (config.lib.vimUtils.pluginWithCfg {
             plugin = nvim-autopairs;
             file = "nvim-autopairs";
           })

@@ -1,12 +1,10 @@
 { config, pkgs, lib, ... }: {
   programs.neovim =
-    let inherit (lib.vimUtils ./.) readLuaSection pluginWithCfg;
-    in
     {
       # vimtex config
       plugins = with pkgs.vimPlugins;
         [
-          (pluginWithCfg {
+          (config.lib.vimUtils.pluginWithCfg {
             plugin = vimtex;
             file = "vimtex";
           })

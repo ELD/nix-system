@@ -6,7 +6,6 @@ in
 {
   programs.neovim =
     let
-      inherit (lib.vimUtils ./.) pluginWithCfg pluginWithLua;
       nvim-fzf = buildVimPluginFrom2Nix {
         pname = "nvim-fzf";
         src = fetchFromGitHub {
@@ -22,9 +21,9 @@ in
     {
       plugins = with pkgs.vimPlugins;
         [
-          (pluginWithCfg {
+          (config.lib.vimUtils.pluginWithCfg {
             plugin = fzf-vim;
-            file = "fzf-vim";
+            file = ./fzf-vim.vim;
           })
           # (pluginWithLua nvim-fzf)
         ];

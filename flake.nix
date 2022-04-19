@@ -54,13 +54,7 @@
       inherit (flake-utils.lib) eachDefaultSystem eachSystem;
       inherit (builtins) listToAttrs map;
 
-      mkLib = nixpkgs:
-        nixpkgs.lib.extend
-          (final: prev: (import ./lib final) // home-manager.lib);
-
-      lib = (mkLib nixpkgs);
-
-      isDarwin = system: (builtins.elem system lib.platforms.darwin);
+      isDarwin = system: (builtins.elem system nixpkgs.lib.platforms.darwin);
       homePrefix = system: if isDarwin system then "/Users" else "/home";
 
       # generate a base darwin configuration with the
@@ -69,7 +63,6 @@
         { system
         , nixpkgs ? inputs.nixpkgs
         , stable ? inputs.stable
-        , lib ? (mkLib inputs.nixpkgs)
         , baseModules ? [
             home-manager.darwinModules.home-manager
             ./modules/darwin
@@ -79,7 +72,7 @@
         darwinSystem {
           inherit system;
           modules = baseModules ++ extraModules;
-          specialArgs = { inherit inputs lib nixpkgs stable; };
+          specialArgs = { inherit inputs nixpkgs stable; };
         };
 
       # generate a base nixos configuration with the
@@ -88,7 +81,6 @@
         { system ? "x86_64-linux"
         , nixpkgs ? inputs.nixos-unstable
         , stable ? inputs.stable
-        , lib ? (mkLib inputs.nixos-unstable)
         , hardwareModules
         , baseModules ? [
             home-manager.nixosModules.home-manager
@@ -99,7 +91,7 @@
         nixosSystem {
           inherit system;
           modules = baseModules ++ hardwareModules ++ extraModules;
-          specialArgs = { inherit inputs lib nixpkgs stable; };
+          specialArgs = { inherit inputs nixpkgs stable; };
         };
 
       # generate a home-manager configuration usable on any unix system
@@ -109,7 +101,6 @@
         , system ? "x86_64-linux"
         , nixpkgs ? inputs.nixpkgs
         , stable ? inputs.stable
-        , lib ? (mkLib inputs.nixpkgs)
         , baseModules ? [
             ./modules/home-manager
             {
@@ -123,7 +114,7 @@
         homeManagerConfiguration rec {
           inherit system username;
           homeDirectory = "${homePrefix system}/${username}";
-          extraSpecialArgs = { inherit inputs lib nixpkgs stable; };
+          extraSpecialArgs = { inherit inputs nixpkgs stable; };
           configuration = {
             imports = baseModules ++ extraModules ++ [
               ./modules/overlays.nix
@@ -144,7 +135,7 @@
                 self.homeConfigurations.darwinServer.activationPackage;
             };
           })
-          lib.platforms.darwin) ++
+          nixpkgs.lib.platforms.darwin) ++
         # linux checks
         (map
           (system: {
@@ -153,7 +144,7 @@
               server = self.homeConfigurations.server.activationPackage;
             };
           })
-          lib.platforms.linux)
+          nixpkgs.lib.platforms.linux)
       );
 
       darwinConfigurations = {
