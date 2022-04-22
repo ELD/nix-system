@@ -26,8 +26,6 @@
       "iterm2"
       "jetbrains-toolbox"
       "macfuse"
-      "microsoft-teams"
-      "miro"
       "numi"
       "obsidian"
       "paw"
