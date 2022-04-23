@@ -133,7 +133,7 @@ in
           CLICOLOR = 1;
           LS_COLORS = "ExFxBxDxCxegedabagacad";
           TERM = "xterm-256color";
-          RUSTC_WRAPPER = "${pkgs.sccache}";
+          RUSTC_WRAPPER = "${pkgs.sccache}/bin/sccache";
         };
         shellAliases = aliases;
         initExtraBeforeCompInit = ''
