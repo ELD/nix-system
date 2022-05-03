@@ -4,7 +4,7 @@
     userEmail = "eric.dattore@circleci.com";
     userName = "Eric Dattore";
     signing = {
-      key = "eric@dattore.me";
+      key = "0x26CCB5CE8AE20CE0";
       signByDefault = true;
     };
   };
