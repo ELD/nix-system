@@ -206,13 +206,33 @@
     let
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [ inputs.devshell.overlay ];
+        overlays = [
+          inputs.devshell.overlay
+          (final: prev: rec {
+            python3 = prev.python3.override
+              {
+                packageOverrides = final: prev: {
+                  aiohttp = prev.aiohttp.overrideAttrs
+                    (old: {
+                      checkInputs = builtins.filter (pkg: pkg != inputs.trustme) old.checkInputs;
+                    });
+                  pyopenssl = prev.pyopenssl.overrideAttrs
+                    (old: {
+                      meta = old.meta // { broken = false; };
+                    });
+                };
+              };
+          })
+        ];
       };
       pyEnv = (pkgs.python3.withPackages
-        (ps: with ps; [ black pylint typer colorama shellingham ]));
-      sysdo = pkgs.writeShellScriptBin "sysdo" ''
-        cd $PRJ_ROOT && ${pyEnv}/bin/python3 bin/do.py $@
-      '';
+        (ps: with ps;
+        [ black pylint typer colorama shellingham ]));
+      sysdo = pkgs.writeShellScriptBin
+        "sysdo"
+        ''
+          cd $PRJ_ROOT && ${pyEnv}/bin/python3 bin/do.py $@
+        '';
     in
     {
       devShell = pkgs.devshell.mkShell {
