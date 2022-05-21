@@ -1,4 +1,4 @@
-{ inputs, nixpkgs, stable, ... }: {
+{ inputs, nixpkgs, stable, async_generator, freezegun, gunicorn, pytest-mock, pytestCheckHook, re-assert, trustme, ... }: {
   nixpkgs.overlays = [
     (final: prev: {
       # expose stable packages via pkgs.stable
