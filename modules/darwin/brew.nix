@@ -20,6 +20,6 @@
       "mongodb/brew"
     ];
 
-    brews = [ "mongodb-community@5.0" ];
+    brews = [ ];
   };
 }
