@@ -18,7 +18,12 @@
             ] ++ lib.optionals stdenv.isLinux [
               trustme
             ];
-          };
+          });
+          pyopenssl = super.pyopenssl.overrideAttrs (old: {
+            meta = old.meta // {
+              broken = false;
+            };
+          });
         };
       };
     })
