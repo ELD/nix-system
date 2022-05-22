@@ -59,5 +59,8 @@
     shells = with pkgs; [ bash zsh fish ];
   };
 
-  fonts.fonts = with pkgs; [ jetbrains-mono recursive open-sans (nerdfonts.override { fonts = [ "CascadiaCode" ]; }) ];
+  fonts = {
+    fontDir.enable = true;
+    fonts = with pkgs; [ jetbrains-mono recursive open-sans (nerdfonts.override { fonts = [ "CascadiaCode" ]; }) ];
+  };
 }
