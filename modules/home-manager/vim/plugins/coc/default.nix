@@ -91,9 +91,9 @@
           nmap <silent> gi <Plug>(coc-implementation)
           nmap <silent> gr <Plug>(coc-references)
           " Formatting
-          vmap <C-F> <Plug>(coc-format-selected)
-          xmap <C-F> :call CocAction('format')<CR>
-          nmap <C-F> :call CocAction('format')<CR>
+          " vmap <C-F> <Plug>(coc-format-selected)
+          " xmap <C-F> :call CocAction('format')<CR>
+          " nmap <C-F> :call CocAction('format')<CR>
           " Hover and rename
           nmap <silent> <F6> <Plug>(coc-rename)
           nnoremap <silent> K :call CocAction('doHover')<CR>
