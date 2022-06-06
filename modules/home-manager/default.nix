@@ -85,7 +85,7 @@ in
         treefmt
         vagrant
         yarn
-        youtube-dl
+        yt-dlp
         yq
         # yubikey-manager
       ];
