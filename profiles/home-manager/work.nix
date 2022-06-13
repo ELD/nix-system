@@ -8,10 +8,11 @@
       signByDefault = true;
     };
   };
-  home.packages = [
-    pkgs.awscli
-    pkgs.google-cloud-sdk
-    pkgs.leiningen
-    pkgs.poetry
+  home.packages = with pkgs; [
+    awscli
+    google-cloud-sdk
+    leiningen
+    poetry
+    protobuf
   ];
 }

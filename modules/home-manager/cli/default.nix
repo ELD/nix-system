@@ -98,7 +98,12 @@ in
           "!gi() { curl -sL https://www.toptal.com/developers/gitignore/api/$@ ;}; gi";
       };
     };
-    go.enable = true;
+    go = {
+      enable = true;
+      package = pkgs.go_1_18;
+      goPath = "workspace/go";
+      goBin = "workspace/go/bin";
+    };
     exa = {
       enable = true;
       enableAliases = true;
@@ -147,6 +152,7 @@ in
             fi
           ''}
           [[ -d ''${HOME}/.cargo/bin ]] && path+=(''${HOME}/.cargo/bin)
+          [[ -d ''${HOME}/workspace/go/bin ]] && path+=(''${HOME}/workspace/go/bin)
           unset RPS1
         '';
         profileExtra = ''
