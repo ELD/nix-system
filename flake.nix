@@ -21,10 +21,6 @@
     nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
-    comma = {
-      url = "github:Shopify/comma";
-      flake = false;
-    };
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;
@@ -51,7 +47,7 @@
       inherit (darwin.lib) darwinSystem;
       inherit (nixpkgs.lib) nixosSystem;
       inherit (home-manager.lib) homeManagerConfiguration;
-      inherit (flake-utils.lib) eachDefaultSystem eachSystem;
+      inherit (flake-utils.lib) eachSystemMap defaultSystems;
       inherit (builtins) listToAttrs map;
 
       isDarwin = system: (builtins.elem system nixpkgs.lib.platforms.darwin);
@@ -60,7 +56,7 @@
       # generate a base darwin configuration with the
       # specified hostname, overlays, and any extraModules applied
       mkDarwinConfig =
-        { system
+        { system ? "aarch64-darwin"
         , nixpkgs ? inputs.nixpkgs
         , stable ? inputs.stable
         , baseModules ? [
@@ -113,6 +109,9 @@
         }:
         homeManagerConfiguration rec {
           inherit system username;
+          pkgs = import nixpkgs {
+            inherit system;
+          };
           homeDirectory = "${homePrefix system}/${username}";
           extraSpecialArgs = { inherit inputs nixpkgs stable; };
           configuration = {
@@ -130,7 +129,7 @@
             name = system;
             value = {
               darwin =
-                self.darwinConfigurations.silicon-intel.config.system.build.toplevel;
+                self.darwinConfigurations.rhombus.config.system.build.toplevel;
               darwinServer =
                 self.homeConfigurations.darwinServer.activationPackage;
             };
@@ -149,19 +148,10 @@
 
       darwinConfigurations = {
         vanadium = mkDarwinConfig {
-          system = "aarch64-darwin";
           extraModules = [
             ./profiles/personal.nix
             ./modules/darwin/apps.nix
             ./modules/darwin/network/personal.nix
-            { homebrew.brewPrefix = "/opt/homebrew/bin"; }
-          ];
-        };
-        silicon-intel = mkDarwinConfig {
-          system = "x86_64-darwin";
-          extraModules = [
-            ./profiles/personal.nix
-            ./modules/darwin/apps.nix
             { homebrew.brewPrefix = "/opt/homebrew/bin"; }
           ];
         };
@@ -200,49 +190,30 @@
           extraModules = [ ./profiles/home-manager/personal.nix ];
         };
       };
-    } //
-    # add a devShell to this flake
-    eachDefaultSystem (system:
-    let
-      pkgs = import nixpkgs {
-        inherit system;
-        overlays = [
-          inputs.devshell.overlay
-          (final: prev: rec {
-            python3 = prev.python3.override
-              {
-                packageOverrides = final: prev: {
-                  aiohttp = prev.aiohttp.overrideAttrs
-                    (old: {
-                      checkInputs = builtins.filter (pkg: pkg != inputs.trustme) old.checkInputs;
-                    });
-                  pyopenssl = prev.pyopenssl.overrideAttrs
-                    (old: {
-                      meta = old.meta // { broken = false; };
-                    });
-                };
-              };
-          })
-        ];
-      };
-      pyEnv = (pkgs.python3.withPackages
-        (ps: with ps;
-        [ black pylint typer colorama shellingham ]));
-      sysdo = pkgs.writeShellScriptBin
-        "sysdo"
-        ''
-          cd $PRJ_ROOT && ${pyEnv}/bin/python3 bin/do.py $@
-        '';
-    in
-    {
-      devShell = pkgs.devshell.mkShell {
-        packages = with pkgs; [ nixfmt pyEnv rnix-lsp stylua treefmt ];
-        commands = [{
-          name = "sysdo";
-          package = sysdo;
-          category = "utilities";
-          help = "perform actions on this repository";
-        }];
-      };
-    });
+
+      devShells = eachSystemMap defaultSystems (system:
+        let
+          pkgs = import inputs.stable {
+            inherit system;
+            overlays = [ inputs.devshell.overlay ];
+          };
+          pyEnv = (pkgs.python3.withPackages
+            (ps: with ps; [ typer colorama shellingham ]));
+          sysdo = pkgs.writeShellScriptBin "sysdo" ''
+            cd $PRJ_ROOT && ${pyEnv}/bin/python3 bin/do.py $@
+          '';
+        in
+        {
+          default = pkgs.devshell.mkShell {
+            packages = with pkgs; [ nixfmt pyEnv rnix-lsp stylua treefmt ];
+            commands = [{
+              name = "sysdo";
+              package = sysdo;
+              category = "utilities";
+              help = "perform actions on this repository";
+            }];
+          };
+        }
+      );
+    };
 }
