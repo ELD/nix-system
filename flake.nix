@@ -20,6 +20,7 @@
     stable.url = "github:nixos/nixpkgs/nixos-21.11";
     nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    small.url = "github:nixos/nixpkgs/nixos-unstable-small";
 
     flake-compat = {
       url = "github:edolstra/flake-compat";
@@ -108,17 +109,16 @@
         , extraModules ? [ ]
         }:
         homeManagerConfiguration rec {
-          inherit system username;
           pkgs = import nixpkgs {
             inherit system;
           };
-          homeDirectory = "${homePrefix system}/${username}";
           extraSpecialArgs = { inherit inputs nixpkgs stable; };
-          configuration = {
-            imports = baseModules ++ extraModules ++ [
-              ./modules/overlays.nix
-            ];
-          };
+          modules = [{
+            home = {
+              inherit username;
+              homeDirectory = "${homePrefix system}/${username}";
+            };
+          }] ++ baseModules ++ extraModules ++ [ ./modules/overlays.nix ];
         };
     in
     {
