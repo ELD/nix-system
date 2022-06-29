@@ -2,7 +2,7 @@
 let
   homeDir = config.home.homeDirectory;
   pyEnv = (pkgs.stable.python3.withPackages
-    (ps: with ps; [ typer colorama shellingham ]));
+    (ps: with ps; [ black pylint typer colorama shellingham ]));
   sysDoNixos =
     "[[ -d /etc/nixos ]] && cd /etc/nixos && ${pyEnv}/bin/python bin/do.py $@";
   sysDoDarwin =
