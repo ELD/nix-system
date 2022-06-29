@@ -87,7 +87,7 @@ in
         yarn
         yt-dlp
         yq
-        # yubikey-manager
+        yubikey-manager
       ];
     };
 }
