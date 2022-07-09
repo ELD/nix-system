@@ -101,8 +101,12 @@
         , baseModules ? [
             ./modules/home-manager
             {
-              home.sessionVariables = {
-                NIX_PATH = "nixpkgs=${nixpkgs}:stable=${stable}\${NIX_PATH+:}$NIX_PATH";
+              home = {
+                inherit username;
+                homeDirectory = "${homePrefix system}/${username}";
+                sessionVariables = {
+                  NIX_PATH = "nixpkgs=${nixpkgs}:stable=${stable}\${NIX_PATH:+:}$NIX_PATH";
+                };
               };
             }
           ]
@@ -113,12 +117,7 @@
             inherit system;
           };
           extraSpecialArgs = { inherit inputs nixpkgs stable; };
-          modules = [{
-            home = {
-              inherit username;
-              homeDirectory = "${homePrefix system}/${username}";
-            };
-          }] ++ baseModules ++ extraModules ++ [ ./modules/overlays.nix ];
+          modules = baseModules ++ extraModules ++ [ ./modules/overlays.nix ];
         };
     in
     {
@@ -152,7 +151,6 @@
             ./profiles/personal.nix
             ./modules/darwin/apps.nix
             ./modules/darwin/network/personal.nix
-            { homebrew.brewPrefix = "/opt/homebrew/bin"; }
           ];
         };
         rhombus = mkDarwinConfig {
