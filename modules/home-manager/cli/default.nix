@@ -158,19 +158,44 @@ in
         profileExtra = ''
           ${lib.optionalString pkgs.stdenvNoCC.isLinux "[[ -e /etc/profile ]] && source /etc/profile"}
         '';
-        plugins = with pkgs; [
-          (mkZshPlugin { pkg = zsh-autopair; })
-          (mkZshPlugin { pkg = zsh-completions; })
-          (mkZshPlugin { pkg = zsh-autosuggestions; })
-          (mkZshPlugin {
-            pkg = zsh-fast-syntax-highlighting;
-            file = "fast-syntax-highlighting.plugin.zsh";
-          })
-          (mkZshPlugin { pkg = zsh-history-substring-search; })
-        ];
-        oh-my-zsh = {
+        prezto = {
           enable = true;
-          plugins = [ "git" "sudo" "gpg-agent" "vi-mode" ];
+          caseSensitive = false;
+          color = true;
+          extraModules = [ "attr" "stat" ];
+          extraFunctions = [ "zargs" "zmv" ];
+          pmodules = [
+            "environment"
+            "terminal"
+            "editor"
+            "history"
+            "directory"
+            "spectrum"
+            "utility"
+            "completion"
+            "archive"
+            "docker"
+            "git"
+            "homebrew"
+            "osx"
+            "autosuggestions"
+            "syntax-highlighting"
+            "history-substring-search"
+            "command-not-found"
+            "gpg"
+          ];
+          editor = {
+            keymap = "vi";
+            dotExpansion = true;
+            promptContext = true;
+          };
+          gnuUtility.prefix = "g";
+          macOS.dashKeyword = "mand";
+          terminal = {
+            autoTitle = true;
+            windowTitleFormat = "%n@%m: %s %d";
+            tabTitleFormat = "%m: %s %d";
+          };
         };
       };
     zoxide.enable = true;
