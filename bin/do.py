@@ -70,6 +70,14 @@ def select(nixos: bool, darwin: bool, home_manager: bool):
 
 
 @app.command(
+        help="resets macOS LaunchPad",
+        hidden=PLATFORM != FlakeOutputs.DARWIN,
+)
+def reset_launchpad():
+    run_cmd("defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock")
+
+
+@app.command(
     help="builds an initial configuration",
     hidden=PLATFORM == FlakeOutputs.NIXOS,
 )
