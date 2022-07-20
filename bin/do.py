@@ -78,6 +78,14 @@ def reset_launchpad():
 
 
 @app.command(
+        help="displays which packages depend on the specified package",
+        hidden=PLATFORM != FlakeOutputs.DARWIN,
+)
+def why_depends(package: str = typer.Argument(None, help="the desired package to find out what depends on it")):
+        run_cmd(f"nix why-depends --derivation --impure .#homeConfigurations.server.activationPackage .#homeConfigurations.server.pkgs.{package}")
+
+
+@app.command(
     help="builds an initial configuration",
     hidden=PLATFORM == FlakeOutputs.NIXOS,
 )
