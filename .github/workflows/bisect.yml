@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         configuration:
-          - nixosConfigurations.phil.config.system.build.toplevel
+          - nixosConfigurations.indium.config.system.build.toplevel
           - homeManagerConfigurations.server.activationPackage
     steps:
     - uses: actions/checkout@v3

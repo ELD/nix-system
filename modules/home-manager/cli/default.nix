@@ -83,8 +83,10 @@ in
     gpg = {
       enable = true;
       scdaemonSettings = {
+        reader-port = "Yubico Yubi";
+      } // (lib.optionalAttrs pkgs.stdenvNoCC.isDarwin {
         disable-ccid = true;
-      };
+      });
     };
     ssh = {
       enable = true;
@@ -202,5 +204,9 @@ in
     starship = {
       enable = true;
     };
+  };
+  services = {
+    gpg-agent.enableScDaemon = if pkgs.stdenvNoCC.isDarwin then false else true;
+    gpg-agent.enableSshSupport = true;
   };
 }

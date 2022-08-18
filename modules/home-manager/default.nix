@@ -51,7 +51,7 @@ in
         cachix
         comma
         circleci-cli
-        pkgs.coreutils-full
+        coreutils-full
         curl
         fd
         flyctl
@@ -79,7 +79,7 @@ in
         sccache
         sysdo
         tealdeer
-        tectonic
+        # tectonic
         terraform
         treefmt
         vagrant
@@ -87,6 +87,10 @@ in
         yt-dlp
         yq
         yubikey-manager
-      ];
+      ] ++ (lib.lists.optionals (pkgs.system == "x86_64-linux") [
+        alacritty
+        efitools
+        openssl
+      ]);
     };
 }

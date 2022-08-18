@@ -67,9 +67,7 @@
               \ 'coc-prettier',
               \ 'coc-pyright',
               \ 'coc-rust-analyzer',
-              \ 'coc-sh',
               \ 'coc-texlab',
-              \ 'coc-tsserver',
               \ 'coc-word',
               \ 'coc-yaml',
               \ ]

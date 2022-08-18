@@ -17,10 +17,18 @@
     flake-utils.url = "github:numtide/flake-utils";
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
-    stable.url = "github:nixos/nixpkgs/nixos-21.11";
+    stable.url = "github:nixos/nixpkgs/nixos-22.05";
     nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     small.url = "github:nixos/nixpkgs/nixos-unstable-small";
+
+    bootis = {
+      url = "gitlab:K900/bootis";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+    };
 
     flake-compat = {
       url = "github:edolstra/flake-compat";
@@ -33,6 +41,7 @@
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.utils.follows = "flake-utils";
     };
   };
 
@@ -76,7 +85,7 @@
       # specified overlays, hardware modules, and any extraModules applied
       mkNixosConfig =
         { system ? "x86_64-linux"
-        , nixpkgs ? inputs.nixos-unstable
+        , nixpkgs ? inputs.nixpkgs
         , stable ? inputs.stable
         , hardwareModules
         , baseModules ? [
@@ -84,11 +93,20 @@
             ./modules/nixos
           ]
         , extraModules ? [ ]
+        , hostname ? ""
         }:
-        nixosSystem {
-          inherit system;
+        with import ./utils/mk-config.nix {
+          inherit inputs system;
+          lib = nixpkgs.lib;
+          patches = f:
+            with f; [
+              (pr "172237")
+            ];
+          toPatch = inputs.nixpkgs;
+        };
+        patchNixosSystem {
+          inherit hostname system;
           modules = baseModules ++ hardwareModules ++ extraModules;
-          specialArgs = { inherit inputs nixpkgs stable; };
         };
 
       # generate a home-manager configuration usable on any unix system
@@ -140,6 +158,7 @@
             name = system;
             value = {
               server = self.homeConfigurations.server.activationPackage;
+              indium = self.nixosConfigurations.indium.config.system.build.toplevel;
             };
           })
           nixpkgs.lib.platforms.linux)
@@ -164,10 +183,27 @@
         };
       };
 
+      nixosConfigurations = {
+        indium = mkNixosConfig {
+          hostname = "indium";
+          hardwareModules = [
+            ./modules/hardware/indium.nix
+            inputs.nixos-hardware.nixosModules.framework
+          ];
+          extraModules = [
+            ./profiles/personal.nix
+          ];
+        };
+      };
+
       homeConfigurations = {
         server = mkHomeConfig {
           username = "edattore";
-          extraModules = [ ./profiles/home-manager/personal.nix ];
+          nixpkgs = inputs.small;
+          extraModules = [
+              ./profiles/home-manager/personal.nix
+              ./modules/nixos/home-manager.nix
+          ];
         };
         darwinServer = mkHomeConfig {
           username = "edattore";
@@ -179,21 +215,27 @@
           system = "aarch64-darwin";
           extraModules = [ ./profiles/home-manager/personal.nix ];
         };
-        workServer = mkHomeConfig {
-          username = "edattore";
-          extraModules = [ ./profiles/home-manager/work.nix ];
-        };
-        vagrant = mkHomeConfig {
-          username = "vagrant";
-          extraModules = [ ./profiles/home-manager/personal.nix ];
-        };
       };
 
       devShells = eachSystemMap defaultSystems (system:
         let
           pkgs = import inputs.stable {
             inherit system;
-            overlays = [ inputs.devshell.overlay ];
+            overlays = [
+              inputs.devshell.overlay
+              (final: prev: {
+                python39 = prev.python39.override {
+                  packageOverrides = (pfinal: pprev: {
+                    pyopenssl = pprev.pyopenssl.overrideAttrs (old: {
+                      meta = old.meta // { broken = false; };
+                    });
+                    typer = pprev.typer.overrideAttrs (old: {
+                      meta = old.meta // { broken = false; };
+                    });
+                  });
+                };
+              })
+            ];
           };
           pyEnv = (pkgs.python3.withPackages
             (ps: with ps; [ black pylint typer colorama shellingham ]));
