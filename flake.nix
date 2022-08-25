@@ -22,12 +22,10 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     small.url = "github:nixos/nixpkgs/nixos-unstable-small";
 
-    bootis = {
-      url = "gitlab:K900/bootis";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-      };
+    nixpkgs-bootspec.url = "github:DeterminateSystems/nixpkgs/bootspec-rfc";
+    bootspec-secureboot = {
+      url = "github:DeterminateSystems/bootspec-secureboot/main";
+      inputs.nixpkgs.follows = "nixpkgs-bootspec";
     };
 
     flake-compat = {
@@ -48,6 +46,7 @@
   outputs =
     inputs@{ self
     , nixpkgs
+    , nixpkgs-bootspec
     , darwin
     , home-manager
     , flake-utils
@@ -60,6 +59,7 @@
       inherit (flake-utils.lib) eachSystemMap defaultSystems;
       inherit (builtins) listToAttrs map;
 
+      bootspecNixosSystem = nixpkgs-bootspec.lib.nixosSystem;
       isDarwin = system: (builtins.elem system nixpkgs.lib.platforms.darwin);
       homePrefix = system: if isDarwin system then "/Users" else "/home";
 
@@ -85,7 +85,7 @@
       # specified overlays, hardware modules, and any extraModules applied
       mkNixosConfig =
         { system ? "x86_64-linux"
-        , nixpkgs ? inputs.nixpkgs
+        , nixpkgs ? inputs.nixpkgs-bootspec
         , stable ? inputs.stable
         , hardwareModules
         , baseModules ? [
@@ -93,20 +93,12 @@
             ./modules/nixos
           ]
         , extraModules ? [ ]
-        , hostname ? ""
         }:
-        with import ./utils/mk-config.nix {
-          inherit inputs system;
-          lib = nixpkgs.lib;
-          patches = f:
-            with f; [
-              (pr "172237")
-            ];
-          toPatch = inputs.nixpkgs;
-        };
-        patchNixosSystem {
-          inherit hostname system;
+        bootspecNixosSystem {
+          inherit system;
+          baseModules = import (nixpkgs-bootspec.outPath + "/nixos/modules/module-list.nix");
           modules = baseModules ++ hardwareModules ++ extraModules;
+          specialArgs = { inherit inputs nixpkgs-bootspec stable; };
         };
 
       # generate a home-manager configuration usable on any unix system
@@ -185,7 +177,6 @@
 
       nixosConfigurations = {
         indium = mkNixosConfig {
-          hostname = "indium";
           hardwareModules = [
             ./modules/hardware/indium.nix
             inputs.nixos-hardware.nixosModules.framework
@@ -201,8 +192,8 @@
           username = "edattore";
           nixpkgs = inputs.small;
           extraModules = [
-              ./profiles/home-manager/personal.nix
-              ./modules/nixos/home-manager.nix
+            ./profiles/home-manager/personal.nix
+            ./modules/nixos/home-manager.nix
           ];
         };
         darwinServer = mkHomeConfig {

@@ -1,26 +1,24 @@
 {
   "nodes": {
-    "bootis": {
+    "bootspec-secureboot": {
       "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
         "nixpkgs": [
-          "nixpkgs"
+          "nixpkgs-bootspec"
         ]
       },
       "locked": {
-        "lastModified": 1659887090,
-        "narHash": "sha256-ejqZtbVBDK9+0SZ+vdVDs6Vus3EIbDAqpU6dm56JehE=",
-        "owner": "K900",
-        "repo": "bootis",
-        "rev": "56e9fb88075b2be0014590ef0fa30307ad684684",
-        "type": "gitlab"
+        "lastModified": 1660764944,
+        "narHash": "sha256-AK+B/v5XFvqnJ2D6B8tsb0tXAz48Y5CznaT7oTwvZFU=",
+        "owner": "DeterminateSystems",
+        "repo": "bootspec-secureboot",
+        "rev": "d008548f7e058a35c1f3e0747f143c960ac969f6",
+        "type": "github"
       },
       "original": {
-        "owner": "K900",
-        "repo": "bootis",
-        "type": "gitlab"
+        "owner": "DeterminateSystems",
+        "ref": "main",
+        "repo": "bootspec-secureboot",
+        "type": "github"
       }
     },
     "darwin": {
@@ -180,6 +178,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-bootspec": {
+      "locked": {
+        "lastModified": 1660331947,
+        "narHash": "sha256-AgX1L2FCHoXQ1MZyzhg2r04wb5aP6KoVA/fDIdhVFb4=",
+        "owner": "DeterminateSystems",
+        "repo": "nixpkgs",
+        "rev": "e1e8c44614df3a7c66c1206ab52f7753f1bffea5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "DeterminateSystems",
+        "ref": "bootspec-rfc",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1661300288,
@@ -198,7 +212,7 @@
     },
     "root": {
       "inputs": {
-        "bootis": "bootis",
+        "bootspec-secureboot": "bootspec-secureboot",
         "darwin": "darwin",
         "devshell": "devshell",
         "flake-compat": "flake-compat",
@@ -207,6 +221,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixos-unstable": "nixos-unstable",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-bootspec": "nixpkgs-bootspec",
         "small": "small",
         "stable": "stable"
       }
