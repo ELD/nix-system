@@ -5,33 +5,23 @@
 
 {
   imports = [
-      (modulesPath + "/installer/scan/not-detected.nix")
-      inputs.bootis.nixosModules.default
-    ];
+    (modulesPath + "/installer/scan/not-detected.nix")
+    inputs.bootspec-secureboot.nixosModules.bootspec-secureboot
+  ];
 
-  # Boot options; bootis for Secure Boot :D
+  # Boot options; bootspec-secureboot for Secure Boot signing :D
   boot = {
     loader = {
-      bootis = {
+      secureboot = {
         enable = true;
-
-        extraConfig = {
-          use_nvram = "false";
-
-          resolution = "max";
-          use_graphics_for = [ "linux" "windows" ];
-
-          showtools = [ "memtest" "firmware" ];
-          scanfor = [ "manual" "external" ];
-        };
-
-        extraEntries."Windows 11" = {
-          loader = "/EFI/Microsoft/Boot/bootmgfw.efi";
-        };
+        signingKeyPath = "/dummy/path/key";
+        signingCertPath = "/dummy/path/cert";
       };
 
-      efi.canTouchEfiVariables = false;
-      efi.efiSysMountPoint = "/boot/efi";
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot/efi";
+      };
     };
 
 
@@ -57,13 +47,15 @@
 
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/4c600d55-1def-4ca8-9695-37c1fe69eeb1";
+    {
+      device = "/dev/disk/by-uuid/4c600d55-1def-4ca8-9695-37c1fe69eeb1";
       fsType = "ext4";
     };
 
 
   fileSystems."/boot/efi" =
-    { device = "/dev/disk/by-uuid/35FF-1BA6";
+    {
+      device = "/dev/disk/by-uuid/35FF-1BA6";
       fsType = "vfat";
     };
 

@@ -10,7 +10,6 @@ let
   sysdo = (pkgs.writeShellScriptBin "sysdo" ''
     (${sysDoNixos}) || (${sysDoDarwin})
   '');
-
 in
 {
   imports = [ ./vim ./cli ./dotfiles ./git.nix ./helix ];
@@ -91,6 +90,7 @@ in
         alacritty
         efitools
         openssl
+        sbctl
       ]);
     };
 }
