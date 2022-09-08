@@ -82,9 +82,7 @@ in
     htop.enable = true;
     gpg = {
       enable = true;
-      scdaemonSettings = {
-        reader-port = "Yubico Yubi";
-      } // (lib.optionalAttrs pkgs.stdenvNoCC.isDarwin {
+      scdaemonSettings = { } // (lib.optionalAttrs pkgs.stdenvNoCC.isDarwin {
         disable-ccid = true;
       });
     };

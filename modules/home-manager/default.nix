@@ -1,18 +1,9 @@
-{ inputs, config, pkgs, ... }:
+{ self, inputs, config, pkgs, ... }:
 let
   homeDir = config.home.homeDirectory;
-  pyEnv = (pkgs.stable.python3.withPackages
-    (ps: with ps; [ black pylint typer colorama shellingham ]));
-  sysDoNixos =
-    "[[ -d /etc/nixos ]] && cd /etc/nixos && ${pyEnv}/bin/python bin/do.py $@";
-  sysDoDarwin =
-    "[[ -d ${homeDir}/.nixpkgs ]] && cd ${homeDir}/.nixpkgs && ${pyEnv}/bin/python bin/do.py $@";
-  sysdo = (pkgs.writeShellScriptBin "sysdo" ''
-    (${sysDoNixos}) || (${sysDoDarwin})
-  '');
 in
 {
-  imports = [ ./vim ./cli ./dotfiles ./git.nix ./helix ];
+  imports = [ ./nvim ./cli ./dotfiles ./git.nix ./helix ];
 
   programs.home-manager = {
     enable = true;
@@ -87,7 +78,9 @@ in
         yq
         yubikey-manager
       ] ++ (lib.lists.optionals (pkgs.system == "x86_64-linux") [
+        # _1password-gui
         alacritty
+        cider
         efitools
         openssl
         sbctl

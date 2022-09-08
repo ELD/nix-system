@@ -3,7 +3,29 @@
     ../common.nix
   ];
 
-  networking.hostName = "indium"; # Define your hostname.
+  hm = { pkgs, ... }: {
+    imports = [ ../home-manager/gnome ];
+
+    programs.alacritty = {
+      enable = true;
+      settings =
+        {
+          key_bindings = [
+            {
+              key = "K";
+              mods = "Control";
+              chars = "\\x0c";
+            }
+            {
+              key = "K";
+              mods = "Control";
+              action = "ClearHistory";
+            }
+          ];
+        };
+    };
+  };
+
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -19,18 +41,23 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.utf8";
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-  services.gnome3.gnome-keyring.enable = lib.mkForce false;
-
   # Configure keymap in X11
   services.xserver = {
+    # Enable the X11 windowing system.
+    enable = true;
     layout = "us";
     xkbVariant = "";
+
+    libinput.enable = true;
+
+    # Enable the GNOME Desktop Environment.
+    displayManager = {
+      gdm = {
+        enable = true;
+        wayland = true;
+      };
+    };
+    desktopManager.gnome.enable = true;
   };
 
   # Enable CUPS to print documents.
@@ -57,11 +84,17 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.edattore = {
-    isNormalUser = true;
-    description = "Eric Dattore";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [ ];
+  users = {
+    users = {
+      edattore = {
+        isNormalUser = true;
+        description = "Eric Dattore";
+        extraGroups = [ "networkmanager" "wheel" ];
+        hashedPassword = "$6$66tB9.ICPVgLalwX$zKQCNv0mZRAv8kiXYQfavELSeLHKMUwir7wCrLp9f4ar9Letv8Xr2mHWzolWItlr/VbQoRindubqtJon2iMzy0";
+      };
+    };
+    defaultUserShell = pkgs.zsh;
+    mutableUsers = false;
   };
 
   # Allow unfree packages
@@ -70,6 +103,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    discord
+    firefox
     firefox-devedition-bin
     git
     gnome.gnome-tweaks
@@ -77,7 +112,7 @@
     gnomeExtensions.pop-shell
     pop-gtk-theme
     pop-icon-theme
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    thunderbird
     vscode
     wget
   ];
@@ -98,7 +133,7 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -112,5 +147,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.05"; # Did you read the comment?
+  system.stateVersion = "22.11"; # Did you read the comment?
 }

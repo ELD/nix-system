@@ -14,9 +14,11 @@
     loader = {
       secureboot = {
         enable = true;
-        signingKeyPath = "/dummy/path/key";
-        signingCertPath = "/dummy/path/cert";
+        signingKeyPath = "/etc/secureboot/keys/db/db.key";
+        signingCertPath = "/etc/secureboot/keys/db/db.pem";
       };
+
+      # systemd-boot.enable = true;
 
       efi = {
         canTouchEfiVariables = true;
@@ -25,6 +27,7 @@
     };
 
 
+    # initrd.secrets doesn't work with Secure Boot at present
     # initrd.secrets = {
     #   "/crypto_keyfile.bin" = /mnt/crypto_keyfile.bin;
     # };
@@ -35,36 +38,28 @@
     kernelParams = [ "acpi_osi=linux" "module_blacklist=hid_sensor_hub" ];
     extraModulePackages = [ ];
     kernelPackages = pkgs.linuxPackages_5_18;
-
-    initrd.luks.devices."luks-61a669ff-f7b4-4954-ab40-c59051fe23cc".device = "/dev/disk/by-uuid/61a669ff-f7b4-4954-ab40-c59051fe23cc";
-
-    # # Enable swap on luks
-    initrd.luks.devices."luks-91bbc690-f7b7-45f0-8ca6-c954df5d647d".device = "/dev/disk/by-uuid/91bbc690-f7b7-45f0-8ca6-c954df5d647d";
-    # initrd.luks.devices."luks-91bbc690-f7b7-45f0-8ca6-c954df5d647d".keyFile = "/crypto_keyfile.bin";
-    initrd.luks.reusePassphrases = true;
   };
 
-
-
   fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/4c600d55-1def-4ca8-9695-37c1fe69eeb1";
+    { device = "/dev/disk/by-uuid/b0e66f50-0fc1-4345-8a95-5ffcb0d903d5";
       fsType = "ext4";
     };
 
+  boot.initrd.luks.devices."luks-98b8bb07-c23c-413b-ae08-51d86fe2d645".device = "/dev/disk/by-uuid/98b8bb07-c23c-413b-ae08-51d86fe2d645";
+
+  # Enable swap on luks
+  boot.initrd.luks.devices."luks-ccdab096-edfd-4f41-84a0-247f02c4979d".device = "/dev/disk/by-uuid/ccdab096-edfd-4f41-84a0-247f02c4979d";
+  # boot.initrd.luks.devices."luks-ccdab096-edfd-4f41-84a0-247f02c4979d".keyFile = "/crypto_keyfile.bin";
+  boot.initrd.luks.reusePassphrases = true;
 
   fileSystems."/boot/efi" =
-    {
-      device = "/dev/disk/by-uuid/35FF-1BA6";
+    { device = "/dev/disk/by-uuid/5495-95AC";
       fsType = "vfat";
     };
 
-  swapDevices = [
-    {
-      device = "/swapfile";
-      size = 32768;
-    }
-  ];
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/79745d34-ac66-45e7-bab1-7d6d04cf0603"; }
+    ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

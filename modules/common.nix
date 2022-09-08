@@ -1,5 +1,7 @@
-{ inputs, config, lib, pkgs, ... }: {
-  imports = [ ./primary.nix ./nixpkgs.nix ./overlays.nix ];
+{ self, inputs, config, lib, pkgs, ... }: {
+  imports = [ ./primary.nix ./nixpkgs.nix ];
+
+  nixpkgs.overlays = builtins.attrValues self.overlays;
 
   programs.zsh = {
     enable = true;
@@ -20,7 +22,7 @@
 
   # let nix manage home-manager profiles and use global nixpkgs
   home-manager = {
-    extraSpecialArgs = { inherit inputs; };
+    extraSpecialArgs = { inherit self inputs; };
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "backup";
@@ -30,7 +32,7 @@
   environment = {
     systemPackages = with pkgs; [
       # editors
-      neovim
+      # pkgs.nixos-unstable.neovim
 
       # standard toolset
       coreutils-full
@@ -54,6 +56,7 @@
       home-manager.source = "${inputs.home-manager}";
       nixpkgs.source = "${pkgs.path}";
       stable.source = "${inputs.stable}";
+      nixos-unstable.source = "${inputs.nixos-unstable}";
     };
     # list of acceptable shells in /etc/shells
     shells = with pkgs; [ bash zsh fish ];
@@ -61,6 +64,14 @@
 
   fonts = {
     fontDir.enable = true;
-    fonts = with pkgs; [ jetbrains-mono recursive open-sans (nerdfonts.override { fonts = [ "CascadiaCode" ]; }) ];
+    fonts = with pkgs; [
+      jetbrains-mono
+      recursive
+      open-sans
+      (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
+      (callPackage ./packages/dank-mono.nix {
+        filePath = ../dank-mono.zip;
+      })
+    ];
   };
 }

@@ -13,25 +13,14 @@
   };
 
   inputs = {
-    devshell.url = "github:numtide/devshell";
-    flake-utils.url = "github:numtide/flake-utils";
-    nixos-hardware.url = "github:nixos/nixos-hardware";
-
+    # package repos
     stable.url = "github:nixos/nixpkgs/nixos-22.05";
     nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     small.url = "github:nixos/nixpkgs/nixos-unstable-small";
 
-    nixpkgs-bootspec.url = "github:DeterminateSystems/nixpkgs/bootspec-rfc";
-    bootspec-secureboot = {
-      url = "github:DeterminateSystems/bootspec-secureboot/main";
-      inputs.nixpkgs.follows = "nixpkgs-bootspec";
-    };
-
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
+    # system management
+    nixos-hardware.url = "github:nixos/nixos-hardware";
     darwin = {
       url = "github:kclejeune/nix-darwin/backup-etc";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -41,27 +30,35 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
     };
+
+    # shell stuff
+    flake-utils.url = "github:numtide/flake-utils";
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Bootspec/Secure Boot
+    bootspec-secureboot = {
+      url = "github:DeterminateSystems/bootspec-secureboot/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     inputs@{ self
-    , nixpkgs
-    , nixpkgs-bootspec
     , darwin
     , home-manager
     , flake-utils
     , ...
     }:
     let
-      inherit (darwin.lib) darwinSystem;
-      inherit (nixpkgs.lib) nixosSystem;
-      inherit (home-manager.lib) homeManagerConfiguration;
-      inherit (flake-utils.lib) eachSystemMap defaultSystems;
-      inherit (builtins) listToAttrs map;
+      inherit (flake-utils.lib) eachSystemMap;
 
-      bootspecNixosSystem = nixpkgs-bootspec.lib.nixosSystem;
-      isDarwin = system: (builtins.elem system nixpkgs.lib.platforms.darwin);
+      isDarwin = system: (builtins.elem system inputs.nixpkgs.lib.platforms.darwin);
       homePrefix = system: if isDarwin system then "/Users" else "/home";
+      defaultSystems = [ "aarch64-linux" "aarch64-darwin" "x86_64-darwin" "x86_64-linux" ];
 
       # generate a base darwin configuration with the
       # specified hostname, overlays, and any extraModules applied
@@ -75,30 +72,41 @@
           ]
         , extraModules ? [ ]
         }:
-        darwinSystem {
+        inputs.darwin.lib.darwinSystem {
           inherit system;
           modules = baseModules ++ extraModules;
-          specialArgs = { inherit inputs nixpkgs stable; };
+          specialArgs = { inherit self inputs nixpkgs; };
         };
 
       # generate a base nixos configuration with the
       # specified overlays, hardware modules, and any extraModules applied
       mkNixosConfig =
         { system ? "x86_64-linux"
-        , nixpkgs ? inputs.nixpkgs-bootspec
+        , nixpkgs ? inputs.nixpkgs
         , stable ? inputs.stable
         , hardwareModules
         , baseModules ? [
             home-manager.nixosModules.home-manager
             ./modules/nixos
+            ({ config, pkgs, ... }: 
+                {
+                  nixpkgs.overlays = builtins.attrValues self.overlays;
+                }
+            )
           ]
         , extraModules ? [ ]
+        , hostname ? ""
         }:
-        bootspecNixosSystem {
-          inherit system;
-          baseModules = import (nixpkgs-bootspec.outPath + "/nixos/modules/module-list.nix");
+        with import ./utils/mk-config.nix {
+          inherit self inputs system;
+          patches = f:
+            with f; [
+              (pr "172237") # Bootspec RFC
+            ];
+        };
+        mkNixOSSystem {
+          inherit system hostname;
           modules = baseModules ++ hardwareModules ++ extraModules;
-          specialArgs = { inherit inputs nixpkgs-bootspec stable; };
         };
 
       # generate a home-manager configuration usable on any unix system
@@ -122,18 +130,16 @@
           ]
         , extraModules ? [ ]
         }:
-        homeManagerConfiguration rec {
-          pkgs = import nixpkgs {
-            inherit system;
-          };
-          extraSpecialArgs = { inherit inputs nixpkgs stable; };
+        inputs.home-manager.lib.homeManagerConfiguration rec {
+          pkgs = import nixpkgs { inherit system; };
+          extraSpecialArgs = { inherit self inputs nixpkgs; };
           modules = baseModules ++ extraModules ++ [ ./modules/overlays.nix ];
         };
     in
     {
-      checks = listToAttrs (
+      checks = builtins.listToAttrs (
         # darwin checks
-        (map
+        (builtins.map
           (system: {
             name = system;
             value = {
@@ -143,9 +149,9 @@
                 self.homeConfigurations.darwinServer.activationPackage;
             };
           })
-          nixpkgs.lib.platforms.darwin) ++
+          inputs.nixpkgs.lib.platforms.darwin) ++
         # linux checks
-        (map
+        (builtins.map
           (system: {
             name = system;
             value = {
@@ -153,7 +159,7 @@
               indium = self.nixosConfigurations.indium.config.system.build.toplevel;
             };
           })
-          nixpkgs.lib.platforms.linux)
+          inputs.nixpkgs.lib.platforms.linux)
       );
 
       darwinConfigurations = {
@@ -178,22 +184,22 @@
       nixosConfigurations = {
         indium = mkNixosConfig {
           hardwareModules = [
-            ./modules/hardware/indium.nix
             inputs.nixos-hardware.nixosModules.framework
           ];
           extraModules = [
             ./profiles/personal.nix
           ];
+          hostname = "indium";
         };
       };
 
       homeConfigurations = {
         server = mkHomeConfig {
+          nixpkgs = inputs.nixpkgs;
+          stable = inputs.stable;
           username = "edattore";
-          nixpkgs = inputs.small;
           extraModules = [
             ./profiles/home-manager/personal.nix
-            ./modules/nixos/home-manager.nix
           ];
         };
         darwinServer = mkHomeConfig {
@@ -210,41 +216,105 @@
 
       devShells = eachSystemMap defaultSystems (system:
         let
-          pkgs = import inputs.stable {
+          pkgs = import inputs.nixpkgs {
             inherit system;
-            overlays = [
-              inputs.devshell.overlay
-              (final: prev: {
-                python39 = prev.python39.override {
-                  packageOverrides = (pfinal: pprev: {
-                    pyopenssl = pprev.pyopenssl.overrideAttrs (old: {
-                      meta = old.meta // { broken = false; };
-                    });
-                    typer = pprev.typer.overrideAttrs (old: {
-                      meta = old.meta // { broken = false; };
-                    });
-                  });
-                };
-              })
-            ];
+            overlays = builtins.attrValues self.overlays;
           };
-          pyEnv = (pkgs.python3.withPackages
-            (ps: with ps; [ black pylint typer colorama shellingham ]));
-          sysdo = pkgs.writeShellScriptBin "sysdo" ''
-            cd $PRJ_ROOT && ${pyEnv}/bin/python3 bin/do.py $@
-          '';
         in
         {
           default = pkgs.devshell.mkShell {
-            packages = with pkgs; [ nixfmt pyEnv rnix-lsp stylua treefmt ];
+            packages = with pkgs; [
+              nixfmt
+              pre-commit
+              rnix-lsp
+              self.packages.${system}.pyEnv
+              stylua
+              treefmt
+            ];
             commands = [{
               name = "sysdo";
-              package = sysdo;
+              package = self.packages.${system}.sysdo;
               category = "utilities";
               help = "perform actions on this repository";
             }];
           };
-        }
-      );
+        });
+
+        packages = eachSystemMap defaultSystems (system:
+          let
+            pkgs = import inputs.nixpkgs {
+              inherit system;
+              overlays = builtins.attrValues self.overlays;
+            };
+          in
+          rec {
+            pyEnv = pkgs.python3.withPackages
+              (ps: with ps; [ black typer colorama shellingham ]);
+            sysdo = pkgs.writeScriptBin "sysdo" ''
+              #! ${pyEnv}/bin/python3
+              ${builtins.readFile ./bin/do.py}
+            '';
+          });
+
+        apps = eachSystemMap defaultSystems (system: rec {
+          sysdo = {
+            type = "app";
+            program = "${self.package.${system}.sysdo}/bin/sysdo";
+          };
+          default = sysdo;
+        });
+
+        overlays = {
+          channels = final: prev: {
+            stable = import inputs.stable { system = prev.system; config.allowUnfree = true; };
+            small = import inputs.small { system = prev.system; config.allowUnfree = true; };
+            nixos-unstable = import inputs.nixos-unstable { system = prev.system; config.allowUnfree = true; };
+          };
+          python =
+            let
+              overrides = (pfinal: pprev: {
+                pyopenssl = pprev.pyopenssl.overrideAttrs
+                  (old: { meta = old.meta // { broken = false; }; });
+              });
+            in
+            final: prev: {
+              python3 = prev.python3.override {
+                packageOverrides = overrides;
+              };
+              python39 = prev.python39.override {
+                packageOverrides = overrides;
+              };
+              python310 = prev.python310.override {
+                packageOverrides = overrides;
+              };
+            };
+            circleci-cli = final: prev: {
+              circleci-cli =
+                let
+                  version = "0.1.20144";
+                  pname = "circleci";
+                  src = final.pkgs.fetchFromGitHub {
+                    owner = "CircleCI-Public";
+                    repo = "${pname}-cli";
+                    rev = "v${version}";
+                    sha256 = "sha256-69GGJfnOHry+N3hKZapKz6eFSerqIHt4wRAhm/q/SOQ=";
+                  };
+                in
+                (prev.circleci-cli.override {
+                  buildGoModule = args: final.pkgs.buildGoModule.override { go = final.pkgs.go_1_17; } (args // {
+                    inherit src version;
+                    vendorSha256 = "sha256-7u2y1yBVpXf+D19tslD4s3B1KmABl4OWNzzLaBNL/2U=";
+                  });
+                });
+            };
+          sbctl = final: prev: {
+            sbctl = final.callPackage ./modules/packages/sbctl.nix { };
+          };
+          extraPackages = final: prev: {
+            sysdo = self.packages.${prev.system}.sysdo;
+            pyEnv = self.packages.${prev.system}.pyEnv;
+          };
+          devshell = inputs.devshell.overlay;
+        };
     };
 }
