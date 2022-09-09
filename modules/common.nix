@@ -69,9 +69,10 @@
       recursive
       open-sans
       (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
+    ] ++ (lib.lists.optionals (builtins.getEnv "CI" != "") [
       (callPackage ./packages/dank-mono.nix {
         filePath = ../dank-mono.zip;
       })
-    ];
+    ]);
   };
 }
