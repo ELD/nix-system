@@ -105,13 +105,13 @@
   environment.systemPackages = with pkgs; [
     discord
     firefox
-    firefox-devedition-bin
     git
     gnome.gnome-tweaks
     gnomeExtensions.dash-to-dock
     gnomeExtensions.pop-shell
     pop-gtk-theme
     pop-icon-theme
+    pop-launcher
     thunderbird
     vscode
     wget
