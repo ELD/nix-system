@@ -8,7 +8,6 @@ let
     pr = id: sha: builtins.fetchurl {
       url = "https://github.com/NixOS/nixpkgs/pull/${builtins.toString id}.patch";
       sha256 = sha;
-      # sha256 = "sha256:0xnv3zzj74vk2yfim03szh65hqinwapixsshdzmigh96qiigwf6a";
     };
   };
   pkgsForPatching = import inputs.nixpkgs { inherit system; };
