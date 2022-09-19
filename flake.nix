@@ -15,8 +15,8 @@
   inputs = {
     # package repos
     stable.url = "github:nixos/nixpkgs/nixos-22.05";
-    nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixos-unstable.url = "github:ELD/nixpkgs/nixos-unstable-bootspec-patched";
+    nixpkgs.url = "github:ELD/nixpkgs/nixpkgs-unstable-bootspec-patched";
     small.url = "github:nixos/nixpkgs/nixos-unstable-small";
 
     # system management
@@ -97,19 +97,21 @@
         , extraModules ? [ ]
         , hostname ? ""
         }:
-          with import ./utils/mk-config.nix
-            {
-              inherit self inputs system;
-              patches = f:
-                with f; [
-                  (pr "172237" "sha256:0xnv3zzj74vk2yfim03szh65hqinwapixsshdzmigh96qiigwf6a") # Bootspec RFC
-                  (pr "176303" "sha256:1ns4kxsb3jdwf5ad0b40dblabz91m2j4086i8sr3i9dasibg48xh") # Pop Launcher PR
-                ];
-            };
-          mkNixOSSystem {
-            inherit system hostname;
-            modules = baseModules ++ hardwareModules ++ extraModules;
-          };
+        inputs.nixos-unstable.lib.nixosSystem {
+          inherit system;
+          modules =
+            [
+              {
+                networking.hostName = hostname;
+              }
+            ]
+            ++ [ ./modules/hardware/indium.nix ]
+            ++ baseModules
+            ++ hardwareModules
+            ++ extraModules;
+          specialArgs = { inherit self inputs nixpkgs; };
+        };
+
 
       # generate a home-manager configuration usable on any unix system
       # with overlays and any extraModules applied
