@@ -188,7 +188,7 @@
       nixosConfigurations = {
         indium = mkNixosConfig {
           hardwareModules = [
-            inputs.nixos-hardware.nixosModules.framework
+            inputs.nixos-hardware.nixosModules.framework-12th-gen-intel
           ];
           extraModules = [
             ./profiles/personal.nix
