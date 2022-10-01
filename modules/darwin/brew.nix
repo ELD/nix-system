@@ -4,7 +4,7 @@
     autoUpdate = true;
     global = {
       brewfile = true;
-      noLock = true;
+      lockfiles = false;
     };
 
     taps = [
