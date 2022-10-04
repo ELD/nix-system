@@ -1,7 +1,10 @@
 { inputs, config, pkgs, ... }: {
   homebrew = {
     enable = true;
-    autoUpdate = true;
+    onActivation = {
+      autoUpdate = true;
+      upgrade = true;
+    };
     global = {
       brewfile = true;
       lockfiles = false;

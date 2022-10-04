@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }: {
   homebrew = {
     # Uninstall all brews that aren't in the Brewfile(s)
-    cleanup = "zap";
+    onActivation.cleanup = "zap";
 
     casks = [
       "1password-beta"
