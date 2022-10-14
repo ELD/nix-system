@@ -53,6 +53,7 @@ in
         htop
         jq
         lua5_4
+        mold
         neofetch
         nix
         nixfmt
