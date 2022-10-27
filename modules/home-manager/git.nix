@@ -14,7 +14,7 @@
       init.defaultBranch = "main";
       push.default = "current";
     };
-    ignores = [ "target/*" ".dccache" ".idea/*" ];
+    ignores = [ "target/*" ".dccache" ".idea/*" ".vscode/" ];
     aliases = {
       ci = "commit";
       co = "checkout";
