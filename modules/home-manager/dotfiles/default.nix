@@ -1,8 +1,8 @@
-{ config, pkgs, lib, ... }: {
-  home.file = { } // (lib.optionalAttrs pkgs.stdenvNoCC.isDarwin {
-    iterm2 = {
-      source = ./iterm2/com.googlecode.iterm2.plist;
-      target = "${config.home.homeDirectory}/Library/Preferences/com.googlecode.iterm2.plist";
-    };
+{ config, pkgs, lib, ... }:
+let
+  link = config.lib.file.mkOutOfStoreSymlink;
+in {
+  xdg.configFile = { } // (lib.optionalAttrs pkgs.stdenv.isDarwin {
+    "iterm2/com.googlecode.iterm2.plist".source = link ./. + "/iterm2/com.googlecode.iterm2.plist";
   });
 }
