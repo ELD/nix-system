@@ -4,7 +4,7 @@
     onActivation.cleanup = "zap";
 
     casks = [
-      "1password-beta"
+      "1password"
       "airbuddy"
       "alfred"
       "bartender"
