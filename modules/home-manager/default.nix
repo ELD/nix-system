@@ -3,7 +3,7 @@ let
   homeDir = config.home.homeDirectory;
 in
 {
-  imports = [ ./nvim ./cli ./dotfiles ./git.nix ./helix ];
+  imports = [ ./nvim ./cli ./dotfiles ./git.nix ./helix ./rust.nix ];
 
   programs.home-manager = {
     enable = true;
