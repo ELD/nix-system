@@ -4,11 +4,13 @@ orbs:
 
 executors:
   linux-machine:
+    resource_class: large
     machine:
       image: ubuntu-2004:202111-02
   macos:
+    resource_class: macos.x86.medium.gen2
     macos:
-      xcode: 13.3.0
+      xcode: 14.1.0
 
 workflows:
   build-flake:
