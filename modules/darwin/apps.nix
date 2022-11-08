@@ -32,6 +32,7 @@
       "postman"
       "screenflow"
       "sensei"
+      "sequel-pro"
       "sketch"
       "tableplus"
       "veracrypt"
