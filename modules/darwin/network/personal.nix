@@ -1,4 +1,6 @@
 { config, lib, pkgs, ... }: {
-  networking.hostName = "vanadium";
+  networking.hostName = "Vanadium";
+  networking.localHostName = "Vanadium";
+  networking.computerName = "Vanadium";
 }
 
