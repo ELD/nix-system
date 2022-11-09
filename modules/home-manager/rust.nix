@@ -9,18 +9,20 @@
     sqlx-cli
   ];
 
-  home.file.".config/cargo.toml".source = (pkgs.formats.toml {}).generate "cargo-config" {
-    target.x86_64-unknown-linux-gnu = {
-      linker = "clang";
-      rustflags = [ "-C" "link-arg=-fuse-ld=${pkgs.mold}/bin/mold" ];
-    };
-    target.aarch64-darwin-apple = {
-      linker = "clang";
-      rustflags = [ "-C" "link-arg=-fuse-ld=${pkgs.mold}/bin/mold" ];
-    };
-    target.x86_64-darwin-apple = {
-      linker = "clang";
-      rustflags = [ "-C" "link-arg=-fuse-ld=${pkgs.mold}/bin/mold" ];
+  home.file.".cargo/config.toml".source = (pkgs.formats.toml {}).generate "cargo-config" {
+    target = {
+      x86_64-unknown-linux-gnu = {
+        linker = "clang";
+        rustflags = [ "-C" "link-arg=-fuse-ld=${pkgs.mold}/bin/mold" ];
+      };
+      aarch64-apple-darwin = {
+        linker = "clang";
+        rustflags = [ "-C" "link-arg=-fuse-ld=${pkgs.mold}/bin/mold" ];
+      };
+      x86_64-apple-darwin = {
+        linker = "clang";
+        rustflags = [ "-C" "link-arg=-fuse-ld=${pkgs.mold}/bin/mold" ];
+      };
     };
     alias = {
       b = "build";
