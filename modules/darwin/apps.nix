@@ -7,6 +7,7 @@
       "1password"
       "airbuddy"
       "alfred"
+      "audacity"
       "bartender"
       "bettertouchtool"
       "boop"
