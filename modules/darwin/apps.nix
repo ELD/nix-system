@@ -11,6 +11,7 @@
       "bartender"
       "bettertouchtool"
       "boop"
+      "coconutbattery"
       "cyberduck"
       "daisydisk"
       "dash"
