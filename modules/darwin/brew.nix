@@ -7,7 +7,6 @@
     };
     global = {
       brewfile = true;
-      lockfiles = false;
     };
 
     taps = [

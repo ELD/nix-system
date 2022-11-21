@@ -21,19 +21,18 @@ in
 
   homebrew.brewPrefix = if isAarch64 || isAarch32 then "/opt/homebrew/bin" else "/usr/local/bin";
 
-  nix.nixPath = [ "darwin=/etc/${config.environment.etc.darwin.target}" ];
-  nix.extraOptions = ''
-    extra-platforms = x86_64-darwin aarch64-darwin
-  '';
-
+  nix = {
+    configureBuildUsers = true;
+    nixPath = [ "darwin=/etc/${config.environment.etc.darwin.target}" ];
+    extraOptions = ''
+      extra-platforms = x86_64-darwin aarch64-darwin
+    '';
+  };
   # enable gnupg
   programs.gnupg = {
     agent.enable = true;
     agent.enableSSHSupport = true;
   };
-
-  # auto manage nixbld users with nix darwin
-  nix.configureBuildUsers = true;
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;

@@ -11,7 +11,7 @@
     settings = {
       trusted-users = [ "${config.user.name}" "root" "@admin" "@wheel" ];
       max-jobs = 8;
-      substituters =
+      trusted-substituters =
         [ "https://cache.nixos.org" "https://nix-community.cachix.org/" "https://eld.cachix.org" ];
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
