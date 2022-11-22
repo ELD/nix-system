@@ -3,11 +3,13 @@
 
   nixConfig = {
     substituters =
-      [ "https://cache.nixos.org" "https://nix-community.cachix.org/" "https://eld.cachix.org" ];
+      [
+        "https://cache.nixos.org"
+        "https://eld.cachix.org"
+      ];
 
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "eld.cachix.org-1:ddhUxMCAKZVJOVPUcGGWwB5UZfhlhG12rN4GRz8D7sk="
     ];
   };
@@ -138,41 +140,47 @@
           extraSpecialArgs = { inherit self inputs nixpkgs; };
           modules = baseModules ++ extraModules;
         };
+
+      mkChecks = { arch, os, hostname, username ? "edattore" }: {
+        "${arch}-${os}" = {
+          "${hostname}_${os}" = (if os == "darwin" then self.darwinConfigurations else self.nixosConfigurations)."${hostname}@${arch}-${os}".config.system.build.toplevel;
+          "${username}_home" = self.homeConfigurations."${username}@${arch}-${os}".activationPackage;
+          devShell = self.devShells."${arch}-${os}".default;
+        };
+      };
     in
     {
-      checks = builtins.listToAttrs (
-        # darwin checks
-        (builtins.map
-          (system: {
-            name = system;
-            value = {
-              darwin =
-                self.darwinConfigurations.rhombus.config.system.build.toplevel;
-              darwinServer =
-                self.homeConfigurations.darwinServer.activationPackage;
-            };
-          })
-          inputs.nixpkgs.lib.platforms.darwin) ++
-        # linux checks
-        (builtins.map
-          (system: {
-            name = system;
-            value = {
-              server = self.homeConfigurations.server.activationPackage;
-              indium = self.nixosConfigurations.indium.config.system.build.toplevel;
-            };
-          })
-          inputs.nixpkgs.lib.platforms.linux)
-      );
+      checks = { } //
+        (mkChecks {
+          arch = "aarch64";
+          os = "darwin";
+          hostname = "vanadium";
+        }) //
+        (mkChecks {
+          arch = "x86_64";
+          os = "darwin";
+          hostname = "rhombus";
+        }) //
+        (mkChecks {
+          arch = "aarch64";
+          os = "linux";
+          hostname = "indium";
+        }) //
+        (mkChecks {
+          arch = "x86_64";
+          os = "linux";
+          hostname = "indium";
+        });
 
       darwinConfigurations = {
-        vanadium = mkDarwinConfig {
+        "vanadium@aarch64-darwin" = mkDarwinConfig {
+          system = "aarch64-darwin";
           extraModules = [
             ./profiles/personal.nix
             ./modules/darwin/network/personal.nix
           ];
         };
-        rhombus = mkDarwinConfig {
+        "rhombus@x86_64-darwin" = mkDarwinConfig {
           system = "x86_64-darwin";
           extraModules = [
             ./profiles/work.nix
@@ -182,7 +190,18 @@
       };
 
       nixosConfigurations = {
-        indium = mkNixosConfig {
+        "indium@x86_64-linux" = mkNixosConfig {
+          system = "x86_64-linux";
+          hardwareModules = [
+            inputs.nixos-hardware.nixosModules.framework-12th-gen-intel
+          ];
+          extraModules = [
+            ./profiles/personal.nix
+          ];
+          hostname = "indium";
+        };
+        "indium@aarch64-linux" = mkNixosConfig {
+          system = "aarch64-linux";
           hardwareModules = [
             inputs.nixos-hardware.nixosModules.framework-12th-gen-intel
           ];
@@ -194,22 +213,28 @@
       };
 
       homeConfigurations = {
-        server = mkHomeConfig {
-          nixpkgs = inputs.nixpkgs;
-          stable = inputs.stable;
+        "edattore@x86_64-linux" = mkHomeConfig {
+          system = "x86_64-linux";
           username = "edattore";
           extraModules = [
             ./profiles/home-manager/personal.nix
           ];
         };
-        darwinServer = mkHomeConfig {
+        "edattore@aarch64-linux" = mkHomeConfig {
+          system = "aarch64-linux";
           username = "edattore";
+          extraModules = [
+            ./profiles/home-manager/personal.nix
+          ];
+        };
+        "edattore@x86_64-darwin" = mkHomeConfig {
           system = "x86_64-darwin";
+          username = "edattore";
           extraModules = [ ./profiles/home-manager/personal.nix ];
         };
-        darwinServerM1 = mkHomeConfig {
-          username = "edattore";
+        "edattore@aarch64-darwin" = mkHomeConfig {
           system = "aarch64-darwin";
+          username = "edattore";
           extraModules = [ ./profiles/home-manager/personal.nix ];
         };
       };

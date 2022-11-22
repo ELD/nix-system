@@ -55,6 +55,7 @@ in
         cachix
         comma
         circleci-cli
+        cirrus-cli
         coreutils-full
         curl
         fd
