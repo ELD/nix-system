@@ -3,11 +3,24 @@ let
   homeDir = config.home.homeDirectory;
 in
 {
-  imports = [ ./nvim ./cli ./dotfiles ./git.nix ./helix ./rust.nix ];
+  imports = [
+    ./bat.nix
+    ./direnv.nix
+    ./dotfiles
+    ./exa.nix
+    ./fzf.nix
+    ./git.nix
+    ./go.nix
+    ./gpg.nix
+    ./helix.nix
+    ./nvim
+    ./rust.nix
+    ./shell.nix
+    ./ssh.nix
+  ];
 
-  programs.home-manager = {
-    enable = true;
-    path = "${config.home.homeDirectory}/.nixpkgs/modules/home-manager";
+  nixpkgs.config = {
+    allowUnfree = true;
   };
 
   home =
@@ -29,15 +42,16 @@ in
         VISUAL = "nvim";
         CLICOLOR = 1;
         LSCOLORS = "ExFxBxDxCxegedabagacad";
-        KAGGLE_CONFIG_DIR = "${config.xdg.configHome}/kaggle";
-        JAVA_HOME = "${pkgs.openjdk.home}";
         NODE_PATH = "${NODE_GLOBAL}/lib";
-        # HOMEBREW_NO_AUTO_UPDATE = 1;
       };
-      sessionPath = [ "${NODE_GLOBAL}/bin" ];
+      sessionPath = [
+        "${NODE_GLOBAL}/bin"
+        "${config.home.homeDirectory}/.rd/bin"
+      ];
 
       # define package definitions for current user environment
       packages = with pkgs; [
+        age
         cachix
         comma
         circleci-cli
@@ -50,16 +64,13 @@ in
         gnugrep
         gnupg
         gnused
-        htop
-        jq
-        lua5_4
+        luajit
         mold
         neofetch
         nix
         nixfmt
         nixpkgs-fmt
         nodejs_latest
-        openjdk
         openssh
         pandoc
         postgresql_14
@@ -70,8 +81,8 @@ in
         sccache
         sysdo
         tealdeer
-        # tectonic
         terraform
+        tree
         treefmt
         vagrant
         yarn
@@ -87,4 +98,22 @@ in
         sbctl
       ]);
     };
+
+  programs = {
+    home-manager = {
+      enable = true;
+      path = "${config.home.homeDirectory}/.nixpkgs/modules/home-manager";
+    };
+    dircolors.enable = true;
+    htop.enable = true;
+    java.enable = true;
+    jq.enable = true;
+    less.enable = true;
+    man.enable = true;
+    nix-index.enable = true;
+    starship.enable = true;
+    yt-dlp.enable = true;
+    zathura.enable = true;
+    zoxide.enable = true;
+  };
 }

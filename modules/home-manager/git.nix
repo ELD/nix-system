@@ -2,6 +2,7 @@
   home.packages = [ pkgs.github-cli ];
   programs.git = {
     userName = "Eric Dattore";
+    enable = true;
     extraConfig = {
       credential.helper =
         if pkgs.stdenvNoCC.isDarwin then
@@ -19,6 +20,7 @@
       ci = "commit";
       co = "checkout";
       fix = "commit --amend --no-edit";
+      ignore = "!gi() { curl -sL https://www.toptal.com/developers/gitignore/api/$@ ;}; gi";
       oops = "reset HEAD~1";
       please = "push --force-with-lease";
     };
