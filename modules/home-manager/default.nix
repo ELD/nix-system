@@ -43,6 +43,7 @@ in
         CLICOLOR = 1;
         LSCOLORS = "ExFxBxDxCxegedabagacad";
         NODE_PATH = "${NODE_GLOBAL}/lib";
+        JAVA_HOME = "${pkgs.jdk}";
       };
       sessionPath = [
         "${NODE_GLOBAL}/bin"
@@ -65,6 +66,7 @@ in
         gnugrep
         gnupg
         gnused
+        jdk
         luajit
         mold
         neofetch
@@ -73,7 +75,6 @@ in
         nixpkgs-fmt
         nodejs_latest
         openssh
-        pandoc
         postgresql_14
         pre-commit
         ranger
@@ -107,7 +108,6 @@ in
     };
     dircolors.enable = true;
     htop.enable = true;
-    java.enable = true;
     jq.enable = true;
     less.enable = true;
     man.enable = true;
