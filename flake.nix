@@ -173,7 +173,6 @@
         vanadium = mkDarwinConfig {
           extraModules = [
             ./profiles/personal.nix
-            ./modules/darwin/apps.nix
             ./modules/darwin/network/personal.nix
           ];
         };
@@ -181,8 +180,6 @@
           system = "x86_64-darwin";
           extraModules = [
             ./profiles/work.nix
-            ./modules/darwin/apps-work.nix
-            ./modules/darwin/apps.nix
             ./modules/darwin/network/work.nix
           ];
         };
