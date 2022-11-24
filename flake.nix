@@ -35,7 +35,15 @@
 
     # shell stuff
     flake-utils.url = "github:numtide/flake-utils";
-    devshell.url = "github:numtide/devshell";
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Bootspec/Secure Boot
     bootspec-secureboot = {
@@ -49,6 +57,7 @@
     , darwin
     , home-manager
     , flake-utils
+    , treefmt-nix
     , ...
     }:
     let
@@ -248,13 +257,13 @@
         in
         {
           default = pkgs.devshell.mkShell {
-            packages = with pkgs; [
-              nixfmt
-              pre-commit
-              rnix-lsp
+            packages = [
+              pkgs.nixfmt
+              pkgs.pre-commit
+              pkgs.rnix-lsp
               self.packages.${system}.pyEnv
-              stylua
-              treefmt
+              pkgs.stylua
+              (treefmt-nix.lib.mkWrapper pkgs (import ./treefmt.nix))
             ];
             commands = [{
               name = "sysdo";
@@ -265,29 +274,33 @@
           };
         });
 
-      packages = eachSystemMap defaultSystems (system:
-        let
-          pkgs = import inputs.nixpkgs {
-            inherit system;
-            overlays = builtins.attrValues self.overlays;
-          };
-        in
-        rec {
-          pyEnv = pkgs.python3.withPackages
-            (ps: with ps; [ black typer colorama shellingham ]);
-          sysdo = pkgs.writeScriptBin "sysdo" ''
-            #! ${pyEnv}/bin/python3
-            ${builtins.readFile ./bin/do.py}
-          '';
-        });
+      packages = eachSystemMap
+        defaultSystems
+        (system:
+          let
+            pkgs = import inputs.nixpkgs {
+              inherit system;
+              overlays = builtins.attrValues self.overlays;
+            };
+          in
+          rec {
+            pyEnv = pkgs.python3.withPackages
+              (ps: with ps; [ black typer colorama shellingham ]);
+            sysdo = pkgs.writeScriptBin "sysdo" ''
+              #! ${pyEnv}/bin/python3
+              ${builtins.readFile ./bin/do.py}
+            '';
+          });
 
-      apps = eachSystemMap defaultSystems (system: rec {
-        sysdo = {
-          type = "app";
-          program = "${self.package.${system}.sysdo}/bin/sysdo";
-        };
-        default = sysdo;
-      });
+      apps = eachSystemMap
+        defaultSystems
+        (system: rec {
+          sysdo = {
+            type = "app";
+            program = "${self.package.${system}.sysdo}/bin/sysdo";
+          };
+          default = sysdo;
+        });
 
       overlays = {
         channels = final: prev: {
@@ -295,24 +308,6 @@
           small = import inputs.small { system = prev.system; config.allowUnfree = true; };
           nixos-unstable = import inputs.nixos-unstable { system = prev.system; config.allowUnfree = true; };
         };
-        python =
-          let
-            overrides = (pfinal: pprev: {
-              pyopenssl = pprev.pyopenssl.overrideAttrs
-                (old: { meta = old.meta // { broken = false; }; });
-            });
-          in
-          final: prev: {
-            python3 = prev.python3.override {
-              packageOverrides = overrides;
-            };
-            python39 = prev.python39.override {
-              packageOverrides = overrides;
-            };
-            python310 = prev.python310.override {
-              packageOverrides = overrides;
-            };
-          };
         sbctl = final: prev: {
           sbctl = final.callPackage ./modules/packages/sbctl.nix { };
         };
