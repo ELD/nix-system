@@ -1,28 +1,33 @@
-{ config, pkgs, inputs, lib, ... }: {
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}: {
   imports = [
     ../common.nix
   ];
 
-  hm = { pkgs, ... }: {
-    imports = [ ../home-manager/gnome ];
+  hm = {pkgs, ...}: {
+    imports = [../home-manager/gnome];
 
     programs.alacritty = {
       enable = true;
-      settings =
-        {
-          key_bindings = [
-            {
-              key = "K";
-              mods = "Control";
-              chars = "\\x0c";
-            }
-            {
-              key = "K";
-              mods = "Control";
-              action = "ClearHistory";
-            }
-          ];
-        };
+      settings = {
+        key_bindings = [
+          {
+            key = "K";
+            mods = "Control";
+            chars = "\\x0c";
+          }
+          {
+            key = "K";
+            mods = "Control";
+            action = "ClearHistory";
+          }
+        ];
+      };
     };
   };
 
@@ -89,7 +94,7 @@
       edattore = {
         isNormalUser = true;
         description = "Eric Dattore";
-        extraGroups = [ "networkmanager" "wheel" ];
+        extraGroups = ["networkmanager" "wheel"];
         hashedPassword = "$6$66tB9.ICPVgLalwX$zKQCNv0mZRAv8kiXYQfavELSeLHKMUwir7wCrLp9f4ar9Letv8Xr2mHWzolWItlr/VbQoRindubqtJon2iMzy0";
       };
     };

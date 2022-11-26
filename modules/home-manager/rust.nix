@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     cargo-nextest
     cargo-expand
@@ -13,15 +13,15 @@
     target = {
       x86_64-unknown-linux-gnu = {
         linker = "clang";
-        rustflags = [ "-C" "link-arg=-fuse-ld=${pkgs.mold}/bin/mold" ];
+        rustflags = ["-C" "link-arg=-fuse-ld=${pkgs.mold}/bin/mold"];
       };
       aarch64-apple-darwin = {
         linker = "clang";
-        rustflags = [ "-C" "link-arg=-fuse-ld=${pkgs.mold}/bin/mold" ];
+        rustflags = ["-C" "link-arg=-fuse-ld=${pkgs.mold}/bin/mold"];
       };
       x86_64-apple-darwin = {
         linker = "clang";
-        rustflags = [ "-C" "link-arg=-fuse-ld=${pkgs.mold}/bin/mold" ];
+        rustflags = ["-C" "link-arg=-fuse-ld=${pkgs.mold}/bin/mold"];
       };
     };
     alias = {

@@ -1,26 +1,26 @@
-{ lib
-, pkgs
-, fetchzip
-, filePath
-}:
-let
+{
+  lib,
+  pkgs,
+  fetchzip,
+  filePath,
+}: let
   version = "1.0";
 in
-pkgs.stdenvNoCC.mkDerivation {
-  name = "dank-mono-${version}";
-  dontConfigure = true;
-  src = filePath;
+  pkgs.stdenvNoCC.mkDerivation {
+    name = "dank-mono-${version}";
+    dontConfigure = true;
+    src = filePath;
 
-  nativeBuildInputs = with pkgs; [ unzip ];
+    nativeBuildInputs = with pkgs; [unzip];
 
-  sourceRoot = ".";
+    sourceRoot = ".";
 
-  installPhase = ''
-    mkdir -p $out/share/fonts/opentype
-    cp DankMono/OpenType-PS/*.otf $out/share/fonts/opentype
-  '';
+    installPhase = ''
+      mkdir -p $out/share/fonts/opentype
+      cp DankMono/OpenType-PS/*.otf $out/share/fonts/opentype
+    '';
 
-  meta = {
-    description = "Dank Mono fontface";
-  };
-}
+    meta = {
+      description = "Dank Mono fontface";
+    };
+  }

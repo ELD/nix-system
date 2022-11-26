@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   user.name = "edattore";
-  hm = { imports = [ ./home-manager/work.nix ]; };
+  hm = {imports = [./home-manager/work.nix];};
 }

@@ -1,26 +1,27 @@
-{ self
-, inputs
-, patches ? f: [ ]
-, system ? "x86_64-linux"
-}:
-let
+{
+  self,
+  inputs,
+  patches ? f: [],
+  system ? "x86_64-linux",
+}: let
   patchFetchers = {
-    pr = id: sha: builtins.fetchurl {
-      url = "https://github.com/NixOS/nixpkgs/pull/${builtins.toString id}.patch";
-      sha256 = sha;
-    };
+    pr = id: sha:
+      builtins.fetchurl {
+        url = "https://github.com/NixOS/nixpkgs/pull/${builtins.toString id}.patch";
+        sha256 = sha;
+      };
   };
-  pkgsForPatching = import inputs.nixpkgs { inherit system; };
+  pkgsForPatching = import inputs.nixpkgs {inherit system;};
   patchesToApply = patches patchFetchers;
   patchedNixpkgsDrv =
-    if patchesToApply != [ ]
+    if patchesToApply != []
     then
       pkgsForPatching.applyPatches
-        {
-          name = "nixpkgs-patched";
-          src = inputs.nixpkgs;
-          patches = patchesToApply;
-        }
+      {
+        name = "nixpkgs-patched";
+        src = inputs.nixpkgs;
+        patches = patchesToApply;
+      }
     else inputs.nixpkgs;
   patchedNixpkgs = import patchedNixpkgsDrv;
   patchedNixpkgsFor = system:
@@ -28,20 +29,18 @@ let
       inherit system;
       config.allowUnfree = true;
     };
-  mkNixOSSystem =
-    { hostname
-    , modules ? [ ]
-    , system ? "x86_64-linux"
-    ,
-    }:
-    let
-      machineSpecificConfig = ../modules/hardware + "/${hostname}.nix";
-      machineSpecificModules =
-        if builtins.pathExists machineSpecificConfig
-        then [ machineSpecificConfig ]
-        else [ ];
-      pkgs = patchedNixpkgsFor system;
-    in
+  mkNixOSSystem = {
+    hostname,
+    modules ? [],
+    system ? "x86_64-linux",
+  }: let
+    machineSpecificConfig = ../modules/hardware + "/${hostname}.nix";
+    machineSpecificModules =
+      if builtins.pathExists machineSpecificConfig
+      then [machineSpecificConfig]
+      else [];
+    pkgs = patchedNixpkgsFor system;
+  in
     import "${patchedNixpkgsDrv}/nixos/lib/eval-config.nix" {
       inherit system;
       modules =
@@ -52,16 +51,15 @@ let
 
             nix = {
               registry.nixpkgs.flake = patchedNixpkgsDrv;
-              nixPath = [ "nixpkgs=${patchedNixpkgsDrv}" ];
+              nixPath = ["nixpkgs=${patchedNixpkgsDrv}"];
             };
           }
         ]
         ++ machineSpecificModules
         ++ modules;
-      specialArgs = { inherit self inputs; };
+      specialArgs = {inherit self inputs;};
     };
-in
-{
+in {
   inherit mkNixOSSystem;
   pkgs = with system; patchedNixpkgsFor system;
 }

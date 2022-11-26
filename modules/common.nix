@@ -1,5 +1,12 @@
-{ self, inputs, config, lib, pkgs, ... }: {
-  imports = [ ./primaryUser.nix ./nixpkgs.nix ];
+{
+  self,
+  inputs,
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [./primaryUser.nix ./nixpkgs.nix];
 
   nixpkgs.overlays = builtins.attrValues self.overlays;
 
@@ -12,8 +19,10 @@
   user = {
     description = "Eric Dattore";
     home = "${
-        if pkgs.stdenvNoCC.isDarwin then "/Users" else "/home"
-      }/${config.user.name}";
+      if pkgs.stdenvNoCC.isDarwin
+      then "/Users"
+      else "/home"
+    }/${config.user.name}";
     shell = pkgs.zsh;
   };
 
@@ -22,7 +31,7 @@
 
   # let nix manage home-manager profiles and use global nixpkgs
   home-manager = {
-    extraSpecialArgs = { inherit self inputs; };
+    extraSpecialArgs = {inherit self inputs;};
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "backup";
@@ -59,20 +68,22 @@
       nixos-unstable.source = "${inputs.nixos-unstable}";
     };
     # list of acceptable shells in /etc/shells
-    shells = with pkgs; [ bash zsh fish ];
+    shells = with pkgs; [bash zsh fish];
   };
 
   fonts = {
     fontDir.enable = true;
-    fonts = with pkgs; [
-      jetbrains-mono
-      recursive
-      open-sans
-      (nerdfonts.override { fonts = [ "CascadiaCode" ]; })
-    ] ++ (lib.lists.optionals (builtins.getEnv "CI" != "") [
-      (callPackage ./packages/dank-mono.nix {
-        filePath = ../dank-mono.zip;
-      })
-    ]);
+    fonts = with pkgs;
+      [
+        jetbrains-mono
+        recursive
+        open-sans
+        (nerdfonts.override {fonts = ["CascadiaCode"];})
+      ]
+      ++ (lib.lists.optionals (builtins.getEnv "CI" != "") [
+        (callPackage ./packages/dank-mono.nix {
+          filePath = ../dank-mono.zip;
+        })
+      ]);
   };
 }

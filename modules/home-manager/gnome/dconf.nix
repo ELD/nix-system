@@ -1,27 +1,26 @@
-{ lib, ... }:
-with lib.hm.gvariant;
-{
+{lib, ...}:
+with lib.hm.gvariant; {
   dconf.settings = {
     "org/gnome/mutter" = {
-      experimental-features = [ "scale-monitor-framebuffer" ];
+      experimental-features = ["scale-monitor-framebuffer"];
       dynamic-workspaces = true;
       overlay-key = "";
     };
 
     "org/gnome/shell/keybindings" = {
-      toggle-overview = [ ];
-      toggle-overlay = [ ];
+      toggle-overview = [];
+      toggle-overlay = [];
     };
 
     "org/gnome/desktop/wm/keybindings" = {
-      close = [ "<Super>q" ];
-      switch-to-workspace-1 = [ "<Super>1" ];
-      switch-to-workspace-2 = [ "<Super>2" ];
-      switch-to-workspace-3 = [ "<Super>3" ];
-      switch-to-workspace-4 = [ "<Super>4" ];
+      close = ["<Super>q"];
+      switch-to-workspace-1 = ["<Super>1"];
+      switch-to-workspace-2 = ["<Super>2"];
+      switch-to-workspace-3 = ["<Super>3"];
+      switch-to-workspace-4 = ["<Super>4"];
     };
 
-    "org/gnome/system/location" = { enabled = true; };
+    "org/gnome/system/location" = {enabled = true;};
 
     "org/gnome/desktop/peripherals/touchpad" = {
       disable-while-typing = false;
@@ -43,7 +42,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/pop-shell" = {
-      activate-launcher = [ "<Super>slash" "<Super>space" ];
+      activate-launcher = ["<Super>slash" "<Super>space"];
       activate-hint = true;
       gap-inner = mkUint32 1;
       gap-outer = mkUint32 1;
@@ -52,7 +51,7 @@ with lib.hm.gvariant;
       show-title = true;
       smart-gaps = false;
       tile-by-default = true;
-      tile-enter = [ "<Super>KP_Enter" "<Super>r" ];
+      tile-enter = ["<Super>KP_Enter" "<Super>r"];
     };
   };
 }

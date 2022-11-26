@@ -1,4 +1,10 @@
-{ inputs, config, pkgs, lib, ... }: {
+{
+  inputs,
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   homebrew = {
     enable = true;
     onActivation = {
@@ -23,49 +29,51 @@
       "mongodb/brew"
     ];
 
-    brews = [ ];
+    brews = [];
 
-    casks = [
-      "1password"
-      "airbuddy"
-      "alfred"
-      "audacity"
-      "bartender"
-      "bettertouchtool"
-      "boop"
-      "coconutbattery"
-      "cyberduck"
-      "daisydisk"
-      "dash"
-      "deckset"
-      "discord"
-      "docker"
-      "element"
-      "elgato-wave-link"
-      "firefox-developer-edition"
-      "google-chrome"
-      "gpg-suite"
-      "hookshot"
-      "istat-menus"
-      "iterm2"
-      "jetbrains-toolbox"
-      "macfuse"
-      "numi"
-      "obsidian"
-      "paw"
-      "postman"
-      "screenflow"
-      "sensei"
-      "sketch"
-      "tableplus"
-      "veracrypt"
-      "visual-studio-code"
-      "zoom"
-      "zotero"
-    ] ++ (lib.lists.optionals (pkgs.system == "x86_64-darwin") [
-      "intel-power-gadget"
-      "virtualbox"
-    ]);
+    casks =
+      [
+        "1password"
+        "airbuddy"
+        "alfred"
+        "audacity"
+        "bartender"
+        "bettertouchtool"
+        "boop"
+        "coconutbattery"
+        "cyberduck"
+        "daisydisk"
+        "dash"
+        "deckset"
+        "discord"
+        "docker"
+        "element"
+        "elgato-wave-link"
+        "firefox-developer-edition"
+        "google-chrome"
+        "gpg-suite"
+        "hookshot"
+        "istat-menus"
+        "iterm2"
+        "jetbrains-toolbox"
+        "macfuse"
+        "numi"
+        "obsidian"
+        "paw"
+        "postman"
+        "screenflow"
+        "sensei"
+        "sketch"
+        "tableplus"
+        "veracrypt"
+        "visual-studio-code"
+        "zoom"
+        "zotero"
+      ]
+      ++ (lib.lists.optionals (pkgs.system == "x86_64-darwin") [
+        "intel-power-gadget"
+        "virtualbox"
+      ]);
 
     masApps = {
       "1Blocker" = 1365531024;

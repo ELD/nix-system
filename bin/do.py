@@ -325,8 +325,8 @@ def reset_launchpad():
 
 
 @app.command(
-        help="resets macOS LaunchPad",
-        hidden=PLATFORM != FlakeOutputs.DARWIN,
+    help="resets macOS LaunchPad",
+    hidden=PLATFORM != FlakeOutputs.DARWIN,
 )
 def reset_launchpad():
     run_cmd(["defaults", "write", "com.apple.dock ResetLaunchPad", "-bool", "true"])

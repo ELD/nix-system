@@ -1,21 +1,25 @@
-{ config, lib, pkgs, ... }: {
-  home.packages = [ pkgs.github-cli ];
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  home.packages = [pkgs.github-cli];
   programs.git = {
     userName = "Eric Dattore";
     enable = true;
     extraConfig = {
       credential.helper =
-        if pkgs.stdenvNoCC.isDarwin then
-          "osxkeychain"
-        else
-          "cache --timeout=1000000000";
+        if pkgs.stdenvNoCC.isDarwin
+        then "osxkeychain"
+        else "cache --timeout=1000000000";
       http.sslVerify = true;
       pull.rebase = false;
       commit.verbose = true;
       init.defaultBranch = "main";
       push.default = "current";
     };
-    ignores = [ "target/*" ".dccache" ".idea/*" ".vscode/" ];
+    ignores = ["target/*" ".dccache" ".idea/*" ".vscode/"];
     aliases = {
       ci = "commit";
       co = "checkout";
