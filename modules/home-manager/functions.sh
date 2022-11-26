@@ -1,5 +1,7 @@
+#!/usr/bin/env bash
+
 function weather() {
-  curl wttr.in/$1
+  curl wttr.in/"$1"
 }
 
 function config() {
@@ -19,24 +21,24 @@ function service() {
 
   service=$(launchctl list | awk "/$2/ {print $NF}")
   if [[ $1 == "restart" ]]; then
-    launchctl stop $service && launchctl start $service
+    launchctl stop "$service" && launchctl start "$service"
   else
-    launchctl $1 $service
+    launchctl "$1" "$service"
   fi
 }
 
 _dopy_completion() {
   local IFS=$'
 '
-  COMPREPLY=($(env COMP_WORDS="${COMP_WORDS[*]}" \
-    COMP_CWORD=$COMP_CWORD \
-    _DO.PY_COMPLETE=complete_bash $1))
+  mapfile -t COMPREPLY < <(env COMP_WORDS="${COMP_WORDS[*]}" \
+    COMP_CWORD="$COMP_CWORD" \
+    _DO.PY_COMPLETE=complete_bash "$1")
   return 0
 }
 
 function remove_keygrips() {
   test ! "$@" && echo "Specify a key" && exit 1
-  KEYGRIPS="$(gpg --with-keygrip --list-secret-keys $@ | grep Keygrip | awk '{print $3}')"
+  KEYGRIPS="$(gpg --with-keygrip --list-secret-keys "$@" | grep Keygrip | awk '{print $3}')"
   for keygrip in $KEYGRIPS; do
     rm "$HOME"/.gnupg/private-keys-v1.d/"$keygrip".key 2>/dev/null
   done
