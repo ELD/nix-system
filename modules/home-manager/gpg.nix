@@ -6,9 +6,9 @@
 }: {
   programs.gpg = {
     enable = true;
-    # scdaemonSettings = { } // lib.optionalAttrs.stdenvNoCC.isDarwin rec {
-    #   disable-ccid = true;
-    # };
+    scdaemonSettings = { } // lib.optionalAttrs pkgs.stdenvNoCC.isDarwin rec {
+      disable-ccid = true;
+    };
   };
 
   services = {
