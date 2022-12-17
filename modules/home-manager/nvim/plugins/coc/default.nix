@@ -32,7 +32,7 @@
       coc-prettier
       coc-pyright
       coc-r-lsp
-      coc-rls
+      coc-rust-analyzer
       coc-smartf
       coc-snippets
       coc-solargraph
