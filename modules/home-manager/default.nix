@@ -73,7 +73,6 @@ in {
         gnused
         jdk
         luajit
-        mold
         neofetch
         nix
         nixfmt
