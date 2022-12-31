@@ -54,7 +54,7 @@
         "gpg-suite"
         "hookshot"
         "istat-menus"
-        "iterm2"
+        "iterm2-beta"
         "jetbrains-toolbox"
         "macfuse"
         "numi"
