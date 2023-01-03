@@ -1,11 +1,13 @@
-{lib, ...}: {
+{ lib, ... }: {
   imports = [
-    ./coc
-    ./fzf
+    ./auto-dark-mode
+    ./fugitive
+    ./lsp-zero
     ./lualine-nvim
     ./telescope
     ./theme
     ./treesitter
+    ./undotree
     ./vim-closetag
   ];
 }

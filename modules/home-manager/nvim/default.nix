@@ -1,10 +1,9 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
+{ config
+, pkgs
+, lib
+, ...
 }: {
-  imports = [./plugins];
+  imports = [ ./plugins ];
 
   lib.vimUtils = rec {
     # For plugins configured with lua
@@ -22,13 +21,14 @@
         ${readVimConfigRaw file}
       endif
     '';
-    pluginWithCfg = {
-      plugin,
-      file,
-    }: {
-      inherit plugin;
-      config = readVimConfig file;
-    };
+    pluginWithCfg =
+      { plugin
+      , file
+      ,
+      }: {
+        inherit plugin;
+        config = readVimConfig file;
+      };
   };
 
   programs.neovim = {
@@ -46,16 +46,12 @@
     plugins = with pkgs.vimPlugins; [
       # basics
       vim-sensible
-      vim-fugitive
       vim-sandwich
       vim-commentary
       vim-nix
-
-      # vim addon utilities
-      direnv-vim
-      ranger-vim
     ];
     extraConfig = ''
+      ${config.lib.vimUtils.readVimConfigRaw ./init.lua}
       ${config.lib.vimUtils.readVimConfig ./settings.lua}
       ${config.lib.vimUtils.readVimConfigRaw ./keybindings.lua}
     '';
