@@ -30,6 +30,8 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
+vim.opt.foldenable = false
+
 function vim.fn.stripTrailingWhitespace()
     local l = vim.fn.line(".")
     local c = vim.fn.col(".")
