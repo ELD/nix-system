@@ -48,6 +48,7 @@
         "discord"
         "docker"
         "element"
+        "elgato-stream-deck"
         "elgato-wave-link"
         "firefox-developer-edition"
         "google-chrome"
