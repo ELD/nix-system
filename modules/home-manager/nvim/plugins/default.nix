@@ -2,6 +2,7 @@
   imports = [
     ./auto-dark-mode
     ./fugitive
+    ./leap
     ./lsp-zero
     ./lualine-nvim
     ./telescope

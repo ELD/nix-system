@@ -49,6 +49,7 @@
       vim-sandwich
       vim-commentary
       vim-nix
+      vim-repeat # allow plugin keys to repeat
     ];
     extraConfig = ''
       ${config.lib.vimUtils.readVimConfigRaw ./init.lua}
