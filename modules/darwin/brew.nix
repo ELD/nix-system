@@ -34,6 +34,7 @@
     casks =
       [
         "1password"
+        "adobe-acrobat-reader"
         "airbuddy"
         "alfred"
         "audacity"
