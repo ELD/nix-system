@@ -50,6 +50,11 @@
       vim-commentary
       vim-nix
       vim-repeat # allow plugin keys to repeat
+
+      # GitHub Copilot
+      copilot-vim
+      # more setup needed for cmp
+      # cmp-copilot
     ];
     extraConfig = ''
       ${config.lib.vimUtils.readVimConfigRaw ./init.lua}
