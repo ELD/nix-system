@@ -16,8 +16,6 @@
   inputs = {
     # package repos
     stable.url = "github:nixos/nixpkgs/nixos-22.11";
-    # nixos-unstable.url = "github:ELD/nixpkgs/nixos-unstable-bootspec-patched";
-    # nixpkgs.url = "github:ELD/nixpkgs/nixpkgs-unstable-bootspec-patched";
     nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     small.url = "github:nixos/nixpkgs/nixos-unstable-small";
