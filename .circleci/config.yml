@@ -41,4 +41,4 @@ jobs:
             cachix use eld
       - run:
           name: Flake check
-          command: nix flake check -v --show-trace < /dev/null
+          command: nix flake check -v --show-trace --accept-flake-config
