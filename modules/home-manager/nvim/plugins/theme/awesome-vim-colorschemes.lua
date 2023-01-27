@@ -12,5 +12,4 @@ end
 
 vim.cmd([[
   syntax enable
-  colorscheme one
 ]])
