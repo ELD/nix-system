@@ -1,5 +1,7 @@
 { lib, ... }: {
   imports = [
+    ./map-leader
+
     ./auto-dark-mode
     ./fugitive
     ./leap
