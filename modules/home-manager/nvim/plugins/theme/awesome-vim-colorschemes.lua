@@ -13,4 +13,5 @@ end
 vim.cmd([[
   syntax enable
   colorscheme two-firewatch
+  background dark
 ]])
