@@ -41,7 +41,7 @@
     kernelModules = ["kvm-intel"];
     kernelParams = ["acpi_osi=linux" "module_blacklist=hid_sensor_hub"];
     extraModulePackages = [];
-    kernelPackages = pkgs.linuxPackages_6_0;
+    kernelPackages = pkgs.linuxPackages_6_1;
   };
 
   fileSystems."/" = {
