@@ -30,7 +30,6 @@
       automatic = true;
       options = "--delete-older-than 14d";
     };
-    readOnlyStore = true;
     nixPath =
       builtins.map
       (source: "${source}=/etc/${config.environment.etc.${source}.target}") [

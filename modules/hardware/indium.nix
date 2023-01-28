@@ -42,6 +42,8 @@
     kernelParams = ["acpi_osi=linux" "module_blacklist=hid_sensor_hub"];
     extraModulePackages = [];
     kernelPackages = pkgs.linuxPackages_6_1;
+
+    readOnlyNixStore = true;
   };
 
   fileSystems."/" = {
