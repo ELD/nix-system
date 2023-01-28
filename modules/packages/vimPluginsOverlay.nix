@@ -34,5 +34,12 @@ in
         rev = "9a7515c180c73ccbab9fce7124e49914f88cd763";
         sha256 = "sha256-kPq/hoSn9/xaienyVWvlhJ2unDjrjhZKdhH5XkB2U0Q";
       });
+    bgwinch = toPlugin "bgwinch"
+      (prev.fetchFromGitHub {
+        owner = "will";
+        repo = "bgwinch.nvim";
+        rev = "cafe0e1f2fb55bdd4ae515a3eca34d72e2dd5e99";
+        sha256 = "sha256-XDMMgtLM8bQqBJzkwRcD2t0IPMJ9Be2gfte7vUJiYsY=";
+      });
   });
 }

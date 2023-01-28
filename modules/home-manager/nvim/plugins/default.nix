@@ -2,7 +2,8 @@
   imports = [
     ./map-leader
 
-    ./auto-dark-mode
+    # ./auto-dark-mode
+    ./bgwinch
     ./fugitive
     ./leap
     ./lsp-zero
