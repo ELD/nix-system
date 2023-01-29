@@ -346,9 +346,6 @@
         pop-launcher = final: prev: {
           pop-launcher = final.callPackage ./modules/packages/pop-launcher.nix { };
         };
-        age = final: prev: {
-          age = final.stable.age;
-        };
         extraPackages = final: prev: {
           sysdo = self.packages.${prev.system}.sysdo;
           pyEnv = self.packages.${prev.system}.pyEnv;
