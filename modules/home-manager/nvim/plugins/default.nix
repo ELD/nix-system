@@ -1,8 +1,7 @@
 { lib, ... }: {
   imports = [
-    ./map-leader
+    ./map-leader # remap the leader key before all other plugin configs
 
-    # ./auto-dark-mode
     ./bgwinch
     ./fugitive
     ./leap
