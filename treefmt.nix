@@ -7,6 +7,7 @@
     prettier.enable = true;
     rufo.enable = true;
     shellcheck.enable = true;
-    shfmt.enable = true;
+    shfmt.enable = false;
+    stylua.enable = true;
   };
 }

@@ -1,6 +1,10 @@
 # Nix System Configuration
 
-![system build](https://github.com/kclejeune/system/workflows/system%20build/badge.svg)
+[![system build](https://api.cirrus-ci.com/github/ELD/nix-system.svg?branch=master)](https://cirrus-ci.com/github/ELD/nix-system)
+
+_Note: This repository is a manual fork of [kclejeune/system](https://github.com/kclejeune/system) that I've heavily modified.
+Because it's a manual fork, rebasing is often done by overlaying commits from upstream onto this repo. Many thanks and attribution
+to kclejeune for the original work and helping me get going with Nix, Flakes, and managing a system configuration declaratively._
 
 This repository manages system configurations for all of my
 macOS, nixOS, and linux machines.
@@ -24,7 +28,7 @@ These modules are imported into all other configurations in the common module si
 
 ```nix
 { config, pkgs, ... }: {
-  home-manager.users.kclejeune = import ./home-manager/home.nix;
+  home-manager.users.edattore = import ./home-manager/home.nix;
 }
 ```
 
@@ -41,11 +45,11 @@ When possible, home-manager functionality is extracted into [./profiles/home-man
 
 ### Non-NixOS Prerequisite: Install Nix Package Manager
 
-Run the installer script to perform a multi-user installation
-on darwin or any other type of linux. This script can optionally accept an argument with the URL to a nix installer, but will use the nixFlakes installer by default:
+Run the installer script to perform a multi-user installation on darwin or linux:
 
 ```bash
-./install-nix.sh
+sh <(curl -L https://nixos.org/nix/install) --daemon
+echo "experimental-features = nix-command flakes" | sudo tee -a /etc/nix/nix.conf
 ```
 
 Note that this step is naturally skipped on NixOS since `nix` is the package manager by default.
@@ -57,7 +61,7 @@ Note that this step is naturally skipped on NixOS since `nix` is the package man
 Follow the installation instructions, then run
 
 ```bash
-sudo nixos-install --flake github:kclejeune/system#phil
+sudo nixos-install --flake github:ELD/nix-system#indium
 ```
 
 ### Darwin/Linux
@@ -65,19 +69,19 @@ sudo nixos-install --flake github:kclejeune/system#phil
 Clone this repository into `~/.nixpkgs` with
 
 ```bash
-git clone https://github.com/kclejeune/system ~/.nixpkgs
+git clone https://github.com/ELD/nix-system ~/.nixpkgs
 ```
 
 You can bootstrap a new nix-darwin system using
 
 ```bash
-nix develop -c sysdo disksetup && sysdo bootstrap [host]
+nix --extra-experimental-features "nix-command flakes" run github:ELD/nix-system#sysdo -- bootstrap --darwin
 ```
 
 or a home-manager configuration using
 
 ```bash
-nix develop -c sysdo build --home-manager [host] && ./result/activate
+nix --extra-experimental-features "nix-command flakes" develop -c sysdo bootstrap --home-manager
 ```
 
 ## `sysdo` CLI

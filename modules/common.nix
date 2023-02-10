@@ -64,8 +64,7 @@
     etc = {
       home-manager.source = "${inputs.home-manager}";
       nixpkgs.source = "${inputs.nixpkgs}";
-      stable.source = "${inputs.stable}";
-      nixos-unstable.source = "${inputs.nixos-unstable}";
+      unstable.source = "${inputs.unstable}";
     };
     # list of acceptable shells in /etc/shells
     shells = with pkgs; [bash zsh fish];

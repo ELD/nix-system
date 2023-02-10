@@ -46,7 +46,7 @@ in {
       CLICOLOR = 1;
       LSCOLORS = "ExFxBxDxCxegedabagacad";
       NODE_PATH = "${NODE_GLOBAL}/lib";
-      JAVA_HOME = "${pkgs.jdk}";
+      JAVA_HOME = "${pkgs.jdk11}";
     };
     sessionPath = [
       "${NODE_GLOBAL}/bin"
@@ -71,7 +71,7 @@ in {
         gnugrep
         gnupg
         gnused
-        jdk
+        jdk11
         luajit
         mold
         neofetch
