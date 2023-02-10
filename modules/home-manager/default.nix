@@ -1,12 +1,8 @@
 {
-  self,
-  inputs,
   config,
   pkgs,
   ...
-}: let
-  homeDir = config.home.homeDirectory;
-in {
+}: {
   imports = [
     ./bat.nix
     ./direnv.nix
@@ -104,6 +100,9 @@ in {
         efitools
         openssl
         sbctl
+      ])
+      ++ (lib.lists.optionals (pkgs.system == "aarch64-darwin" || pkgs.system == "x86_64-darwin") [
+        dockutil
       ]);
   };
 
