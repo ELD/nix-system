@@ -194,6 +194,13 @@
           ./modules/darwin/network/personal.nix
         ];
       };
+      "ellipse@aarch64-darwin" = mkDarwinConfig {
+        system = "aarch64-darwin";
+        extraModules = [
+          ./profiles/work.nix
+          ./modules/darwin/network/work.nix
+        ];
+      };
       "rhombus@x86_64-darwin" = mkDarwinConfig {
         system = "x86_64-darwin";
         extraModules = [
@@ -291,7 +298,7 @@
       (system: rec {
         sysdo = {
           type = "app";
-          program = "${self.package.${system}.sysdo}/bin/sysdo";
+          program = "${self.packages.${system}.sysdo}/bin/sysdo";
         };
         default = sysdo;
       });
