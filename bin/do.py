@@ -320,16 +320,39 @@ def cache(cache_name: str = "eld"):
     run_cmd(cmd.split(), shell=True)
 
 
-def reset_launchpad():
-    run_cmd("defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock")
-
-
 @app.command(
     help="resets macOS LaunchPad",
     hidden=PLATFORM != FlakeOutputs.DARWIN,
 )
 def reset_launchpad():
     run_cmd(["defaults", "write", "com.apple.dock ResetLaunchPad", "-bool", "true"])
+    run_cmd(["killall", "Dock"])
+
+
+@app.command(
+    help="set macOS dock",
+    hidden=PLATFORM != FlakeOutputs.DARWIN,
+)
+def set_dock():
+    apps = [
+        "/System/Applications/Launchpad.app/",
+        "/Applications/iTerm.app/",
+        "/System/Cryptexes/App/System/Applications/Safari.app/",
+        "/System/Applications/Messages.app/",
+        "/System/Applications/Mail.app/",
+        "/Applications/UlyssesMac.app/",
+        "/Applications/Obsidian.app/",
+        "/Applications/Visual Studio Code.app/",
+        "/Applications/Things3.app/",
+        "/Applications/Slack.app/",
+        "/Applications/Discord.app/",
+        "/Applications/Fantastical.app/",
+        "/System/Applications/Music.app/",
+    ]
+    run_cmd(["dockutil", "--remove", "all", "--no-restart"])
+    for app in apps:
+        run_cmd(["dockutil", "--add", app, "--no-restart"])
+
     run_cmd(["killall", "Dock"])
 
 
