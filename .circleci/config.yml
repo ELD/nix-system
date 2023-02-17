@@ -3,22 +3,36 @@ orbs:
   nix: eld/nix@1.0.0
 
 executors:
-  linux-machine:
+  x86_64-linux:
     resource_class: large
     machine:
-      image: ubuntu-2004:202111-02
-  macos:
+      image: ubuntu-2204:current
+  aarch64-linux:
+    resource_class: arm.large
+    machine:
+      image: ubuntu-2204:current
+  x86_64-darwin:
     resource_class: macos.x86.medium.gen2
     macos:
       xcode: 14.1.0
+  aarch64-darwin:
+    resource_class: macos.m1.large.gen1
+    macos:
+      xcode: 14.0.1
 
 workflows:
   build-flake:
     jobs:
       - check-flake:
+          context:
+            - nix
           matrix:
             parameters:
-              os: [linux-machine, macos]
+              os: [x86_64-darwin
+                  # , aarch64-darwin
+                  , x86_64-linux
+                  # , aarch64-linux
+                  ]
 
 jobs:
   check-flake:
@@ -28,17 +42,15 @@ jobs:
         default: macos
         description: "Which system to run the flake check against"
     executor: << parameters.os >>
+    environment:
+      CACHIX_USER: eld
     steps:
       - checkout
       - nix/install
       - run:
-          name: Install Cachix
+          name: Install Cachix and Use Binary Cache
           command: |
-            nix-env -iA cachix -f https://cachix.org/api/v1/install
-      - run:
-          name: Cachix Use
-          command: |
-            cachix use eld
+            nix profile install github:nixos/nixpkgs/nixos-22.11#cachix && cachix use $CACHIX_USER
       - run:
           name: Flake check
-          command: nix flake check -v --show-trace --accept-flake-config
+          command: cachix watch-exec $CACHIX_USER -- nix flake check -j auto -v --show-trace --accept-flake-config
