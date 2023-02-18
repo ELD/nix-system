@@ -29,8 +29,9 @@ workflows:
           matrix:
             parameters:
               os: [x86_64-darwin
-                  # , aarch64-darwin
+                  , aarch64-darwin
                   , x86_64-linux
+                  # I don't use aarch64-linux right now, so no use turning this on, for now
                   # , aarch64-linux
                   ]
 
