@@ -20,16 +20,7 @@
       abrew = "aarch -arm64 brew";
     };
 in {
-  programs.zsh = let
-    mkZshPlugin = {
-      pkg,
-      file ? "${pkgs.pname}.plugin.zsh",
-    }: rec {
-      name = pkg.name;
-      src = pkg.src;
-      inherit file;
-    };
-  in {
+  programs.zsh = {
     enable = true;
     autocd = true;
     dotDir = ".config/zsh";

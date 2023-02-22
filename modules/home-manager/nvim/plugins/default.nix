@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{...}: {
   imports = [
     ./map-leader # remap the leader key before all other plugin configs
 

@@ -1,2 +1,2 @@
-local bgwinch = require("bgwinch");
-bgwinch.setup();
+local bgwinch = require("bgwinch")
+bgwinch.setup()

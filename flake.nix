@@ -304,20 +304,20 @@
       });
 
     overlays = {
-      channels = final: prev: {
+      channels = _final: prev: {
         unstable = import inputs.unstable {
           system = prev.system;
           config.allowUnfree = true;
         };
       };
       vimPlugins = import ./modules/packages/vimPluginsOverlay.nix;
-      sbctl = final: prev: {
+      sbctl = final: _prev: {
         sbctl = final.callPackage ./modules/packages/sbctl.nix {};
       };
-      pop-launcher = final: prev: {
+      pop-launcher = final: _prev: {
         pop-launcher = final.callPackage ./modules/packages/pop-launcher.nix {};
       };
-      extraPackages = final: prev: {
+      extraPackages = _final: prev: {
         sysdo = self.packages.${prev.system}.sysdo;
         pyEnv = self.packages.${prev.system}.pyEnv;
       };

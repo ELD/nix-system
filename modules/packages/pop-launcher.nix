@@ -1,10 +1,10 @@
-{ rustPlatform
-, fetchFromGitHub
-, lib
-, fd
-, libqalculate
+{
+  rustPlatform,
+  fetchFromGitHub,
+  lib,
+  fd,
+  libqalculate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pop-launcher";
   version = "1.2.1";
@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-cTvrq0fH057UIx/O9u8zHMsg+psMGg1q9klV5OMxtok=";
 
-  cargoBuildFlags = [ "--package" "pop-launcher-bin" ];
+  cargoBuildFlags = ["--package" "pop-launcher-bin"];
 
   postInstall = ''
     mv $out/bin/pop-launcher{-bin,}
@@ -52,7 +52,6 @@ rustPlatform.buildRustPackage rec {
     description = "Modular IPC-based desktop launcher service";
     homepage = "https://github.com/pop-os/launcher";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ samhug ];
+    maintainers = with maintainers; [samhug];
   };
 }
-

@@ -1,7 +1,7 @@
 {
   self,
   inputs,
-  patches ? f: [],
+  patches ? _f: [],
   system ? "x86_64-linux",
 }: let
   patchFetchers = {

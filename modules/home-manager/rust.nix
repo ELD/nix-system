@@ -11,15 +11,15 @@
   home.file.".cargo/config.toml".source = (pkgs.formats.toml {}).generate "cargo-config" {
     target.aarch64-darwin-apple = {
       linker = "clang";
-      rustflags = [ "-C" "link-arg=-fuse-ld=${pkgs.mold}/bin/mold" ];
+      rustflags = ["-C" "link-arg=-fuse-ld=${pkgs.mold}/bin/mold"];
     };
     target.x86_64-darwin-apple = {
       linker = "clang";
-      rustflags = [ "-C" "link-arg=-fuse-ld=${pkgs.mold}/bin/mold" ];
+      rustflags = ["-C" "link-arg=-fuse-ld=${pkgs.mold}/bin/mold"];
     };
     target.x86_64-unknown-linux-gnu = {
       linker = "clang";
-      rustflags = [ "-C" "link-arg=-fuse-ld=${pkgs.mold}/bin/mold" ];
+      rustflags = ["-C" "link-arg=-fuse-ld=${pkgs.mold}/bin/mold"];
     };
     alias = {
       b = "build";

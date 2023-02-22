@@ -1,9 +1,10 @@
-{ config
-, pkgs
-, lib
-, ...
+{
+  config,
+  pkgs,
+  lib,
+  ...
 }: {
-  imports = [ ./plugins ];
+  imports = [./plugins];
 
   lib.vimUtils = rec {
     # For plugins configured with lua
@@ -21,14 +22,13 @@
         ${readVimConfigRaw file}
       endif
     '';
-    pluginWithCfg =
-      { plugin
-      , file
-      ,
-      }: {
-        inherit plugin;
-        config = readVimConfig file;
-      };
+    pluginWithCfg = {
+      plugin,
+      file,
+    }: {
+      inherit plugin;
+      config = readVimConfig file;
+    };
   };
 
   programs.neovim = {

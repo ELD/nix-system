@@ -1,15 +1,13 @@
 {
   config,
   pkgs,
-  inputs,
-  lib,
   ...
 }: {
   imports = [
     ../common.nix
   ];
 
-  hm = {pkgs, ...}: {
+  hm = {...}: {
     imports = [../home-manager/gnome];
 
     programs.alacritty = {
