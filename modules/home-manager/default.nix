@@ -84,6 +84,7 @@
         sccache
         sysdo
         tealdeer
+        tectonic
         terraform
         tree
         treefmt
