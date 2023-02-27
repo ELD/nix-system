@@ -60,6 +60,7 @@
         cirrus-cli
         coreutils-full
         curl
+        devenv
         fd
         flyctl
         gawk

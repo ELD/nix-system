@@ -23,7 +23,10 @@
       oops = "reset HEAD~1";
       please = "push --force-with-lease";
     };
-    delta.enable = true;
+    difftastic = {
+      enable = true;
+      display = "inline";
+    };
     lfs.enable = true;
   };
 }

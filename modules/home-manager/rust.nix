@@ -5,6 +5,7 @@
     cargo-outdated
     cargo-sweep
     cargo-wipe
+    diesel-cli
     sqlx-cli
   ];
 
