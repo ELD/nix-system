@@ -63,3 +63,4 @@ jobs:
       - run:
           name: Flake check
           command: cachix watch-exec $CACHIX_USER -- nix flake check -j auto -v --show-trace --accept-flake-config --fallback
+          no_output_timeout: 20m
