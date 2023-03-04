@@ -14,11 +14,11 @@ executors:
   x86_64-darwin:
     resource_class: macos.x86.medium.gen2
     macos:
-      xcode: 14.1.0
+      xcode: 14.2.0
   aarch64-darwin:
     resource_class: macos.m1.large.gen1
     macos:
-      xcode: 14.0.1
+      xcode: 14.2.0
 
 workflows:
   build-flake:
@@ -40,14 +40,20 @@ jobs:
     parameters:
       os:
         type: executor
-        default: macos
+        default: aarch64-darwin
         description: "Which system to run the flake check against"
     executor: << parameters.os >>
     environment:
       CACHIX_USER: eld
     steps:
       - checkout
-      - nix/install
+      - run:
+          name: Install Nix
+          command: |
+            curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm
+            echo 'export PATH=/nix/var/nix/profiles/per-user/"$USER"/profile/bin:/nix/var/nix/profiles/default/bin:"$PATH"' >> "$BASH_ENV"
+          environment:
+            NIX_INSTALLER_EXTRA_CONF: "trusted-users = root circleci distiller"
       - run:
           name: Install Cachix and Use Binary Cache
           command: |
