@@ -58,7 +58,7 @@
         "obsidian"
         "paw"
         "postman"
-        "rectanle-pro"
+        "rectangle-pro"
         "screenflow"
         "sensei"
         "sketch"
