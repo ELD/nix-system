@@ -70,10 +70,20 @@
         ./modules/darwin
       ],
       extraModules ? [],
+      hostname ? "",
     }:
       inputs.darwin.lib.darwinSystem {
         inherit system;
-        modules = baseModules ++ extraModules;
+        modules =
+          [
+            {
+              networking.hostName = hostname;
+              networking.localHostName = hostname;
+              networking.computerName = hostname;
+            }
+          ]
+          ++ baseModules
+          ++ extraModules;
         specialArgs = {inherit self inputs nixpkgs;};
       };
 
@@ -191,22 +201,22 @@
         system = "aarch64-darwin";
         extraModules = [
           ./profiles/personal.nix
-          ./modules/darwin/network/personal.nix
         ];
+        hostname = "Vanadium";
       };
       "ellipse@aarch64-darwin" = mkDarwinConfig {
         system = "aarch64-darwin";
         extraModules = [
           ./profiles/work.nix
-          ./modules/darwin/network/work.nix
         ];
+        hostname = "Ellipse";
       };
       "rhombus@x86_64-darwin" = mkDarwinConfig {
         system = "x86_64-darwin";
         extraModules = [
           ./profiles/work.nix
-          ./modules/darwin/network/work.nix
         ];
+        hostname = "Rhombus";
       };
     };
 
@@ -219,7 +229,7 @@
         extraModules = [
           ./profiles/personal.nix
         ];
-        hostname = "indium";
+        hostname = "Indium";
       };
       "indium@aarch64-linux" = mkNixosConfig {
         system = "aarch64-linux";
@@ -229,7 +239,7 @@
         extraModules = [
           ./profiles/personal.nix
         ];
-        hostname = "indium";
+        hostname = "Indium";
       };
     };
 
