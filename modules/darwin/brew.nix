@@ -53,6 +53,7 @@
         "istat-menus"
         "iterm2-beta"
         "jetbrains-toolbox"
+        "lunar"
         "macfuse"
         "numi"
         "obsidian"
