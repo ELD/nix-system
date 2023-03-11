@@ -50,6 +50,10 @@ jobs:
       - nix/install:
           extra-conf: |
             auto-optimise-store = false
+      - run:
+          name: Add goodies to BASH_ENV
+          command: |
+            echo 'source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' > "$BASH_ENV"
       - nix/install-cachix
       - nix/with-cachix:
           cachix-user: eld
