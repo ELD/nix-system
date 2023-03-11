@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  nix: eld/nix@dev:0a7fc4855e30aac9c24d80989056794573bf17f3
+  nix: eld/nix@1.1.0
 
 executors:
   x86_64-linux:
@@ -48,8 +48,7 @@ jobs:
     steps:
       - checkout
       - nix/install
-      - nix/install-cachix:
-          cachix-installable: github:nixos/nixpkgs/nixpkgs-unstable#cachix
+      - nix/install-cachix
       - nix/with-cachix:
           cachix-user: eld
           nix-command: nix flake check -j auto -v --show-trace --accept-flake-config --fallback
