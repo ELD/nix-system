@@ -50,6 +50,12 @@ jobs:
       - nix/install:
           extra-conf: |
             auto-optimise-store = false
+            sandbox = false
+            sandbox-fallback = false
+            keep-outputs = true
+            keep-derivations = true
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= eld.cachix.org-1:ddhUxMCAKZVJOVPUcGGWwB5UZfhlhG12rN4GRz8D7sk=
+            trusted-substituters = https://cache.nixos.org https://eld.cachix.org
       - nix/install-cachix
       - nix/with-cachix:
           cachix-user: eld
