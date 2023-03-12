@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  nix: eld/nix@1.1.0
+  nix: eld/nix@1.1.1
 
 executors:
   x86_64-linux:
@@ -50,29 +50,7 @@ jobs:
       - nix/install:
           extra-conf: |
             auto-optimise-store = false
-      - run:
-          name: Add goodies to BASH_ENV
-          command: |
-            echo 'source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' > "$BASH_ENV"
       - nix/install-cachix
       - nix/with-cachix:
           cachix-user: eld
           nix-command: nix flake check -j auto -v --show-trace --accept-flake-config --fallback
-
-      # - run:
-      #     name: Install Nix
-      #     command: |
-      #       curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm
-      #       echo 'export PATH=/nix/var/nix/profiles/per-user/"$USER"/profile/bin:/nix/var/nix/profiles/default/bin:"$PATH"' >> "$BASH_ENV"
-      #     environment:
-      #       NIX_INSTALLER_EXTRA_CONF: |
-      #         trusted-users = root circleci distiller
-      #         auto-optimise-store = false
-      # - run:
-      #     name: Install Cachix and Use Binary Cache
-      #     command: |
-      #       nix profile install github:nixos/nixpkgs/nixos-22.11#cachix && cachix use $CACHIX_USER
-      # - run:
-      #     name: Flake check
-      #     command: cachix watch-exec $CACHIX_USER -- nix flake check -j auto -v --show-trace --accept-flake-config --fallback
-      #     no_output_timeout: 20m
