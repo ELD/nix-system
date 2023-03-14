@@ -9,7 +9,7 @@
     };
   };
   home.packages = with pkgs; [
-    awscli
+    awscli2
     google-cloud-sdk
     leiningen
     poetry
