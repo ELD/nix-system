@@ -120,7 +120,14 @@
     less.enable = true;
     man.enable = true;
     nix-index.enable = true;
-    starship.enable = true;
+    starship = {
+      enable = true;
+      settings = {
+        line_break = {
+          disabled = true;
+        };
+      };
+    };
     yt-dlp.enable = true;
     zathura.enable = true;
     zoxide.enable = true;

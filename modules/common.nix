@@ -57,7 +57,13 @@
       zsh
 
       # languages
-      python3
+      python3Full
+      python3Packages.pip
+      python3Packages.jupyter_core
+      python3Packages.ipython
+      python3Packages.ipykernel
+      pylint
+      pipenv
       ruby
       rustup
     ];

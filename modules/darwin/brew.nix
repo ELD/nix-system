@@ -66,6 +66,7 @@
         "tableplus"
         "veracrypt"
         "visual-studio-code"
+        "warp"
         "zoom"
         "zotero"
       ]
