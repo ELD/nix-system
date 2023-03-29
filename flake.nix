@@ -15,8 +15,8 @@
 
   inputs = {
     # package repos
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
-    unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    stable.url = "github:nixos/nixpkgs/nixos-22.11";
     devenv.url = "github:cachix/devenv";
 
     # system management
@@ -26,7 +26,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-22.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
     };
@@ -105,7 +105,7 @@
       extraModules ? [],
       hostname ? "",
     }:
-      inputs.unstable.lib.nixosSystem {
+      nixpkgs.lib.nixosSystem {
         inherit system;
         modules =
           [
@@ -133,7 +133,7 @@
             inherit username;
             homeDirectory = "${homePrefix system}/${username}";
             sessionVariables = {
-              NIX_PATH = "nixpkgs=${nixpkgs}:unstable=${inputs.unstable}\${NIX_PATH:+:}$NIX_PATH";
+              NIX_PATH = "nixpkgs=${nixpkgs}:stable=${inputs.stable}\${NIX_PATH:+:}$NIX_PATH";
             };
           };
         }
@@ -316,7 +316,7 @@
 
     overlays = {
       channels = _final: prev: {
-        unstable = import inputs.unstable {
+        stable = import inputs.stable {
           system = prev.system;
           config.allowUnfree = true;
         };

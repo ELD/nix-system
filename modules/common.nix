@@ -40,9 +40,6 @@
   # environment setup
   environment = {
     systemPackages = with pkgs; [
-      # editors
-      # pkgs.nixos-unstable.neovim
-
       # standard toolset
       coreutils-full
       curl
@@ -70,7 +67,7 @@
     etc = {
       home-manager.source = "${inputs.home-manager}";
       nixpkgs.source = "${inputs.nixpkgs}";
-      unstable.source = "${inputs.unstable}";
+      stable.source = "${inputs.stable}";
     };
     # list of acceptable shells in /etc/shells
     shells = with pkgs; [bash zsh fish];
