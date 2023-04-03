@@ -1,7 +1,5 @@
 # Nix System Configuration
 
-[![system build](https://api.cirrus-ci.com/github/ELD/nix-system.svg?branch=main)](https://cirrus-ci.com/github/ELD/nix-system)
-
 [![CircleCI](https://circleci.com/gh/ELD/nix-system/tree/main.svg?style=svg)](https://circleci.com/gh/ELD/nix-system/?branch=main)
 
 _Note: This repository is a manual fork of [kclejeune/system](https://github.com/kclejeune/system) that I've heavily modified.
