@@ -296,7 +296,7 @@
         pyEnv =
           pkgs.python3.withPackages
           (ps: with ps; [black typer colorama shellingham]);
-        devenv = inputs.devenv.defaultPackage.${system};
+        devenv = inputs.devenv.packages.${system}.default;
         sysdo = pkgs.writeScriptBin "sysdo" ''
           #! ${pyEnv}/bin/python3
           ${builtins.readFile ./bin/do.py}
