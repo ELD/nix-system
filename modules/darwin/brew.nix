@@ -58,6 +58,7 @@
         "numi"
         "obsidian"
         "paw"
+        "philips-hue-sync"
         "postman"
         "rectangle-pro"
         "screenflow"
