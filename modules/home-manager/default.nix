@@ -25,6 +25,10 @@
 
   home = let
     NODE_GLOBAL = "${config.home.homeDirectory}/.node-packages";
+    PNPM_DIR =
+      if (pkgs.system == "x86_64-linux" || pkgs.system == "aarch64-linux")
+      then "${config.home.homeDirectory}/.local/share/pnpm"
+      else "${config.home.homeDirectory}/Library/pnpm";
   in {
     # This value determines the Home Manager release that your
     # configuration is compatible with. This helps avoid breakage
@@ -43,10 +47,12 @@
       LSCOLORS = "ExFxBxDxCxegedabagacad";
       NODE_PATH = "${NODE_GLOBAL}/lib";
       JAVA_HOME = "${pkgs.jdk11}";
+      PNPM_HOME = "${PNPM_DIR}";
     };
     sessionPath = [
       "${NODE_GLOBAL}/bin"
       "${config.home.homeDirectory}/.rd/bin"
+      "${PNPM_DIR}"
     ];
 
     # define package definitions for current user environment
