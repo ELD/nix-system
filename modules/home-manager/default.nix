@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   imports = [
@@ -17,6 +18,7 @@
     ./rust.nix
     ./shell.nix
     ./ssh.nix
+    ./starship.nix
   ];
 
   nixpkgs.config = {
@@ -127,9 +129,6 @@
     less.enable = true;
     man.enable = true;
     nix-index.enable = true;
-    starship = {
-      enable = true;
-    };
     yt-dlp.enable = true;
     zathura.enable = true;
     zoxide.enable = true;
