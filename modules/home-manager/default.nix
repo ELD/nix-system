@@ -92,6 +92,7 @@
         ripgrep
         ripgrep-all
         sccache
+        sniffnet
         sysdo
         tealdeer
         tectonic
