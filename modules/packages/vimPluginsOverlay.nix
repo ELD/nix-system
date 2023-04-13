@@ -12,20 +12,20 @@ in {
       (prev.fetchFromGitHub {
         owner = "VonHeikemen";
         repo = "lsp-zero.nvim";
-        rev = "c1a2726704f6fe87bde61a4439ea5d1d8b127cdd";
-        sha256 = "sha256-bi6QODloY8GXZeBHnlNiYUz148e7QBlbTzTDvPe2Nww";
+        rev = "eb278c30b6c50e99fdfde52f7da0e0ff8d17c07e";
+        sha256 = "sha256-C2LvhoNdNXRyG+COqVZv/BcUh6y82tajXipsqdySJJQ=";
       });
     mason = toPlugin "mason" (prev.fetchFromGitHub {
       owner = "williamboman";
       repo = "mason.nvim";
-      rev = "b8c3fceed16d29a166cf73ce55358f13c9f6cfcc";
-      sha256 = "sha256-dT1I9qm2ySkElwoVv2xPe4zHNLGetDUMGeB1D2Hq2gc";
+      rev = "6845ccfe009d6fbc5a6a266c285779ad462b234b";
+      sha256 = "sha256-bvwLzcVCEY5iVa5cJ4pe5fz0xI2nTkednwHufx6jofk=";
     });
     mason-lspconfig = toPlugin "mason-lspconfig" (prev.fetchFromGitHub {
       owner = "williamboman";
       repo = "mason-lspconfig.nvim";
-      rev = "aa25b4153d2f2636c3b3a8c8360349d2b29e7ae3";
-      sha256 = "sha256-By3Rom8dinWF6+SRcPePz2wX2dBtbiSqsI/mTFya1t8";
+      rev = "b81c50c4baae7d80b1723b3fa86e814d7754d15b";
+      sha256 = "sha256-QAXlPuahdjA2wd3ZZfanWxrHxGtd0W9MYZ0YKNZwJhg=";
     });
     auto-dark-mode =
       toPlugin "auto-dark-mode"
