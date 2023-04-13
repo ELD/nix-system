@@ -25,7 +25,9 @@
       "mongodb/brew"
     ];
 
-    brews = [];
+    brews = [
+      "mongodb-community"
+    ];
 
     casks =
       [
