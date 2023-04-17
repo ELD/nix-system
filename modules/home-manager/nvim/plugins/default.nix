@@ -2,7 +2,7 @@
   imports = [
     ./map-leader # remap the leader key before all other plugin configs
 
-    ./auto-dark-mode
+    # ./auto-dark-mode
     # ./bgwinch
     ./catppuccin
     ./fugitive
