@@ -11,6 +11,9 @@
   ];
 
   home.file.".cargo/config.toml".source = (pkgs.formats.toml {}).generate "cargo-config" {
+    build = {
+      rustc-wrapper = "${pkgs.sccache}/bin/sccache";
+    };
     target.aarch64-darwin-apple = {
       linker = "clang";
       rustflags = ["-C" "link-arg=-fuse-ld=${pkgs.mold}/bin/mold"];
