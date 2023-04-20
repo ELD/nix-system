@@ -60,4 +60,4 @@ jobs:
           cachix-installable: github:nixos/nixpkgs/nixos-22.11#cachix
       - nix/with-cachix:
           cachix-user: eld
-          nix-command: nix flake check -j auto -v --show-trace --accept-flake-config --fallback
+          nix-command: nix flake check -j auto -v --show-trace --accept-flake-config --fallback --allow-import-from-derivation
