@@ -56,7 +56,8 @@ jobs:
             keep-derivations = true
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= eld.cachix.org-1:ddhUxMCAKZVJOVPUcGGWwB5UZfhlhG12rN4GRz8D7sk=
             trusted-substituters = https://cache.nixos.org https://eld.cachix.org
-      - nix/install-cachix
+      - nix/install-cachix:
+          cachix-installable: github:nixos/nixpkgs/nixos-22.11#cachix
       - nix/with-cachix:
           cachix-user: eld
           nix-command: nix flake check -j auto -v --show-trace --accept-flake-config --fallback
