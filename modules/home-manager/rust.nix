@@ -6,7 +6,7 @@
     cargo-sweep
     cargo-wipe
     diesel-cli
-    evcxr
+    # evcxr
     sqlx-cli
   ];
 
