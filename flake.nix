@@ -17,7 +17,7 @@
     # package repos
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     stable.url = "github:nixos/nixpkgs/nixos-22.11";
-    devenv.url = "github:cachix/devenv";
+    devenv.url = "github:cachix/devenv/latest";
 
     # system management
     nixos-hardware.url = "github:nixos/nixos-hardware";
@@ -295,7 +295,7 @@
         pyEnv =
           pkgs.python3.withPackages
           (ps: with ps; [black typer colorama shellingham]);
-        devenv = inputs.devenv.packages.${system}.default;
+        devenv = inputs.devenv.defaultPackage.${system};
         sysdo = pkgs.writeScriptBin "sysdo" ''
           #! ${pyEnv}/bin/python3
           ${builtins.readFile ./bin/do.py}
