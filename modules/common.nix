@@ -80,7 +80,12 @@
         jetbrains-mono
         recursive
         open-sans
-        (nerdfonts.override {fonts = ["CascadiaCode"];})
+        (nerdfonts.override {
+          fonts = [
+            "CascadiaCode"
+            "VictorMono"
+          ];
+        })
       ]
       ++ (lib.lists.optionals (builtins.getEnv "CI" != "") [
         (callPackage ./packages/dank-mono.nix {
