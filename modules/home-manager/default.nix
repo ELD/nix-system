@@ -122,7 +122,6 @@
   programs = {
     home-manager = {
       enable = true;
-      path = "${config.home.homeDirectory}/.nixpkgs/modules/home-manager";
     };
     dircolors.enable = true;
     htop.enable = true;
