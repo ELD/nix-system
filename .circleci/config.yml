@@ -58,6 +58,15 @@ jobs:
             trusted-substituters = https://cache.nixos.org https://eld.cachix.org
       - nix/install-cachix:
           cachix-installable: github:nixos/nixpkgs/nixos-22.11#cachix
-      - nix/with-cachix:
-          cachix-user: eld
-          nix-command: nix flake check -j auto -v --show-trace --accept-flake-config --fallback --allow-import-from-derivation
+      - run:
+          name: List paths before checking Nix Flake
+          command: bin/list-nix-store.sh
+      - run:
+          name: Check Nix Flake
+          command: nix flake check -j auto -v --show-trace --accept-flake-config --fallback --allow-import-from-derivation
+      # - nix/with-cachix:
+      #     cachix-user: eld
+      #     nix-command: nix flake check -j auto -v --show-trace --accept-flake-config --fallback --allow-import-from-derivation
+      - run:
+          name: Push paths
+          command: bin/push-paths.sh
