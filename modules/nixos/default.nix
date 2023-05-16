@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   imports = [
@@ -105,20 +106,23 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    discord
-    firefox
-    git
-    gnome.gnome-tweaks
-    gnomeExtensions.dash-to-dock
-    gnomeExtensions.pop-shell
-    pop-gtk-theme
-    pop-icon-theme
-    pop-launcher
-    thunderbird
-    vscode
-    wget
-  ];
+  environment.systemPackages = with pkgs;
+    [
+      firefox
+      git
+      gnome.gnome-tweaks
+      gnomeExtensions.dash-to-dock
+      gnomeExtensions.pop-shell
+      pop-gtk-theme
+      pop-icon-theme
+      pop-launcher
+      thunderbird
+      vscode
+      wget
+    ]
+    ++ lib.optionals (pkgs.system != "aarch64-linux") [
+      discord
+    ];
 
   # Session Variables
   environment.sessionVariables = {
