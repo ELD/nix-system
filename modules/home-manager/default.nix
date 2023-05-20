@@ -63,6 +63,7 @@
         alejandra
         age
         cachix
+        colima
         comma
         circleci-cli
         cirrus-cli
