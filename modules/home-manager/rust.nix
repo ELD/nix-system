@@ -4,6 +4,7 @@
     cargo-expand
     cargo-outdated
     cargo-sweep
+    cargo-vet
     cargo-wipe
     diesel-cli
     # evcxr
