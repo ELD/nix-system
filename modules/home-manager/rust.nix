@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
+    # Cargo utilities
     cargo-nextest
     cargo-expand
     cargo-outdated
@@ -9,6 +10,9 @@
     diesel-cli
     # evcxr
     sqlx-cli
+
+    # Rust CLI utilities
+    du-dust
   ];
 
   home.file.".cargo/config.toml".source = (pkgs.formats.toml {}).generate "cargo-config" {
