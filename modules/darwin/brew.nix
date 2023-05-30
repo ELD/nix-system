@@ -68,7 +68,7 @@
         "sketch"
         "tableplus"
         "veracrypt"
-        "visual-studio-code"
+        "visual-studio-code-insiders"
         "warp"
         "zoom"
         "zotero"
