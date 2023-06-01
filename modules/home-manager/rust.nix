@@ -19,11 +19,11 @@
     build = {
       rustc-wrapper = "${pkgs.sccache}/bin/sccache";
     };
-    target.aarch64-darwin-apple = {
+    target.aarch64-apple-darwin = {
       linker = "clang";
       rustflags = ["-C" "link-arg=-fuse-ld=${pkgs.mold}/bin/mold"];
     };
-    target.x86_64-darwin-apple = {
+    target.x86_64-apple-darwin = {
       linker = "clang";
       rustflags = ["-C" "link-arg=-fuse-ld=${pkgs.mold}/bin/mold"];
     };
