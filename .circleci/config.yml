@@ -28,9 +28,10 @@ workflows:
             - nix
           matrix:
             parameters:
-              os: [x86_64-darwin
-                  , aarch64-darwin
+              os: [aarch64-darwin
                   , x86_64-linux
+                  # I'm not running any active x86_64-darwin machines anymore, so no need to CI test this
+                  # , x86_64-darwin
                   # I don't use aarch64-linux right now, so no use turning this on, for now
                   # , aarch64-linux
                   ]
