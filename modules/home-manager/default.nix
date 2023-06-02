@@ -79,7 +79,6 @@
         gnused
         jdk11
         luajit
-        mold
         neofetch
         nix
         nixfmt
