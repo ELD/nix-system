@@ -188,13 +188,12 @@
       #   os = "darwin";
       #   hostname = "rhombus";
       # })
-      # //
-      # (mkChecks {
+      # // (mkChecks {
       #   arch = "aarch64";
       #   os = "linux";
       #   hostname = "indium";
-      # }) //
-      (mkChecks {
+      # })
+      // (mkChecks {
         arch = "x86_64";
         os = "linux";
         hostname = "indium";
