@@ -7,14 +7,14 @@ executors:
     resource_class: large
     machine:
       image: ubuntu-2204:current
-  aarch64-linux:
-    resource_class: arm.large
-    machine:
-      image: ubuntu-2204:current
-  x86_64-darwin:
-    resource_class: macos.x86.medium.gen2
-    macos:
-      xcode: 14.2.0
+  # aarch64-linux:
+  #   resource_class: arm.large
+  #   machine:
+  #     image: ubuntu-2204:current
+  # x86_64-darwin:
+  #   resource_class: macos.x86.medium.gen2
+  #   macos:
+  #     xcode: 14.2.0
   aarch64-darwin:
     resource_class: macos.m1.large.gen1
     macos:
@@ -57,17 +57,8 @@ jobs:
             keep-derivations = true
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= eld.cachix.org-1:ddhUxMCAKZVJOVPUcGGWwB5UZfhlhG12rN4GRz8D7sk=
             trusted-substituters = https://cache.nixos.org https://eld.cachix.org
-      - nix/install-cachix:
-          cachix-installable: github:nixos/nixpkgs/nixos-22.11#cachix
-      - run:
-          name: List paths before checking Nix Flake
-          command: bin/list-nix-store.sh
-      - run:
-          name: Check Nix Flake
-          command: nix flake check -j auto -v --show-trace --accept-flake-config --fallback --allow-import-from-derivation
-      # - nix/with-cachix:
-      #     cachix-user: eld
-      #     nix-command: nix flake check -j auto -v --show-trace --accept-flake-config --fallback --allow-import-from-derivation
-      - run:
-          name: Push paths
-          command: bin/push-paths.sh
+      - nix/install-cachix
+      - nix/with-cachix:
+          cachix-user: eld
+          nix-command: nix flake check -j auto -v --show-trace --accept-flake-config --fallback --allow-import-from-derivation
+
