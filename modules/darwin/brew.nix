@@ -105,7 +105,7 @@
 
       "SuperPlanner" = 6443725564;
 
-      "TestFlight" = 899247664;
+      # "TestFlight" = 899247664;
 
       "Flighty" = 1358823008;
       "Kindle" = 405399194;
