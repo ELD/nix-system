@@ -67,6 +67,7 @@
         comma
         circleci-cli
         cirrus-cli
+        cmake
         coreutils-full
         curl
         devenv
@@ -79,6 +80,7 @@
         gnused
         jdk11
         luajit
+        luajitPackages.luarocks
         neofetch
         nix
         nixfmt
