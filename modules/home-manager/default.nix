@@ -70,6 +70,7 @@
         cmake
         coreutils-full
         curl
+        deadnix
         devenv
         fd
         flyctl
@@ -95,6 +96,7 @@
         ripgrep-all
         sccache
         sniffnet
+        statix
         sysdo
         tealdeer
         tectonic
