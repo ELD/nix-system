@@ -103,6 +103,7 @@
 
       "Xcode" = 497799835;
 
+      "Day Progress" = 6450280202;
       "SuperPlanner" = 6443725564;
 
       # "TestFlight" = 899247664;
