@@ -198,18 +198,9 @@ return {
 				require("plugins.lsp-support.keymaps").on_attach(client, bufnr)
 			end)
 
+			local lsp_servers = require("utils.lsp-servers")
+			lsp.ensure_installed(lsp_servers.all_servers)
 			lsp.skip_server_setup({ "rust_analyzer" })
-			lsp.ensure_installed({
-				"cssls",
-				"dockerls",
-				"gopls",
-				"html",
-				"jsonls",
-				"nil_ls",
-				"rust_analyzer",
-				"taplo",
-				"tsserver",
-			})
 
 			-- (Optional) Configure lua language server for neovim
 			require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
@@ -218,6 +209,15 @@ return {
 			-- Other config can go here now
 			require("plugins.lsp-support.rust").setup()
 			require("plugins.lsp-support.null-ls-integration").setup()
+
+			-- Configure LSP server capabilities
+			local lspconfig = require("lspconfig")
+			local capabilities = require("plugins.lsp-support.capabilities")
+			for _, servername in ipairs(lsp_servers.regular_servers) do
+				lspconfig[servername].setup({
+					capabilities = capabilities.capabilities,
+				})
+			end
 		end,
 	},
 	-- lspsaga
