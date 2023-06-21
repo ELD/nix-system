@@ -1,1 +1,1 @@
-/Users/edattore/workspace/lua/spartanvim-testbench/init.lua
+require("config.lazy")
