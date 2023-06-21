@@ -202,14 +202,6 @@ return {
 			lsp.ensure_installed(lsp_servers.all_servers)
 			lsp.skip_server_setup({ "rust_analyzer" })
 
-			-- (Optional) Configure lua language server for neovim
-			require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
-			lsp.setup()
-
-			-- Other config can go here now
-			require("plugins.lsp-support.rust").setup()
-			require("plugins.lsp-support.null-ls-integration").setup()
-
 			-- Configure LSP server capabilities
 			local lspconfig = require("lspconfig")
 			local capabilities = require("plugins.lsp-support.capabilities")
@@ -218,6 +210,15 @@ return {
 					capabilities = capabilities.capabilities,
 				})
 			end
+
+			-- (Optional) Configure lua language server for neovim
+			lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
+			-- Set up lsp
+			lsp.setup()
+
+			-- Other config can go here now
+			require("plugins.lsp-support.rust").setup()
+			require("plugins.lsp-support.null-ls-integration").setup()
 		end,
 	},
 	-- lspsaga
