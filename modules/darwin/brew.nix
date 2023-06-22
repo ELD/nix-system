@@ -23,6 +23,7 @@
       "koekeishiya/formulae"
       "teamookla/speedtest"
       "mongodb/brew"
+      "billyjacoby/browsernaut"
     ];
 
     brews = [
@@ -39,6 +40,7 @@
         "bartender"
         "bettertouchtool"
         "boop"
+        "browsernaut"
         "coconutbattery"
         "cyberduck"
         "daisydisk"
