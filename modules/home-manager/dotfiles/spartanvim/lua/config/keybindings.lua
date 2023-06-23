@@ -20,7 +20,7 @@ keymap({ "n", "t" }, "<A-k>", function()
 	require("dap.ui.widgets").hover()
 end, { silent = true, desc = "calculate expr" })
 keymap("n", "<F5>", function()
-	require("dap").stepout()
+	require("dap").toggle_breakpoint()
 end, { silent = true, desc = "toggle breakpoint" })
 
 -- Redo

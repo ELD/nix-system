@@ -3,9 +3,11 @@ return {
 	dependencies = {
 		"theHamsta/nvim-dap-virtual-text",
 		"rcarriga/nvim-dap-ui",
+		"jay-babu/mason-nvim-dap.nvim",
 	},
 	config = function()
 		local dap = require("dap")
+		local mason_nvim_dap = require("mason-nvim-dap")
 
 		local dap_virtual_text_status = require("nvim-dap-virtual-text")
 
@@ -85,9 +87,11 @@ return {
 			dapui.close()
 		end
 
-		--require("plugins.daps.adapter.lldb")
-
-		--require("plugins.daps.settings.cpp")
-		--require("plugins.daps.settings.c")
+		mason_nvim_dap.setup({
+			ensure_installed = {
+				"delve",
+				"codelldb",
+			},
+		})
 	end,
 }

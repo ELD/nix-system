@@ -1,7 +1,22 @@
 local M = {}
 
+M.debugger = function()
+	local install_root_dir = vim.fn.stdpath("data") .. "/mason"
+	local extension_path = install_root_dir .. "/packages/codelldb/extension/"
+	local codelldb_path = extension_path .. "adapter/codelldb"
+	local this_os = vim.loop.os_uname().sysname
+	local liblldb_path = extension_path .. "lldb/lib/liblldb" .. (this_os == "Linux" and ".so" or ".dylib")
+
+	return {
+		codelldb_path = codelldb_path,
+		liblldb_path = liblldb_path,
+	}
+end
+
 M.setup = function()
 	local rust_tools = require("rust-tools")
+	local debugger = M.debugger()
+
 	rust_tools.setup({
 		tools = {
 			autoSetHints = true,
@@ -104,10 +119,18 @@ M.setup = function()
 			settings = {
 				["rust-analyzer"] = {
 					cargo = {
+						features = "all",
 						autoReload = true,
+					},
+					check = {
+						command = "clippy",
+						extraArgs = "-Dwarnings",
 					},
 				},
 			},
+		},
+		dap = {
+			adapter = require("rust-tools.dap").get_codelldb_adapter(debugger.codelldb_path, debugger.liblldb_path),
 		},
 	})
 end

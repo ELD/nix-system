@@ -20,7 +20,6 @@ M.regular_servers = {
 	"html",
 	"jsonls",
 	"nil_ls",
-	"taplo",
 	"tsserver",
 }
 
