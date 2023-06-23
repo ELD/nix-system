@@ -61,6 +61,7 @@
         "macfuse"
         "numi"
         "obsidian"
+        "orbstack" # Docker Desktop replacement?
         "paw"
         "philips-hue-sync"
         "postman"
