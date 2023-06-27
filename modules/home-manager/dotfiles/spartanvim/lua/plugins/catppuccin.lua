@@ -37,12 +37,39 @@ return {
 			color_overrides = {},
 			custom_highlights = {},
 			integrations = {
+				alpha = true,
 				cmp = true,
 				gitsigns = true,
+				hop = true,
+				indent_blankline = {
+					enabled = true,
+					colored_indent_levels = true,
+				},
+				lsp_saga = true,
+				mason = true,
+				native_lsp = {
+					enabled = true,
+					virtual_text = {
+						errors = { "italic" },
+						hints = { "italic" },
+						warnings = { "italic" },
+						information = { "italic" },
+					},
+					underlines = {
+						errors = { "underline" },
+						hints = { "underline" },
+						warnings = { "underline" },
+						information = { "underline" },
+					},
+					inlay_hints = {
+						background = true,
+					},
+				},
 				nvimtree = true,
+				treesitter_context = true,
+				treesitter = true,
 				telescope = true,
-				notify = false,
-				mini = false,
+				which_key = true,
 			},
 		})
 

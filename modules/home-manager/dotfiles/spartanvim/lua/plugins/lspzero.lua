@@ -322,6 +322,9 @@ return {
 					respect_root = false,
 					color_mode = true,
 				},
+				ui = {
+					kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
+				},
 			})
 		end,
 		dependencies = {

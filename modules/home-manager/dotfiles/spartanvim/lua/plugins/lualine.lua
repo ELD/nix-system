@@ -97,13 +97,14 @@ return {
 				section_separators = "",
 				disabled_filetypes = { "alpha", "dashboard", "Outline" },
 				always_divide_middle = true,
-				theme = {
-					-- We are going to use lualine_c an lualine_x as left and
-					-- right section. Both are highlighted by c theme .  So we
-					-- are just setting default looks o statusline
-					normal = { c = { fg = colors.fg, bg = colors.bg } },
-					inactive = { c = { fg = colors.fg, bg = colors.bg } },
-				},
+				theme = "catppuccin",
+				--[[ theme = { ]]
+				--[[ 	-- We are going to use lualine_c an lualine_x as left and ]]
+				--[[ 	-- right section. Both are highlighted by c theme .  So we ]]
+				--[[ 	-- are just setting default looks o statusline ]]
+				--[[ 	normal = { c = { fg = colors.fg, bg = colors.bg } }, ]]
+				--[[ 	inactive = { c = { fg = colors.fg, bg = colors.bg } }, ]]
+				--[[ }, ]]
 			},
 			sections = {
 				lualine_a = {},
