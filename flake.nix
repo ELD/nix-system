@@ -183,16 +183,6 @@
         os = "darwin";
         hostname = "vanadium";
       })
-      # // (mkChecks {
-      #   arch = "x86_64";
-      #   os = "darwin";
-      #   hostname = "rhombus";
-      # })
-      # // (mkChecks {
-      #   arch = "aarch64";
-      #   os = "linux";
-      #   hostname = "indium";
-      # })
       // (mkChecks {
         arch = "x86_64";
         os = "linux";
