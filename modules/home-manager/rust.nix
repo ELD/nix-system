@@ -4,6 +4,7 @@
     cargo-nextest
     cargo-expand
     cargo-outdated
+    cargo-shuttle
     cargo-sweep
     cargo-vet
     cargo-wipe
