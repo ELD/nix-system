@@ -18,6 +18,7 @@
         "[](fg:#212736 bg:#1D2230)"
         "$time"
         "[ ](fg:#1D2230)"
+        "$character"
       ];
 
       directory = {
