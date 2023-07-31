@@ -145,6 +145,9 @@
   # Enable fwupdmgr
   services.fwupd.enable = true;
 
+  # Workaround: https://discourse.nixos.org/t/logrotate-config-fails-due-to-missing-group-30000/28501
+  services.logrotate.checkConfig = false;
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
