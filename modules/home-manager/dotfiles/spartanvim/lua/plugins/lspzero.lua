@@ -193,9 +193,11 @@ return {
 		config = function()
 			-- This is where all the LSP shenanigans will live
 			local lsp = require("lsp-zero")
+			local keymaps = require("plugins.lsp-support.keymaps")
+			keymaps.setup()
 
 			lsp.on_attach(function(client, bufnr)
-				require("plugins.lsp-support.keymaps").on_attach(client, bufnr)
+				keymaps.on_attach(client, bufnr)
 			end)
 
 			local lsp_servers = require("utils.lsp-servers")
