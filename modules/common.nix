@@ -78,8 +78,9 @@
     fonts = with pkgs;
       [
         jetbrains-mono
-        recursive
+        maple-mono-NF
         open-sans
+        recursive
         (nerdfonts.override {
           fonts = [
             "CascadiaCode"
