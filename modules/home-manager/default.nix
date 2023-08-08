@@ -18,7 +18,7 @@
     ./rust.nix
     ./shell.nix
     ./ssh.nix
-    ./starship.nix
+    # ./starship.nix
   ];
 
   nixpkgs.config = {

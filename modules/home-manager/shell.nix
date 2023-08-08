@@ -42,6 +42,10 @@ in {
         if [[ -d /opt/homebrew ]]; then
           eval "$(/opt/homebrew/bin/brew shellenv)"
         fi
+
+        if [[ -f "$HOME/.config/zsh/.p10k.zsh" ]]; then
+          source "$HOME/.config/zsh/.p10k.zsh"
+        fi
       ''}
       unset RPS1
     '';
@@ -74,6 +78,7 @@ in {
         "history-substring-search"
         "command-not-found"
         "gpg"
+        "prompt"
       ];
       editor = {
         keymap = "vi";
@@ -87,6 +92,7 @@ in {
         windowTitleFormat = "%n@%m: %s %d";
         tabTitleFormat = "%m: %s %d";
       };
+      prompt = {theme = "powerlevel10k";};
     };
   };
 
