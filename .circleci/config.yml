@@ -4,7 +4,7 @@ orbs:
 
 executors:
   x86_64-linux:
-    resource_class: medium
+    resource_class: large
     machine:
       image: ubuntu-2204:2023.04.2 # NOTE: See if this older image works, if so, something weird changed in July's image
   # aarch64-linux:
@@ -16,7 +16,7 @@ executors:
   #   macos:
   #     xcode: 14.2.0
   aarch64-darwin:
-    resource_class: macos.m1.medium.gen1
+    resource_class: macos.m1.large.gen1
     macos:
       xcode: 14.3.1
 
