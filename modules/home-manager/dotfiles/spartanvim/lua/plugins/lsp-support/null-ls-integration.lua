@@ -19,15 +19,7 @@ M.setup = function()
 
 			code_actions.statix,
 		},
-		should_attach = function(bufnr)
-			if vim.fn.getfsize(vim.api.nvim_buf_get_name(bufnr)) > 100000 then
-				print("(null-ls) DISABLED, file too large")
-				return false
-			else
-				return true
-			end
-		end,
-		--[[ on_attach = require("plugins.lsp-support.handlers").on_attach, ]]
+		on_attach = require("plugins.lsp-support.keymaps").on_attach,
 	})
 
 	mason_null_ls.setup({
@@ -51,7 +43,7 @@ M.setup = function()
 			"markdownlint",
 			"shellcheck",
 		},
-		automatic_installation = false,
+		automatic_installation = true,
 		handlers = {},
 	})
 end
