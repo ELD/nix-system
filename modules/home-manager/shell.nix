@@ -20,6 +20,10 @@
       abrew = "aarch -arm64 brew";
     };
 in {
+  programs.atuin = {
+    enable = true;
+    enableZshIntegration = true;
+  };
   programs.zsh = {
     enable = true;
     autocd = true;
