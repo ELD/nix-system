@@ -6,8 +6,6 @@ return {
 		-- following options are the default
 		-- each of these are documented in `:help nvim-tree.OPTION_NAME`
 		local nvim_tree = require("nvim-tree")
-		local nvim_tree_config = require("nvim-tree.config")
-		local tree_cb = nvim_tree_config.nvim_tree_callback
 		local icons = require("config.icons")
 
 		nvim_tree.setup({
@@ -72,19 +70,6 @@ return {
 				width = function()
 					return math.floor(vim.opt.columns:get() * 0.5)
 				end,
-				--[[ width = 30, ]]
-				--[[ hide_root_folder = false, ]]
-				--[[ side = "right", ]]
-				mappings = {
-					custom_only = false,
-					list = {
-						{ key = { "l", "<CR>", "o" }, cb = tree_cb("edit") },
-						{ key = "h", cb = tree_cb("close_node") },
-						{ key = "v", cb = tree_cb("vsplit") },
-					},
-				},
-				--[[ number = false, ]]
-				--[[ relativenumber = false, ]]
 			},
 			trash = {
 				cmd = "trash",

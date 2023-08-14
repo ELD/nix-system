@@ -5,7 +5,6 @@ return {
 		"JoosepAlviste/nvim-ts-context-commentstring",
 	},
 	config = function()
-		vim.opt.runtimepath:append(vim.fn.stdpath("data") .. "/parsers")
 		local configs = require("nvim-treesitter.configs")
 
 		require("nvim-treesitter.install").compilers = { "clang" }
@@ -42,7 +41,6 @@ return {
 			auto_install = false,
 			sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
 			ignore_install = { "hack", "rnoweb" }, -- List of parsers to ignore installing
-			parser_install_dir = vim.fn.stdpath("data") .. "/parsers",
 			autopairs = {
 				enable = true,
 			},
