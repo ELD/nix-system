@@ -107,9 +107,9 @@
       "Xcode" = 497799835;
 
       "Day Progress" = 6450280202;
-      "SuperPlanner" = 6443725564;
+      "Structured" = 1499198946;
 
-      # "TestFlight" = 899247664;
+      "TestFlight" = 899247664;
 
       "Flighty" = 1358823008;
       "Kindle" = 405399194;
