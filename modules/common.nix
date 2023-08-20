@@ -75,7 +75,7 @@
 
   fonts = {
     fontDir.enable = true;
-    fonts = with pkgs;
+    packages = with pkgs;
       [
         jetbrains-mono
         maple-mono-NF
