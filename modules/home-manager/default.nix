@@ -76,7 +76,6 @@
         flyctl
         gawk
         git
-        gitlint
         gnugrep
         gnupg
         gnused
