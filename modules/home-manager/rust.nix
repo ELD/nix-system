@@ -1,23 +1,25 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    # Cargo utilities
-    cargo-nextest
-    cargo-expand
-    cargo-outdated
-    cargo-shuttle
-    cargo-sweep
-    cargo-vet
-    cargo-wipe
-    diesel-cli
-    # evcxr
-    sqlx-cli
+  home.packages = with pkgs;
+    [
+      # Cargo utilities
+      cargo-nextest
+      cargo-expand
+      cargo-outdated
+      cargo-shuttle
+      cargo-sweep
+      cargo-vet
+      cargo-wipe
+      diesel-cli
+      # evcxr
+      sqlx-cli
 
-    # Rust CLI utilities
-    du-dust
-
-    # Rust/LLVM linkers
-    mold
-  ];
+      # Rust CLI utilities
+      du-dust
+    ]
+    ++ (lib.lists.optionals (pkgs.system == "x86_64-linux") [
+      # Rust/LLVM linkers (Linux-only)
+      mold
+    ]);
 
   home.file.".cargo/config.toml".source = (pkgs.formats.toml {}).generate "cargo-config" {
     build = {
