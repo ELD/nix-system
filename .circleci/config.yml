@@ -6,7 +6,7 @@ executors:
   x86_64-linux:
     resource_class: large
     machine:
-      image: ubuntu-2204:2023.04.2 # NOTE: See if this older image works, if so, something weird changed in July's image
+      image: ubuntu-2204:current
   # aarch64-linux:
   #   resource_class: arm.large
   #   machine:
