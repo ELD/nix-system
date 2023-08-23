@@ -101,7 +101,7 @@
         home-manager.nixosModules.home-manager
         ./modules/nixos
         (
-          {...}: {
+          _: {
             nixpkgs.overlays = builtins.attrValues self.overlays;
           }
         )
@@ -144,7 +144,7 @@
       ],
       extraModules ? [],
     }:
-      inputs.home-manager.lib.homeManagerConfiguration rec {
+      inputs.home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
           inherit system;
           overlays = builtins.attrValues self.overlays;
@@ -310,7 +310,7 @@
     overlays = {
       channels = _final: prev: {
         stable = import inputs.stable {
-          system = prev.system;
+          inherit (prev) system;
           config.allowUnfree = true;
         };
       };
@@ -321,10 +321,15 @@
       pop-launcher = final: _prev: {
         pop-launcher = final.callPackage ./modules/packages/pop-launcher.nix {};
       };
+      ripgrep-all = _final: prev: {
+        ripgrep-all = prev.ripgrep-all.overrideAttrs (old: {
+          patches = (old.patches or []) ++ [./modules/packages/ripgrep-all.patch];
+        });
+      };
       extraPackages = _final: prev: {
-        sysdo = self.packages.${prev.system}.sysdo;
-        pyEnv = self.packages.${prev.system}.pyEnv;
-        devenv = self.packages.${prev.system}.devenv;
+        inherit (self.packages.${prev.system}) sysdo;
+        inherit (self.packages.${prev.system}) pyEnv;
+        inherit (self.packages.${prev.system}) devenv;
       };
     };
   };
