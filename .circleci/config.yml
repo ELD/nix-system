@@ -44,8 +44,6 @@ jobs:
         default: aarch64-darwin
         description: "Which system to run the flake check against"
     executor: << parameters.os >>
-    environment:
-      CACHIX_USER: eld
     steps:
       - checkout
       - nix/install:
@@ -59,6 +57,7 @@ jobs:
             trusted-substituters = https://cache.nixos.org https://eld.cachix.org
       - nix/install-cachix
       - nix/with-cachix:
+          cache-name: eld
           cachix-user: eld
           nix-command: nix flake check -j auto -v --show-trace --accept-flake-config --fallback --allow-import-from-derivation
 
