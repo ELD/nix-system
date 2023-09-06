@@ -1,6 +1,7 @@
 local M = {}
 
 M.all_servers = {
+	"astro",
 	"cssls",
 	"dockerls",
 	"gopls",
@@ -9,6 +10,7 @@ M.all_servers = {
 	"lua_ls",
 	"nil_ls",
 	"rust_analyzer",
+	"tailwindcss",
 	"taplo",
 	"tsserver",
 }
