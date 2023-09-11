@@ -62,6 +62,7 @@
       [
         alejandra
         age
+        bun
         cachix
         colima
         comma
