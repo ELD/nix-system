@@ -8,7 +8,7 @@
     ./bat.nix
     ./direnv.nix
     ./dotfiles
-    ./exa.nix
+    ./eza.nix
     ./fzf.nix
     ./git.nix
     ./go.nix
