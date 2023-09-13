@@ -55,6 +55,7 @@
       "${NODE_GLOBAL}/bin"
       "${config.home.homeDirectory}/.rd/bin"
       "${PNPM_DIR}"
+      "${config.home.homeDirectory}/.local/bin"
     ];
 
     # define package definitions for current user environment
