@@ -30,7 +30,7 @@
       rustflags = ["-C" "link-arg=-fuse-ld=${pkgs.mold}/bin/mold"];
     };
     target.aarch64-apple-darwin = {
-      rustflags = ["-C" "link-arg=-fuse-ld=/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld"];
+      rustflags = ["-C" "link-arg=-ld_new"];
     };
     alias = {
       b = "build";
