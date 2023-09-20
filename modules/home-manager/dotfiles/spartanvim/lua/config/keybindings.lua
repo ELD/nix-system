@@ -77,6 +77,9 @@ keymap(
 
 -- Copy and paste
 keymap("n", "<C-y>", "<esc>:%y+<CR>", { silent = true })
+keymap("n", "<leader>Y", [["+Y]])
+keymap({ "n", "v" }, "<leader>y", [["+y]])
+keymap({ "n", "v" }, "<leader>d", [["_d]])
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 keymap("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
