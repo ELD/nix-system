@@ -340,7 +340,7 @@
       };
       ripgrep-all = _final: prev: {
         ripgrep-all = prev.ripgrep-all.overrideAttrs (old: {
-          patches = (old.patches or []) ++ [./modules/packages/ripgrep-all.patch];
+          patches = prev.lib.lists.unique (old.patches or []) ++ [./modules/packages/ripgrep-all.patch];
         });
       };
       extraPackages = _final: prev: {
