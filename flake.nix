@@ -207,14 +207,14 @@
         extraModules = [
           ./profiles/work.nix
         ];
-        hostname = "Ellipse";
+        hostname = "cci-ericdattore-t99yh";
       };
       "rhombus@x86_64-darwin" = mkDarwinConfig {
         system = "x86_64-darwin";
         extraModules = [
           ./profiles/work.nix
         ];
-        hostname = "Rhombus";
+        hostname = "cci-ericdattore-t99yh";
       };
     };
 
