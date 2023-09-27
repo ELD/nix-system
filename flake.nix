@@ -339,8 +339,8 @@
           else neovim;
       };
       ripgrep-all = _final: prev: {
-        ripgrep-all = prev.ripgrep-all.overrideAttrs (old: {
-          patches = prev.lib.lists.unique (old.patches or []) ++ [./modules/packages/ripgrep-all.patch];
+        ripgrep-all = prev.ripgrep-all.overrideAttrs (_old: {
+          patches = [./modules/packages/ripgrep-all.patch];
         });
       };
       extraPackages = _final: prev: {
