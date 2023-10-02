@@ -106,12 +106,12 @@
       "Xcode" = 497799835;
 
       "Day Progress" = 6450280202;
-      # "Structured" = 1499198946;
+      "Structured" = 1499198946;
 
       "TestFlight" = 899247664;
 
       "Flighty" = 1358823008;
-      "Kindle" = 405399194;
+      "Kindle" = 302584613;
     };
   };
 }
