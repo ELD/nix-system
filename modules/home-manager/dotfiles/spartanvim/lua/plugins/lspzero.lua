@@ -200,7 +200,6 @@ return {
 				keymaps.on_attach(client, bufnr)
 				if vim.lsp.inlay_hint and client.supports_method("textDocument/inlayHint") then
 					vim.lsp.inlay_hint(bufnr, true)
-					print("LSP Inlay Hints enabled")
 				end
 			end)
 
