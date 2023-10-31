@@ -90,6 +90,7 @@
         nixpkgs-fmt
         nodejs_latest
         nodePackages.pnpm
+        nushell
         openssh
         postgresql_14
         pre-commit
