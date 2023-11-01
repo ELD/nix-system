@@ -5,11 +5,13 @@
     substituters = [
       "https://cache.nixos.org"
       "https://eld.cachix.org"
+      "https://nix-community.cachix.org"
     ];
 
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "eld.cachix.org-1:ddhUxMCAKZVJOVPUcGGWwB5UZfhlhG12rN4GRz8D7sk="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
 
@@ -19,10 +21,10 @@
     stable.url = "github:nixos/nixpkgs/nixos-22.11";
     devenv.url = "github:cachix/devenv/v0.6.2";
 
-    nixpkgs-staging.url = "github:nixos/nixpkgs/staging";
+    nixpkgs-staging-next.url = "github:nixos/nixpkgs/staging-next";
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs-staging";
+      inputs.nixpkgs.follows = "nixpkgs-staging-next";
     };
 
     # system management
