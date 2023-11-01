@@ -5,11 +5,13 @@
     substituters = [
       "https://cache.nixos.org"
       "https://eld.cachix.org"
+      "https://nix-community.cachix.org"
     ];
 
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "eld.cachix.org-1:ddhUxMCAKZVJOVPUcGGWwB5UZfhlhG12rN4GRz8D7sk="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
 
@@ -19,9 +21,10 @@
     stable.url = "github:nixos/nixpkgs/nixos-22.11";
     devenv.url = "github:cachix/devenv/v0.6.2";
 
-    neovim-flake = {
-      url = "github:neovim/neovim?dir=contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs-staging-next.url = "github:nixos/nixpkgs/staging-next";
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs-staging-next";
     };
 
     # system management
@@ -326,18 +329,7 @@
       pop-launcher = final: _prev: {
         pop-launcher = final.callPackage ./modules/packages/pop-launcher.nix {};
       };
-      neovim = final: _prev: let
-        inherit (inputs.neovim-flake) packages;
-        neovim =
-          if isDarwin final.system
-          then packages.${final.system}.neovim
-          else packages.${final.system}.neovim;
-      in {
-        neovim-nightly =
-          if isDarwin final.system
-          then final.callPackage ./modules/packages/neovim-nightly.nix {inherit neovim;}
-          else neovim;
-      };
+      neovim = inputs.neovim-nightly-overlay.overlay;
       ripgrep-all = _final: prev: {
         ripgrep-all = prev.ripgrep-all.overrideAttrs (_old: {
           patches = [./modules/packages/ripgrep-all.patch];

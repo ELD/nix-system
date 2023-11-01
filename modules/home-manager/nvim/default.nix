@@ -1,6 +1,5 @@
-{pkgs, ...}: {
+_: {
   programs.neovim = {
-    package = pkgs.neovim-nightly;
     enable = true;
     viAlias = true;
     vimAlias = true;
