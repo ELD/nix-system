@@ -299,7 +299,7 @@
         "hercules-ci-effects": "hercules-ci-effects",
         "neovim-flake": "neovim-flake",
         "nixpkgs": [
-          "nixpkgs-staging"
+          "nixpkgs-staging-next"
         ]
       },
       "locked": {
@@ -403,18 +403,18 @@
         "type": "github"
       }
     },
-    "nixpkgs-staging": {
+    "nixpkgs-staging-next": {
       "locked": {
-        "lastModified": 1698775296,
-        "narHash": "sha256-3NOZkgtEiZ1NljJSxHi6eni+Tg5NbOajrG1LptBJM2Q=",
+        "lastModified": 1698792877,
+        "narHash": "sha256-+j0mx5b72Jtdet++eWxGODBrqKzpqeN+pIQFKe+BZCI=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "91b879e8674ff22e02d2101c7a5856fa708e84fc",
+        "rev": "1f0c781bd2379d87c9103cb38e9a5b1f58a4e3cd",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "staging",
+        "ref": "staging-next",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -489,7 +489,7 @@
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-staging": "nixpkgs-staging",
+        "nixpkgs-staging-next": "nixpkgs-staging-next",
         "stable": "stable",
         "treefmt-nix": "treefmt-nix"
       }
