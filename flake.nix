@@ -330,11 +330,11 @@
         pop-launcher = final.callPackage ./modules/packages/pop-launcher.nix {};
       };
       neovim = inputs.neovim-nightly-overlay.overlay;
-      ripgrep-all = _final: prev: {
-        ripgrep-all = prev.ripgrep-all.overrideAttrs (_old: {
-          patches = [./modules/packages/ripgrep-all.patch];
-        });
-      };
+      # ripgrep-all = _final: prev: {
+      #   ripgrep-all = prev.ripgrep-all.overrideAttrs (_old: {
+      #     patches = [./modules/packages/ripgrep-all.patch];
+      #   });
+      # };
       extraPackages = _final: prev: {
         inherit (self.packages.${prev.system}) sysdo;
         inherit (self.packages.${prev.system}) pyEnv;
