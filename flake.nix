@@ -43,9 +43,9 @@
 
     treefmt-nix.url = "github:numtide/treefmt-nix";
 
-    # Bootspec/Secure Boot
-    bootspec-secureboot = {
-      url = "github:DeterminateSystems/bootspec-secureboot/main";
+    # SecureBoot support
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.3.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -323,18 +323,10 @@
         };
       };
       vimPlugins = import ./modules/packages/vimPluginsOverlay.nix;
-      sbctl = final: _prev: {
-        sbctl = final.callPackage ./modules/packages/sbctl.nix {};
-      };
       pop-launcher = final: _prev: {
         pop-launcher = final.callPackage ./modules/packages/pop-launcher.nix {};
       };
       neovim = inputs.neovim-nightly-overlay.overlay;
-      # ripgrep-all = _final: prev: {
-      #   ripgrep-all = prev.ripgrep-all.overrideAttrs (_old: {
-      #     patches = [./modules/packages/ripgrep-all.patch];
-      #   });
-      # };
       extraPackages = _final: prev: {
         inherit (self.packages.${prev.system}) sysdo;
         inherit (self.packages.${prev.system}) pyEnv;

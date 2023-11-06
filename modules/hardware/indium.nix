@@ -11,19 +11,20 @@
 }: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    inputs.bootspec-secureboot.nixosModules.bootspec-secureboot
+    inputs.lanzaboote.nixosModules.lanzaboote
   ];
 
-  # Boot options; bootspec-secureboot for Secure Boot signing :D
+  # Boot options
   boot = {
-    loader = {
-      secureboot = {
-        enable = true;
-        signingKeyPath = "/etc/secureboot/keys/db/db.key";
-        signingCertPath = "/etc/secureboot/keys/db/db.pem";
-      };
+    # Lanzaboote for PKI signing/SecureBoot
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/etc/secureboot";
+    };
 
-      # systemd-boot.enable = true;
+    # Disable systemd-boot because Lanzaboote deals with this for us
+    loader = {
+      systemd-boot.enable = lib.mkForce false;
 
       efi = {
         canTouchEfiVariables = true;
@@ -39,7 +40,7 @@
     initrd.availableKernelModules = ["xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod"];
     initrd.kernelModules = ["dm_snapshot"];
     kernelModules = ["kvm-intel"];
-    kernelParams = ["acpi_osi=linux" "module_blacklist=hid_sensor_hub"];
+    kernelParams = ["acpi_osi=linux" "module_blacklist=hid_sensor_hub" "mem_sleep_default=deep"];
     extraModulePackages = [];
     kernelPackages = pkgs.linuxPackages_6_1;
 

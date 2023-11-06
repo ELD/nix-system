@@ -2,7 +2,6 @@
   self,
   inputs,
   config,
-  lib,
   pkgs,
   ...
 }: {
@@ -75,23 +74,17 @@
 
   fonts = {
     fontDir.enable = true;
-    fonts = with pkgs;
-      [
-        jetbrains-mono
-        maple-mono-NF
-        open-sans
-        recursive
-        (nerdfonts.override {
-          fonts = [
-            "CascadiaCode"
-            "VictorMono"
-          ];
-        })
-      ]
-      ++ (lib.lists.optionals (builtins.getEnv "CI" != "") [
-        (callPackage ./packages/dank-mono.nix {
-          filePath = ../dank-mono.zip;
-        })
-      ]);
+    fonts = with pkgs; [
+      jetbrains-mono
+      maple-mono-NF
+      open-sans
+      recursive
+      (nerdfonts.override {
+        fonts = [
+          "CascadiaCode"
+          "VictorMono"
+        ];
+      })
+    ];
   };
 }

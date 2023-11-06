@@ -114,7 +114,7 @@
         zellij
       ]
       ++ (lib.lists.optionals (pkgs.system == "x86_64-linux") [
-        # _1password-gui
+        _1password-gui
         alacritty
         cider
         efitools

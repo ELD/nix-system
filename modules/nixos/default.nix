@@ -117,6 +117,7 @@
       pop-icon-theme
       pop-launcher
       thunderbird
+      veracrypt
       vscode
       wget
     ]
