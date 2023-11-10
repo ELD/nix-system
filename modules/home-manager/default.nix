@@ -59,6 +59,7 @@
     ];
 
     # define package definitions for current user environment
+    # TODO: Extract the conditionals below to separate modules based on target system?
     packages = with pkgs;
       [
         alejandra
@@ -69,7 +70,6 @@
         comma
         circleci-cli
         cirrus-cli
-        cmake
         coreutils-full
         curl
         deadnix
@@ -106,6 +106,7 @@
         terraform
         tree
         treefmt
+        unzip
         vagrant
         yarn
         yt-dlp
@@ -117,8 +118,10 @@
         _1password-gui
         alacritty
         cider
+        cmake
         efitools
-        openssl
+        gcc
+        gnumake
         sbctl
       ])
       ++ (lib.lists.optionals (pkgs.system == "aarch64-darwin" || pkgs.system == "x86_64-darwin") [

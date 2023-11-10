@@ -7,7 +7,11 @@ return {
 	config = function()
 		local configs = require("nvim-treesitter.configs")
 
-		require("nvim-treesitter.install").compilers = { "clang" }
+		if vim.fn.has("macunix") == 1 then
+			require("nvim-treesitter.install").compilers = { "clang" }
+		else
+			require("nvim-treesitter.install").compilers = { "gcc" }
+		end
 
 		configs.setup({
 			-- A list of parser names, or "all"
