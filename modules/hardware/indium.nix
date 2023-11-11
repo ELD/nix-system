@@ -40,7 +40,7 @@
     initrd.availableKernelModules = ["xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod"];
     initrd.kernelModules = ["dm_snapshot"];
     kernelModules = ["kvm-intel"];
-    kernelParams = ["acpi_osi=linux" "module_blacklist=hid_sensor_hub" "mem_sleep_default=deep"];
+    kernelParams = ["acpi_osi=linux" "module_blacklist=hid_sensor_hub"];
     extraModulePackages = [];
     kernelPackages = pkgs.linuxPackages_6_1;
 
