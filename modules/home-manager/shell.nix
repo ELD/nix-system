@@ -15,6 +15,15 @@
       ibrew = "aarch -x86_64 brew";
       abrew = "aarch -arm64 brew";
     };
+  atuinZshExtras =
+    if config.programs.atuin.enable
+    then ''
+      export ATUIN_NOBIND="true"
+      bindkey '^r' _atuin_search_widget
+      bindkey '^[[A' _atuin_search_widget
+      bindkey '^[OA' _atuin_search_widget
+    ''
+    else "";
 in {
   programs = {
     atuin = {
@@ -39,6 +48,7 @@ in {
       '';
       initExtra = ''
         ${functions}
+        ${atuinZshExtras}
         if [[ -f "$HOME/.config/zsh/.p10k.zsh" ]]; then
           source "$HOME/.config/zsh/.p10k.zsh"
         fi
