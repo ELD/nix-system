@@ -39,13 +39,12 @@ in {
       '';
       initExtra = ''
         ${functions}
+        if [[ -f "$HOME/.config/zsh/.p10k.zsh" ]]; then
+          source "$HOME/.config/zsh/.p10k.zsh"
+        fi
         ${lib.optionalString pkgs.stdenvNoCC.isDarwin ''
           if [[ -d /opt/homebrew ]]; then
             eval "$(/opt/homebrew/bin/brew shellenv)"
-          fi
-
-          if [[ -f "$HOME/.config/zsh/.p10k.zsh" ]]; then
-            source "$HOME/.config/zsh/.p10k.zsh"
           fi
         ''}
         unset RPS1

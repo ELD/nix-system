@@ -20,6 +20,7 @@
     lanzaboote = {
       enable = true;
       pkiBundle = "/etc/secureboot";
+      configurationLimit = 3;
     };
 
     # Disable systemd-boot because Lanzaboote deals with this for us
