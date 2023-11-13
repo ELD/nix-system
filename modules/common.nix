@@ -79,12 +79,7 @@
       maple-mono-NF
       open-sans
       recursive
-      (nerdfonts.override {
-        fonts = [
-          "CascadiaCode"
-          "VictorMono"
-        ];
-      })
+      nerdfonts
     ];
   };
 }
