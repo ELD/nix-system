@@ -199,7 +199,7 @@ return {
 			lsp.on_attach(function(client, bufnr)
 				keymaps.on_attach(client, bufnr)
 				if vim.lsp.inlay_hint and client.supports_method("textDocument/inlayHint") then
-					vim.lsp.inlay_hint(bufnr, true)
+					vim.lsp.inlay_hint.enable(bufnr, true)
 				end
 			end)
 
