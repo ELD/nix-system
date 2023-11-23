@@ -75,7 +75,9 @@
         deadnix
         devenv
         fd
+        findutils
         flyctl
+        fontforge
         gawk
         git
         gnugrep
