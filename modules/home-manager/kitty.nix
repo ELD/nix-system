@@ -2,7 +2,7 @@ _: {
   programs.kitty = {
     enable = true;
     font = {
-      name = "DankMono Nerd Font Propo";
+      name = "MonispaceNE NFP";
       size = 16;
     };
     shellIntegration.enableZshIntegration = true;
