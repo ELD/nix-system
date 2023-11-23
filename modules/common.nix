@@ -5,7 +5,10 @@
   pkgs,
   ...
 }: {
-  imports = [./primaryUser.nix ./nixpkgs.nix];
+  imports = [
+    ./primaryUser.nix
+    ./nixpkgs.nix
+  ];
 
   nixpkgs.overlays = builtins.attrValues self.overlays;
 
@@ -26,7 +29,12 @@
   };
 
   # bootstrap home manager using system config
-  hm = import ./home-manager;
+  hm = {
+    imports = [
+      ./home-manager
+      inputs.nix-index-database.hmModules.nix-index
+    ];
+  };
 
   # let nix manage home-manager profiles and use global nixpkgs
   home-manager = {

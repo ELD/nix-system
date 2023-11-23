@@ -18,7 +18,7 @@
     ./rust.nix
     ./shell.nix
     ./ssh.nix
-    # ./starship.nix
+    ./kitty.nix
   ];
 
   nixpkgs.config = {
@@ -67,7 +67,6 @@
         bun
         cachix
         colima
-        comma
         circleci-cli
         cirrus-cli
         coreutils-full
@@ -141,6 +140,7 @@
     less.enable = true;
     man.enable = true;
     nix-index.enable = true;
+    nix-index-database.comma.enable = true;
     yt-dlp.enable = true;
     zathura.enable = true;
     zoxide.enable = true;
