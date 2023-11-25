@@ -2,7 +2,7 @@ _: {
   programs.kitty = {
     enable = true;
     font = {
-      name = "MonispaceNE NFP";
+      name = "MonispaceNE NFM";
       size = 16;
     };
     shellIntegration.enableZshIntegration = true;

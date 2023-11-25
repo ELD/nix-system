@@ -31,8 +31,8 @@
   # bootstrap home manager using system config
   hm = {
     imports = [
-      ./home-manager
       inputs.nix-index-database.hmModules.nix-index
+      ./home-manager
     ];
   };
 

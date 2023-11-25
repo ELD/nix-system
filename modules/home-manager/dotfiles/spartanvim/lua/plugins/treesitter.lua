@@ -13,6 +13,8 @@ return {
 			require("nvim-treesitter.install").compilers = { "gcc" }
 		end
 
+		require("ts_context_commentstring").setup({})
+
 		configs.setup({
 			-- A list of parser names, or "all"
 			ensure_installed = {
@@ -54,10 +56,6 @@ return {
 				additional_vim_regex_highlighting = true,
 			},
 			indent = { enable = true, disable = { "yaml" } },
-			context_commentstring = {
-				enable = true,
-				enable_autocmd = false,
-			},
 		})
 	end,
 }

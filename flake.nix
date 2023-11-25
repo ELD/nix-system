@@ -95,9 +95,11 @@
         modules =
           [
             {
-              networking.hostName = hostname;
-              networking.localHostName = hostname;
-              networking.computerName = hostname;
+              networking = {
+                hostName = hostname;
+                localHostName = hostname;
+                computerName = hostname;
+              };
             }
           ]
           ++ baseModules
