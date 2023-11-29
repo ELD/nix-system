@@ -68,7 +68,6 @@
         "sensei"
         "sketch"
         "tableplus"
-        "veracrypt"
         "visual-studio-code-insiders"
         "warp"
         "zoom"

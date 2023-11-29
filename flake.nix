@@ -204,6 +204,7 @@
         system = "aarch64-darwin";
         extraModules = [
           ./profiles/personal.nix
+          ./profiles/darwin/brew.nix
         ];
         hostname = "Vanadium";
       };
