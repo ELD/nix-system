@@ -106,6 +106,7 @@
         tealdeer
         tectonic
         terraform
+        tmux
         tree
         treefmt
         unzip
