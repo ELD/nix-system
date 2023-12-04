@@ -18,7 +18,7 @@
   inputs = {
     # package repos
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    stable.url = "github:nixos/nixpkgs/nixos-22.11";
+    stable.url = "github:nixos/nixpkgs/nixos-23.11";
     devenv.url = "github:cachix/devenv/v0.6.2";
 
     nixpkgs-staging-next.url = "github:nixos/nixpkgs/staging-next";
