@@ -55,6 +55,7 @@
         "istat-menus"
         "iterm2-beta"
         "jetbrains-toolbox"
+        "lm-studio"
         "lunar"
         "macfuse"
         "numi"

@@ -19,6 +19,7 @@
     ./rust.nix
     ./shell.nix
     ./ssh.nix
+    ./tmux.nix
   ];
 
   nixpkgs.config = {
@@ -106,7 +107,6 @@
         tealdeer
         tectonic
         terraform
-        tmux
         tree
         treefmt
         unzip
