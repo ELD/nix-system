@@ -110,7 +110,6 @@
         tree
         treefmt
         unzip
-        vagrant
         yarn
         yt-dlp
         yq
