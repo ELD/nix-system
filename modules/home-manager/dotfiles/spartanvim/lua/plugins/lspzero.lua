@@ -186,7 +186,12 @@ return {
 					pcall(vim.cmd, "MasonUpdate")
 				end,
 			},
-			{ "simrat39/rust-tools.nvim" },
+			--[[ { "simrat39/rust-tools.nvim" }, ]]
+			{
+				"mrcjkb/rustaceanvim",
+				version = "^3",
+				ft = { "rust" },
+			},
 			{ "jose-elias-alvarez/null-ls.nvim" },
 			{ "jay-babu/mason-null-ls.nvim" },
 		},
@@ -222,7 +227,7 @@ return {
 			lsp.setup()
 
 			-- Other config can go here now
-			require("plugins.lsp-support.rust").setup()
+			--[[ require("plugins.lsp-support.rust").setup() ]]
 			require("plugins.lsp-support.null-ls-integration").setup()
 		end,
 	},
