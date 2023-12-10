@@ -32,7 +32,6 @@
     casks =
       [
         "1password"
-        "adobe-acrobat-reader"
         "airbuddy"
         "alfred"
         "audacity"
@@ -45,7 +44,6 @@
         "dash"
         "deckset"
         "discord"
-        "docker"
         "element"
         "elgato-stream-deck"
         "elgato-wave-link"
@@ -55,7 +53,6 @@
         "istat-menus"
         "iterm2-beta"
         "jetbrains-toolbox"
-        "lm-studio"
         "lunar"
         "macfuse"
         "numi"
@@ -87,7 +84,6 @@
       "Pixelmator Pro" = 1289583905;
       "Slack" = 803453959;
       "Things 3" = 904280696;
-      "Twitter" = 1482454543;
 
       "Pages" = 409201541;
       "Keynote" = 409203825;
