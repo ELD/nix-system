@@ -2,13 +2,13 @@ _: {
   programs.kitty = {
     enable = true;
     font = {
-      name = "MonaspiceRnNFM-Regular";
+      name = "MonaspiceArNFM-Regular";
       size = 16;
     };
     shellIntegration.enableZshIntegration = true;
     theme = "Catppuccin-Macchiato";
     settings = {
-      font_features = "MonaspiceRnNFM-Regular +calt +liga +dlig +ss01 +ss02 +ss03 +ss04 +ss05 +ss06 +ss07 +ss08";
+      font_features = "MonaspiceArNFM-Regular +calt +liga +dlig +ss01 +ss02 +ss03 +ss04 +ss05 +ss06 +ss07 +ss08";
       tab_bar_min_tabs = 1;
       tab_bar_edge = "bottom";
       tab_bar_style = "powerline";
