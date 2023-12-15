@@ -58,6 +58,7 @@
       python3Packages.jupyter_core
       python3Packages.ipython
       python3Packages.ipykernel
+      python3Packages.fonttools
       pylint
       pipenv
       ruby
