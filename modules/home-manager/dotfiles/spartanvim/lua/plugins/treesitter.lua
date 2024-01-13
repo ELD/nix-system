@@ -1,5 +1,6 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
+	"nvim-treesitter/playground",
 	build = ":TSUpdate",
 	dependencies = {
 		"JoosepAlviste/nvim-ts-context-commentstring",
@@ -31,6 +32,7 @@ return {
 				"git_rebase",
 				"gitattributes",
 				"json",
+				"nix",
 				"python",
 				"scss",
 				"scheme",
@@ -56,6 +58,24 @@ return {
 				additional_vim_regex_highlighting = true,
 			},
 			indent = { enable = true, disable = { "yaml" } },
+			playground = {
+				enable = true,
+				disable = {},
+				updatetime = 25,
+				persist_queries = false,
+				keybindings = {
+					toggle_query_editor = "o",
+					toggle_hl_groups = "i",
+					toggle_injected_languages = "t",
+					toggle_anonymous_nodes = "a",
+					toggle_language_display = "I",
+					focus_language = "f",
+					unfocus_language = "F",
+					update = "R",
+					goto_node = "<cr>",
+					show_help = "?",
+				},
+			},
 		})
 	end,
 }
