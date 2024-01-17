@@ -61,6 +61,7 @@
         "paw"
         "philips-hue-sync"
         "postman"
+        "raycast"
         "rectangle-pro"
         "screenflow"
         "sensei"
