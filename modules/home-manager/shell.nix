@@ -30,6 +30,10 @@ in {
       enable = true;
       enableZshIntegration = true;
     };
+    zellij = {
+      enable = true;
+      enableZshIntegration = true;
+    };
     zsh = {
       enable = true;
       autocd = true;
