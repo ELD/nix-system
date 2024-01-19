@@ -17,12 +17,16 @@
     };
   atuinZshExtras =
     if config.programs.atuin.enable
-    then ''
-      export ATUIN_NOBIND="true"
-      bindkey '^r' _atuin_search_widget
-      bindkey '^[[A' _atuin_search_widget
-      bindkey '^[OA' _atuin_search_widget
-    ''
+    then
+      /*
+      bash
+      */
+      ''
+        export ATUIN_NOBIND="true"
+        bindkey '^r' _atuin_search_widget
+        bindkey '^[[A' _atuin_search_widget
+        bindkey '^[OA' _atuin_search_widget
+      ''
     else "";
 in {
   programs = {

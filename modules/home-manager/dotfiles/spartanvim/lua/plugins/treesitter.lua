@@ -1,6 +1,5 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
-	"nvim-treesitter/playground",
 	build = ":TSUpdate",
 	dependencies = {
 		"JoosepAlviste/nvim-ts-context-commentstring",
@@ -33,6 +32,7 @@ return {
 				"gitattributes",
 				"json",
 				"nix",
+				"perl",
 				"python",
 				"scss",
 				"scheme",
@@ -42,11 +42,13 @@ return {
 				"yaml",
 				"rust",
 				"vue",
+				"vimdoc",
+				"vim",
 				"javascript",
 				"markdown",
 				"markdown_inline",
 			},
-			auto_install = false,
+			auto_install = true,
 			sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
 			ignore_install = { "hack", "rnoweb" }, -- List of parsers to ignore installing
 			autopairs = {
@@ -55,7 +57,7 @@ return {
 			highlight = {
 				enable = true, -- false will disable the whole extension
 				disable = { "" }, -- list of language that will be disabled
-				additional_vim_regex_highlighting = false,
+				additional_vim_regex_highlighting = true,
 			},
 			indent = { enable = true, disable = { "yaml" } },
 			playground = {
