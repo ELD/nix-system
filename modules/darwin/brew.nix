@@ -82,6 +82,7 @@
       "1Password for Safari" = 1569813296;
       "Cardhop" = 1290358394;
       "Fantastical" = 975937182;
+      "Pile" = 1549454338;
       "Pixelmator Pro" = 1289583905;
       "Slack" = 803453959;
       "Things 3" = 904280696;
