@@ -54,6 +54,7 @@ local settings = {
 	sidescrolloff = 8,
 	errorbells = false,
 	title = true,
+	guifont = "OperatorMonoSSmLig Nerd Font Propo:h16:#e-subpixelantialias",
 }
 
 for k, v in pairs(settings) do
