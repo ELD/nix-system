@@ -36,7 +36,7 @@ in {
     };
     zellij = {
       enable = true;
-      enableZshIntegration = true;
+      # enableZshIntegration = true;
     };
     zsh = {
       enable = true;
