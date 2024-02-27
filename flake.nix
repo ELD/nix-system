@@ -21,10 +21,9 @@
     stable.url = "github:nixos/nixpkgs/nixos-23.11";
     devenv.url = "github:cachix/devenv/v0.6.2";
 
-    nixpkgs-staging-next.url = "github:nixos/nixpkgs/staging-next";
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs-staging-next";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # system management
