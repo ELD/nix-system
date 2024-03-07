@@ -1,0 +1,4 @@
+[submodule "modules/home-manager/dotfiles/spartanvim"]
+	path = modules/home-manager/dotfiles/spartanvim
+	url = git@github.com:ELD/spartanvim.git
+	branch = rebuild
