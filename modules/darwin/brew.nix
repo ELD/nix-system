@@ -53,8 +53,10 @@
         "istat-menus"
         "iterm2-beta"
         "jetbrains-toolbox"
+        "kitty"
         "lunar"
         "macfuse"
+        "neovide"
         "numi"
         "obsidian"
         "orbstack" # Docker Desktop replacement?
