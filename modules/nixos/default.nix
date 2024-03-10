@@ -49,8 +49,10 @@
   services.xserver = {
     # Enable the X11 windowing system.
     enable = true;
-    layout = "us";
-    xkbVariant = "";
+    xkb = {
+      layout = "us";
+      variant = "";
+    };
 
     libinput.enable = true;
 

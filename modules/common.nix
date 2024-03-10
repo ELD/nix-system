@@ -3,6 +3,7 @@
   inputs,
   config,
   pkgs,
+  lib,
   ...
 }: {
   imports = [./primaryUser.nix ./nixpkgs.nix];
@@ -73,14 +74,17 @@
     shells = with pkgs; [bash zsh fish];
   };
 
-  fonts = {
-    fontDir.enable = true;
-    fonts = with pkgs; [
+  fonts = let
+    fs = with pkgs; [
       jetbrains-mono
       maple-mono-NF
       open-sans
       recursive
       nerdfonts
     ];
-  };
+  in (
+    {fontDir.enable = true;}
+    // lib.mkIf pkgs.stdenv.isLinux {packages = fs;}
+    // lib.mkIf pkgs.stdenv.isDarwin {fonts = fs;}
+  );
 }
