@@ -41,6 +41,7 @@ in {
     zsh = {
       enable = true;
       autocd = true;
+      # zprof.enable = true;
       dotDir = ".config/zsh";
       localVariables = {
         LANG = "en_US.UTF-8";
@@ -51,9 +52,6 @@ in {
         TERM = "xterm-256color";
       };
       shellAliases = aliases;
-      initExtraBeforeCompInit = ''
-        fpath+=~/.zfunc
-      '';
       initExtra = ''
         ${functions}
         ${atuinZshExtras}
@@ -61,9 +59,14 @@ in {
           source "$HOME/.config/zsh/.p10k.zsh"
         fi
         ${lib.optionalString pkgs.stdenvNoCC.isDarwin ''
-          if [[ -d /opt/homebrew ]]; then
-            eval "$(/opt/homebrew/bin/brew shellenv)"
-          fi
+              if [[ -d /opt/homebrew ]]; then
+          export HOMEBREW_PREFIX=/opt/homebrew
+          export HOMEBREW_CELLAR=/opt/homebrew/Cellar
+          export HOMEBREW_REPOSITORY=/opt/homebrew
+          export PATH=/opt/homebrew/bin:/opt/homebrew/sbin\$\{PATH+:$PATH\}
+          export MANPATH=/opt/homebrew/share/man\$\{MANPATH+:$MANPATH\}:
+          export INFOPATH=/opt/homebrew/share/info:\$\{INFOPATH:-\}
+              fi
         ''}
         unset RPS1
       '';
@@ -85,7 +88,7 @@ in {
           "directory"
           "spectrum"
           "utility"
-          "completion"
+          # "completion"
           "archive"
           "docker"
           "git"
