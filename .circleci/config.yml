@@ -18,7 +18,7 @@ executors:
   aarch64-darwin:
     resource_class: macos.m1.large.gen1
     macos:
-      xcode: 14.3.1
+      xcode: 15.2.0
 
 workflows:
   build-flake:
