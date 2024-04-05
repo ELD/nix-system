@@ -105,7 +105,7 @@
       "Xcode" = 497799835;
 
       "Day Progress" = 6450280202;
-      "Structured" = 1499198946;
+      # "Structured" = 1499198946;
 
       "TestFlight" = 899247664;
 
