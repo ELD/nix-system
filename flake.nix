@@ -42,6 +42,11 @@
 
     treefmt-nix.url = "github:numtide/treefmt-nix";
 
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # SecureBoot support
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.3.0";
@@ -140,6 +145,7 @@
       system ? "x86_64-linux",
       nixpkgs ? inputs.nixpkgs,
       baseModules ? [
+        inputs.nix-index-database.hmModules.nix-index
         ./modules/home-manager
         {
           home = {

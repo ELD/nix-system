@@ -141,7 +141,10 @@
     jq.enable = true;
     less.enable = true;
     man.enable = true;
-    nix-index.enable = true;
+    nix-index = {
+      enable = true;
+      enableZshIntegration = true;
+    };
     yt-dlp.enable = true;
     zoxide.enable = true;
   };
