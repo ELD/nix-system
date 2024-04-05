@@ -10,6 +10,8 @@
       gst = "git status";
       gap = "git add -p";
       gcia = "git commit --amend --no-edit";
+      npm = "pnpm";
+      npx = "pnpm dlx";
     }
     // lib.optionalAttrs pkgs.stdenvNoCC.isDarwin {
       ibrew = "aarch -x86_64 brew";
