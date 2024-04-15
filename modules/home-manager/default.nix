@@ -20,6 +20,8 @@
     ./shell.nix
     ./ssh.nix
     ./tmux.nix
+
+    ./darwin-application-activation.nix
   ];
 
   nixpkgs.config = {
