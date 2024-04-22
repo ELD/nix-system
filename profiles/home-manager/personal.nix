@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   programs.git = {
     userEmail = "eric@dattore.me";
     userName = "Eric Dattore";
@@ -7,4 +7,7 @@
       signByDefault = true;
     };
   };
+  home.packages = with pkgs; [
+    s3cmd
+  ];
 }
