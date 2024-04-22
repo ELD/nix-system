@@ -90,6 +90,7 @@
         luajit
         luajitPackages.luarocks
         neofetch
+        neovide
         nix
         nixfmt
         nixpkgs-fmt
