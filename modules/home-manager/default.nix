@@ -77,6 +77,7 @@
         curl
         deadnix
         devenv
+        doctl
         fd
         findutils
         flyctl
@@ -112,6 +113,7 @@
         terraform
         tree
         treefmt
+        turso-cli
         unzip
         yarn
         yt-dlp
