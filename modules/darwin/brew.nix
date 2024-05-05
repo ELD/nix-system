@@ -55,6 +55,7 @@
         "jetbrains-toolbox"
         "lunar"
         "macfuse"
+        "monodraw"
         "numi"
         "obsidian"
         "orbstack" # Docker Desktop replacement?
