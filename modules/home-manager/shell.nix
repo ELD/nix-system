@@ -97,7 +97,7 @@ in {
           "homebrew"
           "osx"
           "autosuggestions"
-          "syntax-highlighting"
+          # "syntax-highlighting"
           "history-substring-search"
           "command-not-found"
           "gpg"
