@@ -2,15 +2,21 @@ _: {
   programs.kitty = {
     enable = true;
     font = {
-      name = "OperatorMonoSSmLig Nerd Font Mono";
+      # name = "OperatorMonoSSmLig Nerd Font Mono";
+      name = "BerkeleyMono Nerd Font Mono";
       size = 18;
     };
     shellIntegration.enableZshIntegration = true;
     theme = "Catppuccin-Macchiato";
     extraConfig = builtins.concatStringsSep "\n" [
-      "font_features OperatorMonoSSmLigNFM +ss01 +ss03 +ss05 +ss08 +ss09 +ss10 +ss11 +ss12"
-      "font_features OperatorMonoSSmLigNFM-Bold +ss01 +ss03 +ss05 +ss08 +ss09 +ss10 +ss11 +ss12"
-      "font_features OperatorMonoSSmLigNFM-Italic +ss01 +ss03 +ss05 +ss08 +ss09 +ss10 +ss11 +ss12"
+      "font_features BerkeleyMonoNF-Regular    +calt +dlig +liga"
+      "font_features BerkeleyMonoNF-Bold       +calt +dlig +liga"
+      "font_features BerkeleyMonoNF-Italic     +calt +dlig +liga"
+      "font_features BerkeleyMonoNF-BoldItalic +calt +dlig +liga"
+
+      "font_features OperatorMonoSSmLigNFM            +ss01 +ss03 +ss05 +ss08 +ss09 +ss10 +ss11 +ss12"
+      "font_features OperatorMonoSSmLigNFM-Bold       +ss01 +ss03 +ss05 +ss08 +ss09 +ss10 +ss11 +ss12"
+      "font_features OperatorMonoSSmLigNFM-Italic     +ss01 +ss03 +ss05 +ss08 +ss09 +ss10 +ss11 +ss12"
       "font_features OperatorMonoSSmLigNFM-BoldItalic +ss01 +ss03 +ss05 +ss08 +ss09 +ss10 +ss11 +ss12"
     ];
     keybindings = {
