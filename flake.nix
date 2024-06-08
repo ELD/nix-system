@@ -340,7 +340,7 @@
       pop-launcher = final: _prev: {
         pop-launcher = final.callPackage ./modules/packages/pop-launcher.nix {};
       };
-      neovim = inputs.neovim-nightly-overlay.overlay;
+      neovim = inputs.neovim-nightly-overlay.overlays.default;
       templ = inputs.templ.overlays.default;
       extraPackages = _final: prev: {
         inherit (self.packages.${prev.system}) sysdo;
