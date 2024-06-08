@@ -4,7 +4,7 @@ _: {
     font = {
       # name = "OperatorMonoSSmLig Nerd Font Mono";
       name = "BerkeleyMono Nerd Font Mono";
-      size = 18;
+      size = 20;
     };
     shellIntegration.enableZshIntegration = true;
     theme = "Catppuccin-Macchiato";
@@ -57,7 +57,7 @@ _: {
     };
     settings = {
       draw_minimal_borders = true;
-      inactive_text_alpha = "0.7";
+      inactive_text_alpha = "0.3";
       hide_window_decorations = "no";
 
       macos_titlebar_color = "background";

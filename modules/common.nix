@@ -76,11 +76,14 @@
 
   fonts = let
     fs = with pkgs; [
-      jetbrains-mono
-      maple-mono-NF
       open-sans
-      recursive
-      nerdfonts
+      (nerdfonts.override {
+        fonts = [
+          "JetBrainsMono"
+          "Recursive"
+          "Monaspace"
+        ];
+      })
     ];
   in (
     {fontDir.enable = true;}

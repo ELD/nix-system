@@ -3,15 +3,17 @@
 
   nixConfig = {
     substituters = [
-      "https://cache.nixos.org"
-      "https://eld.cachix.org"
-      "https://nix-community.cachix.org"
+      "https://cache.nixos.org?priority=40"
+      "https://nix-community.cachix.org?priority=41"
+      "https://numtide.cachix.org?priority=42"
+      "https://edattore-attic-nix-binary-cache.fly.dev/system?priority=43"
     ];
 
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "eld.cachix.org-1:ddhUxMCAKZVJOVPUcGGWwB5UZfhlhG12rN4GRz8D7sk="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
+      "system:9kc0wfN/u1hwyuvVf34YvpWGutSlLpjMeH8ovjOEJm8="
     ];
   };
 
@@ -24,6 +26,10 @@
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    templ = {
+      url = "github:a-h/templ";
     };
 
     # system management
@@ -335,6 +341,7 @@
         pop-launcher = final.callPackage ./modules/packages/pop-launcher.nix {};
       };
       neovim = inputs.neovim-nightly-overlay.overlay;
+      templ = inputs.templ.overlays.default;
       extraPackages = _final: prev: {
         inherit (self.packages.${prev.system}) sysdo;
         inherit (self.packages.${prev.system}) pyEnv;

@@ -20,6 +20,7 @@
     ./shell.nix
     ./ssh.nix
     ./tmux.nix
+    ./wezterm.nix
 
     ./darwin-application-activation.nix
   ];
@@ -67,6 +68,9 @@
       [
         alejandra
         age
+        age-plugin-yubikey
+        air
+        attic-client
         bun
         cachix
         colima
@@ -87,6 +91,7 @@
         gnugrep
         gnupg
         gnused
+        golangci-lint
         jdk11
         luajit
         luajitPackages.luarocks
@@ -110,6 +115,7 @@
         sysdo
         tealdeer
         tectonic
+        templ
         terraform
         tree
         treefmt

@@ -42,6 +42,7 @@ in {
     };
     zsh = {
       enable = true;
+      enableCompletion = false;
       autocd = true;
       # zprof.enable = true;
       dotDir = ".config/zsh";
@@ -60,16 +61,16 @@ in {
         if [[ -f "$HOME/.config/zsh/.p10k.zsh" ]]; then
           source "$HOME/.config/zsh/.p10k.zsh"
         fi
-        ${lib.optionalString pkgs.stdenvNoCC.isDarwin ''
-              if [[ -d /opt/homebrew ]]; then
-          export HOMEBREW_PREFIX=/opt/homebrew
-          export HOMEBREW_CELLAR=/opt/homebrew/Cellar
-          export HOMEBREW_REPOSITORY=/opt/homebrew
-          export PATH=/opt/homebrew/bin:/opt/homebrew/sbin\$\{PATH+:$PATH\}
-          export MANPATH=/opt/homebrew/share/man\$\{MANPATH+:$MANPATH\}:
-          export INFOPATH=/opt/homebrew/share/info:\$\{INFOPATH:-\}
-              fi
-        ''}
+        ${lib.optionalString pkgs.stdenvNoCC.isDarwin builtins.concatStringsSep "\n" [
+          "if [[ -d /opt/homebrew ]]; then"
+          "export HOMEBREW_PREFIX=/opt/homebrew"
+          "export HOMEBREW_CELLAR=/opt/homebrew/Cellar"
+          "export HOMEBREW_REPOSITORY=/opt/homebrew"
+          "export PATH=/opt/homebrew/bin:/opt/homebrew/sbin\${PATH+:$PATH}"
+          "export MANPATH=/opt/homebrew/share/man\${MANPATH+:$MANPATH}:"
+          "export INFOPATH=/opt/homebrew/share/info:\${INFOPATH:-}"
+          "fi"
+        ]}
         unset RPS1
       '';
       profileExtra = ''
@@ -78,7 +79,7 @@ in {
 
       prezto = {
         enable = true;
-        caseSensitive = false;
+        caseSensitive = true;
         color = true;
         extraModules = ["attr" "stat"];
         extraFunctions = ["zargs" "zmv"];
@@ -90,14 +91,14 @@ in {
           "directory"
           "spectrum"
           "utility"
-          # "completion"
+          "completion"
           "archive"
           "docker"
           "git"
           "homebrew"
           "osx"
           "autosuggestions"
-          # "syntax-highlighting"
+          "syntax-highlighting"
           "history-substring-search"
           "command-not-found"
           "gpg"
