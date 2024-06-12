@@ -11,6 +11,11 @@ in {
       config.lib.file.mkOutOfStoreSymlink (mkFullPathRelativeToNixpkgs
         "modules/home-manager/dotfiles/p10k/.p10k.zsh");
   };
+  home.file."${config.xdg.configHome}/rio/themes/rose-pine-moon.toml" = {
+    source =
+      config.lib.file.mkOutOfStoreSymlink (mkFullPathRelativeToNixpkgs
+        "modules/home-manager/dotfiles/rio/rose-pine-moon.toml");
+  };
   xdg.configFile =
     {
       nvim = {

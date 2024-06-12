@@ -6,7 +6,7 @@ _: {
       local wezterm = require('wezterm')
       local act = wezterm.action
       return {
-        color_scheme = 'rose-pine-moon',
+        color_scheme = 'Rosé Pine Moon (Gogh)',
         font_size = 20,
         font = wezterm.font {
           family = 'BerkeleyMono Nerd Font Mono',

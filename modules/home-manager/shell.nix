@@ -61,7 +61,7 @@ in {
         if [[ -f "$HOME/.config/zsh/.p10k.zsh" ]]; then
           source "$HOME/.config/zsh/.p10k.zsh"
         fi
-        ${lib.optionalString pkgs.stdenvNoCC.isDarwin builtins.concatStringsSep "\n" [
+        ${lib.strings.optionalString pkgs.stdenvNoCC.isDarwin (builtins.concatStringsSep "\n" [
           "if [[ -d /opt/homebrew ]]; then"
           "export HOMEBREW_PREFIX=/opt/homebrew"
           "export HOMEBREW_CELLAR=/opt/homebrew/Cellar"
@@ -70,7 +70,7 @@ in {
           "export MANPATH=/opt/homebrew/share/man\${MANPATH+:$MANPATH}:"
           "export INFOPATH=/opt/homebrew/share/info:\${INFOPATH:-}"
           "fi"
-        ]}
+        ])}
         unset RPS1
       '';
       profileExtra = ''
