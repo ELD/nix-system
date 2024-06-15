@@ -16,7 +16,6 @@
     ./helix.nix
     ./kitty.nix
     ./nvim
-    ./rio.nix
     ./rust.nix
     ./shell.nix
     ./ssh.nix
