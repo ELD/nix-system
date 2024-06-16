@@ -46,24 +46,25 @@
   i18n.defaultLocale = "en_US.utf8";
 
   # Configure keymap in X11
-  services.xserver = {
-    # Enable the X11 windowing system.
-    enable = true;
-    xkb = {
-      layout = "us";
-      variant = "";
-    };
-
+  services = {
     libinput.enable = true;
-
-    # Enable the GNOME Desktop Environment.
-    displayManager = {
-      gdm = {
-        enable = true;
-        wayland = true;
+    xserver = {
+      # Enable the X11 windowing system.
+      enable = true;
+      xkb = {
+        layout = "us";
+        variant = "";
       };
+
+      # Enable the GNOME Desktop Environment.
+      displayManager = {
+        gdm = {
+          enable = true;
+          wayland = true;
+        };
+      };
+      desktopManager.gnome.enable = true;
     };
-    desktopManager.gnome.enable = true;
   };
 
   # Enable CUPS to print documents.

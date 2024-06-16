@@ -3,7 +3,6 @@
   inputs,
   config,
   pkgs,
-  lib,
   ...
 }: {
   imports = [./primaryUser.nix ./nixpkgs.nix];
@@ -74,8 +73,8 @@
     shells = with pkgs; [bash zsh fish];
   };
 
-  fonts = let
-    fs = with pkgs; [
+  fonts = {
+    packages = with pkgs; [
       open-sans
       (nerdfonts.override {
         fonts = [
@@ -85,9 +84,5 @@
         ];
       })
     ];
-  in (
-    {fontDir.enable = true;}
-    // lib.mkIf pkgs.stdenv.isLinux {packages = fs;}
-    // lib.mkIf pkgs.stdenv.isDarwin {fonts = fs;}
-  );
+  };
 }

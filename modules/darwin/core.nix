@@ -18,8 +18,6 @@ in {
     systemPackages = with pkgs; [pinentry_mac];
   };
 
-  fonts.fontDir.enable = true;
-
   homebrew.brewPrefix =
     if isAarch64 || isAarch32
     then "/opt/homebrew/bin"
