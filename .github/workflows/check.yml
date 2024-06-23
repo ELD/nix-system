@@ -15,5 +15,7 @@ jobs:
           uses: DeterminateSystems/flake-checker-action@v5
         - name: Install Nix
           uses: DeterminateSystems/nix-installer-action@v4
+        - name: Run the Magic Nix Cache
+          uses: DeterminateSystems/magic-nix-cache-action@v2
         - name: Check Nix Flake
           run: nix flake check -j auto -v --show-trace --accept-flake-config --fallback --allow-import-from-derivation
