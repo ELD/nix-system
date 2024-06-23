@@ -23,6 +23,7 @@
       "koekeishiya/formulae"
       "teamookla/speedtest"
       "mongodb/brew"
+      "mrkai77/cask/loop"
     ];
 
     brews = [
@@ -53,6 +54,7 @@
         "istat-menus"
         "iterm2-beta"
         "jetbrains-toolbox"
+        "loop"
         "lunar"
         "macfuse"
         "monodraw"
