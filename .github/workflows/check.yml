@@ -19,4 +19,4 @@ jobs:
         - name: Run the Magic Nix Cache
           uses: DeterminateSystems/magic-nix-cache-action@v7
         - name: Check Nix Flake
-          run: nix flake check -j auto -v --show-trace --accept-flake-config --fallback --allow-import-from-derivation
+          run: nix flake check -j auto --show-trace --accept-flake-config --fallback --allow-import-from-derivation
