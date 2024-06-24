@@ -72,7 +72,6 @@ _: {
           use_fancy_tab_bar = true,
           default_cursor_style = "BlinkingBar",
           animation_fps = 60,
-          cursor_thickness = "0.3cell",
           keys = {
             {
               key = "Enter",
