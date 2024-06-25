@@ -23,7 +23,7 @@
       "koekeishiya/formulae"
       "teamookla/speedtest"
       "mongodb/brew"
-      "mrkai77/cask/loop"
+      "mrkai77/cask"
     ];
 
     brews = [

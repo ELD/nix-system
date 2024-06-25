@@ -116,6 +116,7 @@
         tectonic
         templ
         terraform
+        texliveFull
         tree
         treefmt
         turso-cli
