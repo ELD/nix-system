@@ -137,7 +137,8 @@
         sbctl
       ])
       ++ (lib.lists.optionals (pkgs.system == "aarch64-darwin" || pkgs.system == "x86_64-darwin") [
-        dockutil
+        # dockutil depends on swift-5.8 which is broken: https://github.com/NixOS/nixpkgs/issues/320900
+        # dockutil
         reattach-to-user-namespace
         pam-reattach
       ]);
