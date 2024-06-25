@@ -14,6 +14,8 @@ jobs:
       runs-on: ${{ matrix.platform.distro }}
       steps:
         - uses: actions/checkout@v4
+          with:
+            submodules: recursive
         - name: Check Nix flake inputs
           uses: DeterminateSystems/flake-checker-action@v8
         - name: Install Nix
