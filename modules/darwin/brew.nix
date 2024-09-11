@@ -52,7 +52,7 @@
         "google-chrome"
         "gpg-suite"
         "istat-menus"
-        "iterm2-beta"
+        "iterm2@beta"
         "jetbrains-toolbox"
         "loop"
         "lunar"
