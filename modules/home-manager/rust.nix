@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   home.packages = with pkgs;
     [
+      bacon
       # Cargo utilities
       cargo-nextest
       cargo-expand
@@ -10,7 +11,7 @@
       cargo-vet
       cargo-wipe
       diesel-cli
-      # evcxr
+      evcxr
       sqlx-cli
 
       # Rust CLI utilities
