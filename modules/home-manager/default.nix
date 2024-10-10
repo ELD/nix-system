@@ -97,7 +97,7 @@
         luajitPackages.luarocks
         neofetch
         nix
-        nixfmt
+        nixfmt-rfc-style
         nixpkgs-fmt
         nodejs_latest
         nodePackages.pnpm
