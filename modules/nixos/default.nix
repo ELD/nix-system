@@ -112,7 +112,7 @@
     [
       firefox
       git
-      gnome.gnome-tweaks
+      gnome-tweaks
       gnomeExtensions.dash-to-dock
       gnomeExtensions.pop-shell
       pop-gtk-theme

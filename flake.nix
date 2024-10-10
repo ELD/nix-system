@@ -246,16 +246,6 @@
         ];
         hostname = "Indium";
       };
-      "indium@aarch64-linux" = mkNixosConfig {
-        system = "aarch64-linux";
-        hardwareModules = [
-          inputs.nixos-hardware.nixosModules.framework-12th-gen-intel
-        ];
-        extraModules = [
-          ./profiles/personal.nix
-        ];
-        hostname = "Indium";
-      };
     };
 
     homeConfigurations = {

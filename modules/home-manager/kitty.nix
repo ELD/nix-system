@@ -7,7 +7,7 @@ _: {
       size = 20;
     };
     shellIntegration.enableZshIntegration = true;
-    theme = "Catppuccin-Macchiato";
+    themeFile = "Catppuccin-Macchiato";
     extraConfig = builtins.concatStringsSep "\n" [
       "font_features BerkeleyMonoNF-Regular    +calt +dlig +liga"
       "font_features BerkeleyMonoNF-Bold       +calt +dlig +liga"
