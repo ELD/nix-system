@@ -301,7 +301,8 @@
         pyEnv =
           pkgs.python3.withPackages
           (ps: with ps; [black typer colorama shellingham]);
-        devenv = inputs.devenv.defaultPackage.${system};
+        devenv-up = self.devShells.${system}.default.config.procfileScript;
+        devenv-test = self.devShells.${system}.default.config.test;
         sysdo = pkgs.writeScriptBin "sysdo" ''
           #! ${pyEnv}/bin/python3
           ${builtins.readFile ./bin/do.py}
@@ -335,7 +336,6 @@
       extraPackages = _final: prev: {
         inherit (self.packages.${prev.system}) sysdo;
         inherit (self.packages.${prev.system}) pyEnv;
-        inherit (self.packages.${prev.system}) devenv;
       };
     };
   };

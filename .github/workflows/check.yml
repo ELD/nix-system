@@ -42,4 +42,4 @@ jobs:
               sudo docker image prune --all --force
               df -h
         - name: Check Nix Flake
-          run: nix flake check -j auto --show-trace --accept-flake-config --fallback --allow-import-from-derivation
+          run: nix flake check -j auto --show-trace --accept-flake-config --fallback --allow-import-from-derivation --impure
