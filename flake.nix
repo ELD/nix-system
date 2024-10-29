@@ -6,14 +6,14 @@
       "https://cache.nixos.org?priority=40"
       "https://nix-community.cachix.org?priority=41"
       "https://numtide.cachix.org?priority=42"
-      "https://edattore-attic-nix-binary-cache.fly.dev/system?priority=43"
+      # "https://edattore-attic-nix-binary-cache.fly.dev/system?priority=43"
     ];
 
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
-      "system:9kc0wfN/u1hwyuvVf34YvpWGutSlLpjMeH8ovjOEJm8="
+      # "system:9kc0wfN/u1hwyuvVf34YvpWGutSlLpjMeH8ovjOEJm8="
     ];
   };
 
@@ -21,7 +21,7 @@
     # package repos
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     stable.url = "github:nixos/nixpkgs/nixos-23.11";
-    devenv.url = "github:cachix/devenv/v0.6.2";
+    devenv.url = "github:cachix/devenv";
 
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
@@ -301,7 +301,7 @@
         pyEnv =
           pkgs.python3.withPackages
           (ps: with ps; [black typer colorama shellingham]);
-        devenv = inputs.devenv.defaultPackage.${system};
+        # devenv = inputs.devenv.defaultPackage.${system};
         sysdo = pkgs.writeScriptBin "sysdo" ''
           #! ${pyEnv}/bin/python3
           ${builtins.readFile ./bin/do.py}
