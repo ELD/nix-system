@@ -8,7 +8,7 @@
 in {
   # environment setup
   environment = {
-    loginShell = pkgs.zsh;
+    # loginShell = pkgs.zsh;
     pathsToLink = ["/Applications"];
     etc = {darwin.source = "${inputs.darwin}";};
     # Use a custom configuration.nix location.
