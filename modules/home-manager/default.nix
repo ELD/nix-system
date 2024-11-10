@@ -109,7 +109,6 @@
         ripgrep
         ripgrep-all
         sccache
-        sniffnet
         statix
         sysdo
         tealdeer
