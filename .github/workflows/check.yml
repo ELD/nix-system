@@ -23,7 +23,7 @@ jobs:
           with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
         - name: Run the Magic Nix Cache
-          uses: DeterminateSystems/magic-nix-cache-action@v7
+          uses: DeterminateSystems/magic-nix-cache-action@v13
         - name: Free Disk Space (Linux)
           if: matrix.platform.name == 'Linux'
           run: |
