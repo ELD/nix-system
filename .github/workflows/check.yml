@@ -17,7 +17,7 @@ jobs:
           with:
             submodules: recursive
         - name: Check Nix flake inputs
-          uses: DeterminateSystems/flake-checker-action@v8
+          uses: DeterminateSystems/flake-checker-action@v12
         - name: Install Nix
           uses: DeterminateSystems/nix-installer-action@v12
           with:
